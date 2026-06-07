@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - Clock
+  - GameManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DefaultCollider
   - Water
   - UI
   - 
@@ -37,7 +39,7 @@ TagManager:
   - 
   - 
   - XR Simulation
-  - 
+  - TeleportCollider
   m_SortingLayers:
   - name: Default
     uniqueID: 0
