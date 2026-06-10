@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_PrototypeGrid_ClockWood 1
-  m_Shader: {fileID: -6465566751694194690, guid: a06f8f0d25673ce43b74e3bd33caf282, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 5ac59effb31f6a4439ae4819763adb08, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,8 +24,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _GridTexture:
         m_Texture: {fileID: 2800000, guid: 37dec032d210ae846b17193cb499e281, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -42,12 +54,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _HoverBlend: 0
+    - _HoverPower: 4.29
+    - _HoverStrength: 2.82
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Roughness: 0.448
+    - _Smoothness: 0
     m_Colors:
     - _ColorBase: {r: 0.62352943, g: 0.34691617, b: 0.23444706, a: 0}
+    - _ColorTint: {r: 0.6792453, g: 0.39335978, b: 0.2979708, a: 1}
     - _Dots: {r: 0, g: 0, b: 0, a: 0}
+    - _HoverColor: {r: 1, g: 0.66262525, b: 0.0990566, a: 1}
     - _LinesBig: {r: 0, g: 0, b: 0, a: 0}
     - _LinesThin: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

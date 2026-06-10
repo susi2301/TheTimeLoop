@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7449993016129515654}
   - component: {fileID: 5032711283487662341}
   - component: {fileID: 3934551369891846963}
-  m_Layer: 0
+  - component: {fileID: 6395600157676034588}
+  - component: {fileID: 8844522955294640352}
+  m_Layer: 7
   m_Name: clock_weight_grabbable_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +79,7 @@ MonoBehaviour:
   m_Colliders:
   - {fileID: 5782084351411662215}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 65
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -97,10 +99,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8844522955294640352}
+        m_TargetAssemblyTypeName: HoverMaterialAnimator, Assembly-CSharp
+        m_MethodName: FadeIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8844522955294640352}
+        m_TargetAssemblyTypeName: HoverMaterialAnimator, Assembly-CSharp
+        m_MethodName: FadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -191,6 +217,35 @@ MonoBehaviour:
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
+--- !u!114 &6395600157676034588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844862370916995997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241a375cb8e9d744cab626e84ac4d4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockWeight
+  ID: 0
+--- !u!114 &8844522955294640352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844862370916995997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76f114188f88fa458c3d882a2a11e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverMaterialAnimator
+  mesh_renderer: {fileID: 778882104973742172}
+  float_property_name: _HoverBlend
+  fade_in_duration: 0.25
+  fade_out_duration: 0.25
 --- !u!1001 &707949386764216427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,9 +254,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7449993016129515654}
     m_Modifications:
+    - target: {fileID: 1737542155879619042, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4868933556349721974, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
       propertyPath: m_Name
       value: clock_weight_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868933556349721974, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6853521161576948030, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -248,6 +311,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+--- !u!23 &778882104973742172 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 224055261266393143, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+  m_PrefabInstance: {fileID: 707949386764216427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &5782084351411662215 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6479891661424281068, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
