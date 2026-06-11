@@ -9,6 +9,9 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // TODO:
+// make door ungrabbable during force open/close state.
+// Light probe blending ? do we need ?
+// Remove second flashlight
 
 public enum ClockState {
     NeverOpenedIsWorking = 0,
@@ -257,13 +260,7 @@ public class Clock : MonoBehaviour {
         WeightGotAttached(weight_grabbable);
         left_socket_ptr.enabled = false;
     }
-    
-    // TODO: Can remove!
-    public void OnWeightDetachedFromLeftSocket() {
-        //left_socket_is_attached = false;
-        //Debug.Log("CLOCK: Detached weight from left socket");
-    }
-    
+
     public void OnWeightAttachedToRightSocket(SelectEnterEventArgs args) {
         Debug.Log("CLOCK: Attached weight to right socket");
         right_socket_is_attached = true;
@@ -275,11 +272,5 @@ public class Clock : MonoBehaviour {
         GameObject weight_grabbable = args.interactableObject.transform.gameObject;
         WeightGotAttached(weight_grabbable);
         right_socket_ptr.enabled = false;
-    }
-    
-    // TODO: can remove!
-    public void OnWeightDetachedFromRightSocket() {
-        //right_socket_is_attached = false;
-        //Debug.Log("CLOCK: Detached weight from right socket");
     }
 }

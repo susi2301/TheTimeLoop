@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour {
 
     public GameObject weight_grabable_prefab;
 
-    public GameObject past_tunnel_go;
-    public GameObject future_tunnel_go;
-    public GameObject entrance_area_go;
+    public GameObject normal_scene_go;
+    public GameObject transformed_scene_go;
+    
+//    public GameObject past_tunnel_go;
+//    public GameObject future_tunnel_go;
+//    public GameObject entrance_area_go;
     
     public Clock clock;
 
@@ -21,7 +24,9 @@ public class GameManager : MonoBehaviour {
     private ClockWeight grab_weight_2;
 
     private ProbeReferenceVolume probe_ref_volume;
-    
+
+    private string clock_working_light_scenario = "NormalEnv";
+    private string clock_broken_light_scenario = "TransformedEnv";
     
     private void Awake() {
         Debug.Assert(clock != null);
@@ -29,18 +34,9 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(past_weight_spawn != null);
         Debug.Assert(weight_grabable_prefab != null);
         
-        if (future_tunnel_go == null) {
-            Debug.LogWarning("GAME_MANAGER: Future tunnel gameobject is not assigned!");
-        }
-
-        if (past_tunnel_go == null) {
-            Debug.LogWarning("GAME_MANAGER: Past tunnel gameobject is not assigned!");
-        }
+        Debug.Assert(normal_scene_go != null);
+        Debug.Assert(transformed_scene_go != null);
         
-        if (entrance_area_go == null) {
-            Debug.LogWarning("GAME_MANAGER: Entrance Area gameobject is not assigned!");
-        }
-
         probe_ref_volume = UnityEngine.Rendering.ProbeReferenceVolume.instance;
 
         // INIT weights.
@@ -64,21 +60,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void HardReset() {
-
-        if (future_tunnel_go != null) {
-            future_tunnel_go.SetActive(false);
-        }
-
-        if (past_tunnel_go != null) {
-            past_tunnel_go.SetActive(false);
-        }
-
-        if (entrance_area_go != null) {
-            entrance_area_go.SetActive(true);
-        }
         
-        probe_ref_volume.lightingScenario = "ClockWorking";
+        normal_scene_go.SetActive(true);
+        transformed_scene_go.SetActive(false);
         
+        probe_ref_volume.lightingScenario = clock_working_light_scenario;
+
         grab_weight_1.Despawn();
         grab_weight_2.Despawn();
         
@@ -93,21 +80,12 @@ public class GameManager : MonoBehaviour {
         
         // Activate Gameobject.
         // TODO: effects and stuff.
-        if (future_tunnel_go != null) {
-            future_tunnel_go.SetActive(true);
-        }
-
-        if (past_tunnel_go != null) {
-            past_tunnel_go.SetActive(true);
-        }
+       
+        normal_scene_go.SetActive(false);
+        transformed_scene_go.SetActive(true);
         
-        if (entrance_area_go != null) {
-            entrance_area_go.SetActive(false);
-        }
-        
-        
-        //probe_ref_volume.lightingScenario = "ClockBroken";
-        probe_ref_volume.BlendLightingScenario("ClockBroken", 1.0f);
+        probe_ref_volume.lightingScenario = clock_broken_light_scenario;
+        //probe_ref_volume.BlendLightingScenario("ClockBroken", 1.0f);
     }
 
     public void OnClockFixedCallback() {
@@ -115,18 +93,6 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(!grab_weight_1.IsSpawned());
         Debug.Assert(!grab_weight_2.IsSpawned());
         
-        // TODO: effects and stuff.
-        if (future_tunnel_go != null) {
-            future_tunnel_go.SetActive(false);
-        }
-
-        if (past_tunnel_go != null) {
-            past_tunnel_go.SetActive(false);
-        }
-        
-        if (entrance_area_go != null) {
-            entrance_area_go.SetActive(true);
-        }
         HardReset();
     }
     
