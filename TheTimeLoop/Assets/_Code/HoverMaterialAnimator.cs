@@ -25,6 +25,9 @@ public class HoverMaterialAnimator : MonoBehaviour {
     private HoverFadeState fade_state;
     private float curr_value;
     private float curr_fade_time;
+
+    public Action<float> on_fade_in_value_updated = null;
+    public Action<float> on_fade_out_value_updated = null;
     
     private void Awake() {
         Debug.Assert(mesh_renderer != null);
@@ -65,6 +68,10 @@ public class HoverMaterialAnimator : MonoBehaviour {
             mesh_renderer.material.SetFloat(float_property_id, curr_value);
             curr_fade_time += Time.deltaTime;
 
+            if (on_fade_in_value_updated != null) {
+                on_fade_in_value_updated.Invoke(curr_value);
+            }
+            
             if (finished_fading) {
                 fade_state = HoverFadeState.DoNothing;
                 event_on_faded_in.Invoke();
@@ -81,6 +88,10 @@ public class HoverMaterialAnimator : MonoBehaviour {
             curr_value = 1.0f - Math.Clamp(fade_percentage, 0.0f, 1.0f);
             mesh_renderer.material.SetFloat(float_property_id, curr_value);
             curr_fade_time += Time.deltaTime;
+
+            if (on_fade_out_value_updated != null) {
+                on_fade_out_value_updated.Invoke(curr_value);
+            }
             
             if (finished_fading) {
                 fade_state = HoverFadeState.DoNothing;

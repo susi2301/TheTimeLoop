@@ -12,6 +12,8 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 // make door ungrabbable during force open/close state.
 // Light probe blending ? do we need ?
 // Remove second flashlight
+// Proper flashlight grabbable asset / torch
+// flashlight light cockie texture
 
 public enum ClockState {
     NeverOpenedIsWorking = 0,
@@ -37,8 +39,8 @@ public class Clock : MonoBehaviour {
     
     public ClockAnimator clock_animator;
     
-    public MeshRenderer left_weight_meshren;
-    public MeshRenderer right_weight_meshren;
+    //public MeshRenderer left_weight_meshren;
+    //public MeshRenderer right_weight_meshren;
 
     public GameObject door_gameobject;
     public XRGrabInteractable door_grab_interactable;
@@ -48,14 +50,13 @@ public class Clock : MonoBehaviour {
     public UnityEvent event_on_clock_broken;
     public UnityEvent event_on_clock_fixed;
 
-    public HoverMaterialAnimator left_weight_dissolve_animator;
-    public HoverMaterialAnimator right_weight_dissolve_animator;
-    
+    public WeightDissolve right_weight_dissolver;
+    public WeightDissolve left_weight_dissolver;
     private void Awake() {
         Debug.Assert(left_socket_ptr != null);       
         Debug.Assert(right_socket_ptr != null);
-        Debug.Assert(left_weight_meshren != null);
-        Debug.Assert(right_weight_meshren != null);
+        Debug.Assert(right_weight_dissolver != null);
+        Debug.Assert(left_weight_dissolver != null);
         Debug.Assert(clock_animator != null);
         Debug.Assert(door_gameobject != null);
         Debug.Assert(door_grab_interactable != null);
@@ -83,13 +84,9 @@ public class Clock : MonoBehaviour {
         
         left_socket_ptr.enabled = false;
         right_socket_ptr.enabled = false;
-        left_weight_meshren.enabled = true;
-        right_weight_meshren.enabled = true;
         
-        left_weight_dissolve_animator.Reset();
-        left_weight_dissolve_animator.event_on_faded_in.AddListener(OnLeftWeightDissolveFinished);
-        right_weight_dissolve_animator.Reset();
-        left_weight_dissolve_animator.event_on_faded_in.AddListener(OnRightWeightDissolveFinished);
+        left_weight_dissolver.Reset();
+        right_weight_dissolver.Reset();
     }
     
     
@@ -178,7 +175,7 @@ public class Clock : MonoBehaviour {
 
                 if (angle_between > 2.0f)
                 {
-                    Debug.Log("FORCE CLOSING DOOR: Angle: " + angle_between);
+                    //Debug.Log("FORCE CLOSING DOOR: Angle: " + angle_between);
                     float slerp_speed = 0.75f * Time.fixedDeltaTime;
                     Quaternion new_rot = Quaternion.Slerp(curr_rot, target_rot, slerp_speed);
                     door_gameobject.transform.localRotation = new_rot;
@@ -219,10 +216,7 @@ public class Clock : MonoBehaviour {
         
         Debug.Log("CLOCK: BreakTimeline FNISHED");
         state = ClockState.WasOpenedIsBroken;
-        //left_weight_meshren.enabled = false;
-        //right_weight_meshren.enabled = false;
-        
-        
+
         left_socket_is_attached = false;
         right_socket_is_attached = false;
         left_socket_ptr.enabled = true;
@@ -232,27 +226,14 @@ public class Clock : MonoBehaviour {
         clock_animator.PlayAnim(ClockAnim.BrokenIdle);
         event_on_clock_broken.Invoke();
         
-        // Start dissolve of weights
-        // TODO: particle system.
-        left_weight_dissolve_animator.FadeIn();
-        right_weight_dissolve_animator.FadeIn();
+        left_weight_dissolver.StartDissolve();
+        right_weight_dissolver.StartDissolve();
     }
 
-
-    public void OnLeftWeightDissolveFinished() {
-        left_weight_meshren.enabled = false;
-    }
-
-    public void OnRightWeightDissolveFinished() {
-        
-        right_weight_meshren.enabled = false;
-    }
-    
     public void OnWeightAttachedToLeftSocket(SelectEnterEventArgs args) {
-        Debug.Log("CLOCK: Attached weight to left socket");
+        //Debug.Log("CLOCK: Attached weight to left socket");
         left_socket_is_attached = true;
-        left_weight_meshren.enabled = true;
-        left_weight_dissolve_animator.Reset();
+        left_weight_dissolver.Reset();
         
         clock_animator.PlayAnim(ClockAnim.LeftRepairing);
         
@@ -262,10 +243,9 @@ public class Clock : MonoBehaviour {
     }
 
     public void OnWeightAttachedToRightSocket(SelectEnterEventArgs args) {
-        Debug.Log("CLOCK: Attached weight to right socket");
+        //Debug.Log("CLOCK: Attached weight to right socket");
         right_socket_is_attached = true;
-        right_weight_meshren.enabled = true;
-        right_weight_dissolve_animator.Reset();
+        right_weight_dissolver.Reset();
         
         clock_animator.PlayAnim(ClockAnim.RightRepairing);
         

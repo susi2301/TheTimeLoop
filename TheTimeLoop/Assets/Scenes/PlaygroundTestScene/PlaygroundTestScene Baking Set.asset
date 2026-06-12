@@ -19,8 +19,8 @@ MonoBehaviour:
     - hasProbeVolume: 1
       bakeScene: 1
       bounds:
-        m_Center: {x: 30.375, y: 0, z: 10.125}
-        m_Extent: {x: 50.625, y: 20.25, z: 30.375}
+        m_Center: {x: 30.375, y: 0, z: 0}
+        m_Extent: {x: 30.375, y: 20.25, z: 20.25}
   singleSceneMode: 0
   dialogNoProbeVolumeInSetShown: 0
   settings:
@@ -44,8 +44,8 @@ MonoBehaviour:
   - 14f0a21c648c53446adda6927a77b44e
   obsoleteScenesToNotBake: []
   m_LightingScenarios:
-  - TransformedEnv
   - NormalEnv
+  - TransformedEnv
   cellDescs:
     m_Keys: 00000000120000000600000018000000010000001300000007000000190000001a0000001b0000002d0000001c0000002e000000
     m_Values:
