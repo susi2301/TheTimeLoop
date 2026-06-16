@@ -41,6 +41,9 @@ TagManager:
   - XR Simulation
   - TeleportCollider
   m_SortingLayers:
+  - name: OnTopUI
+    uniqueID: 1697944815
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -88,7 +88,7 @@ SubShader {
 
 	Tags
   {
-		"Queue"="Overlay"
+		"Queue"="Transparent+700"
 		"IgnoreProjector"="True"
 		"RenderType"="Transparent"
 	}
@@ -102,7 +102,8 @@ SubShader {
 		WriteMask [_StencilWriteMask]
 	}
 
-	Cull [_CullMode]
+	//Cull [_CullMode]
+	Cull Back
 	ZWrite Off
 	Lighting Off
 	Fog { Mode Off }

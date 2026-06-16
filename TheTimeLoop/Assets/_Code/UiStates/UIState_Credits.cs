@@ -1,0 +1,15 @@
+using UnityEngine;
+
+public class UIState_Credits : MonoBehaviour {
+    public MenuManager manager;
+
+    public GameObject panel_go;
+
+    public void EnterState() {
+        panel_go.SetActive(true);
+    }
+
+    public void LeaveState() {
+        panel_go.SetActive(false);
+    }
+}

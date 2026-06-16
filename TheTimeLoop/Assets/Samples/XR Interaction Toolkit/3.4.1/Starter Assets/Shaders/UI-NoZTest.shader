@@ -18,7 +18,7 @@ Shader "UI/NoZTest"
             "CanUseSpriteAtlas"="True"
         }
 
-        Cull Off
+        Cull Back
         Lighting Off
         ZWrite Off
         ZTest Off

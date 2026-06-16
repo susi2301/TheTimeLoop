@@ -7,7 +7,7 @@ public class WeightDissolve : MonoBehaviour
 {
    public MeshRenderer weight_meshren;
    public VisualEffect dissolve_particles;
-   public HoverMaterialAnimator mat_animator;
+   public ShaderFloatAnimator mat_animator;
    public float duration;
 
    private bool is_dissolving = false;
@@ -16,7 +16,7 @@ public class WeightDissolve : MonoBehaviour
    private void Awake() {
       mat_animator.fade_in_duration = duration;
       mat_animator.on_fade_in_value_updated = OnFadeValueUpdated;
-      mat_animator.event_on_faded_in.AddListener(OnDissolveFinished);
+      mat_animator.event_on_fully_faded_in.AddListener(OnDissolveFinished);
       dissolve_particles.Stop();
    }
 
@@ -35,11 +35,11 @@ public class WeightDissolve : MonoBehaviour
       mat_animator.FadeIn();
    }
 
-   private void OnFadeValueUpdated(float value) {
+   private void OnFadeValueUpdated(float value_linear, float value_easing) {
       if (!is_dissolving) {
          return;
       }
-      dissolve_particles.SetFloat(dissolve_lerp_ID, value);
+      dissolve_particles.SetFloat(dissolve_lerp_ID, value_linear);
    }
    
    private void OnDissolveFinished() {

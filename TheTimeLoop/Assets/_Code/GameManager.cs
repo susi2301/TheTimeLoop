@@ -5,18 +5,18 @@ using UnityEngine.Rendering;
 
 
 public class GameManager : MonoBehaviour {
-
+    [SerializeField] private bool DEV_skip_menu_on_load = false;
+    [Space]
+    
     public GameObject weight_grabable_prefab;
 
     public GameObject normal_scene_go;
     public GameObject transformed_scene_go;
-    
-//    public GameObject past_tunnel_go;
-//    public GameObject future_tunnel_go;
-//    public GameObject entrance_area_go;
+
+    public Player player;
     
     public Clock clock;
-
+    
     public Transform future_weight_spawn;
     public Transform past_weight_spawn;
 
@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(normal_scene_go != null);
         Debug.Assert(transformed_scene_go != null);
         
+        GameObject player_go = GameObject.FindWithTag("Player");
+        Debug.Assert(player_go != null, "GameManager: Unable to find gameobject with Tag Player!");
+        player = player_go.GetComponent<Player>();
+        Debug.Assert(player != null);
+
+        player.DEV_skip_menu_on_load = DEV_skip_menu_on_load;
+        
         probe_ref_volume = UnityEngine.Rendering.ProbeReferenceVolume.instance;
 
         // INIT weights.
@@ -52,13 +59,17 @@ public class GameManager : MonoBehaviour {
 
         clock.event_on_clock_broken.AddListener(OnClockIsBrokenCallback);
         clock.event_on_clock_fixed.AddListener(OnClockFixedCallback);
-        
     }
 
     private void Start() {
         HardReset();
     }
 
+    public void RestartGame() {
+        player.ResetTransformsToSpawn();
+        HardReset();
+    }
+    
     public void HardReset() {
         
         normal_scene_go.SetActive(true);
@@ -95,5 +106,9 @@ public class GameManager : MonoBehaviour {
         
         HardReset();
     }
-    
+
+
+    public void QuitGame() {
+        Application.Quit();
+    }
 }

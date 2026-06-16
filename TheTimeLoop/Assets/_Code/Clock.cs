@@ -8,12 +8,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-// TODO:
-// make door ungrabbable during force open/close state.
-// Light probe blending ? do we need ?
-// Remove second flashlight
-// Proper flashlight grabbable asset / torch
-// flashlight light cockie texture
 
 public enum ClockState {
     NeverOpenedIsWorking = 0,
