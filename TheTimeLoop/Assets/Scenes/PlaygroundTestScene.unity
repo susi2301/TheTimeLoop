@@ -3718,6 +3718,22 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8478441124821223439, guid: e8b51aa8e552c7b4e9bb063d77950e41, type: 3}
+      propertyPath: fade_in_duration
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478441124821223439, guid: e8b51aa8e552c7b4e9bb063d77950e41, type: 3}
+      propertyPath: fade_out_duration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478441124821223439, guid: e8b51aa8e552c7b4e9bb063d77950e41, type: 3}
+      propertyPath: fade_in_easing_function
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478441124821223439, guid: e8b51aa8e552c7b4e9bb063d77950e41, type: 3}
+      propertyPath: fade_out_easing_function
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8877177980677234388, guid: e8b51aa8e552c7b4e9bb063d77950e41, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
       value: 0
