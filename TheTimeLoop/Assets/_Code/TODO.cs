@@ -1,14 +1,17 @@
 
-// 
-// TODO
-/*  MENU:
- *  - Deactive normal player interactions during menu
- *  - reorient ui button.
+// TODOS
+/*
+ 
+ MENU:
+ 
+  - Holding anything while in menu is kinda broken.
+ 
+  - grab interatctions that dont jitter/lag while moving.
+  - hands as controllers.
+  - make door ungrabbable during force open/close state.
+  - Light probe blending ? do we need ?
  
  
- * - make door ungrabbable during force open/close state.
- * - Light probe blending ? do we need ?
- * - Remove second flashlight
- * - Proper flashlight grabbable asset / torch
- * - flashlight light cockie texture
+ 
+ 
  */

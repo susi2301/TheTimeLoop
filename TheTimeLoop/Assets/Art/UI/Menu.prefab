@@ -1530,11 +1530,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58af5056551b31b40b26027def9f318c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
-  game_manager: {fileID: 0}
+  game_event_manager: {fileID: 0}
   camera_transform: {fileID: 0}
   ui_orientation_transform: {fileID: 8376083433769626276}
   canvas: {fileID: 7467855137306159270}
   vignette_animator: {fileID: 0}
+  menu_reorient_input: {fileID: 11400000, guid: 1dda179a962d1624aa589ba8feb46f19, type: 2}
   canvas_distance: 1.5
   canvas_height_offset: 0
   smooth_orient_speed: 3.5

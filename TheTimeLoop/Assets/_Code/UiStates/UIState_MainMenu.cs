@@ -17,8 +17,12 @@ public class UIState_MainMenu : MonoBehaviour {
         manager.CloseMenu();
     }
 
-    public void OnButtonRestart() {
-        manager.game_manager.RestartGame();
+    public void OnButtonRestart()
+    {
+        float angle = manager.player.CalculateCameraAngleBetweenForwardNowAndForwardSpawn();
+        manager.vignette_animator.JustSetThisValueAndDontAskAnyQuestions(angle, "_CubemapRotationOffset");
+        Debug.Log("Setting Angle Offset: " + angle);
+        manager.game_event_manager.event_restart_game.Invoke();
         manager.CloseMenu();
     }
     
@@ -31,7 +35,7 @@ public class UIState_MainMenu : MonoBehaviour {
     }
 
     public void OnButtonQuit() {
-        manager.game_manager.QuitGame();
+        manager.game_event_manager.event_quit_game.Invoke();
     }
 
 }

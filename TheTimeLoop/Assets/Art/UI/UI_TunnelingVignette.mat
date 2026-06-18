@@ -136,7 +136,8 @@ Material:
     - _ColorMask: 15
     - _CubemapBlend: 1
     - _CubemapExposure: -3.91
-    - _CubemapRotation: 1.42
+    - _CubemapRotation: 1.38
+    - _CubemapRotationOffset: 0
     - _Cull: 2
     - _DstBlend: 10
     - _DstBlendAlpha: 10

@@ -1,22 +1,18 @@
 using System;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 
 public class GameManager : MonoBehaviour {
-    [SerializeField] private bool DEV_skip_menu_on_load = false;
-    [Space]
     
     public GameObject weight_grabable_prefab;
 
     public GameObject normal_scene_go;
     public GameObject transformed_scene_go;
 
-    public Player player;
-    
-    public Clock clock;
-    
+
     public Transform future_weight_spawn;
     public Transform past_weight_spawn;
 
@@ -29,20 +25,12 @@ public class GameManager : MonoBehaviour {
     private string clock_broken_light_scenario = "TransformedEnv";
     
     private void Awake() {
-        Debug.Assert(clock != null);
         Debug.Assert(future_weight_spawn != null);
         Debug.Assert(past_weight_spawn != null);
         Debug.Assert(weight_grabable_prefab != null);
         
         Debug.Assert(normal_scene_go != null);
         Debug.Assert(transformed_scene_go != null);
-        
-        GameObject player_go = GameObject.FindWithTag("Player");
-        Debug.Assert(player_go != null, "GameManager: Unable to find gameobject with Tag Player!");
-        player = player_go.GetComponent<Player>();
-        Debug.Assert(player != null);
-
-        player.DEV_skip_menu_on_load = DEV_skip_menu_on_load;
         
         probe_ref_volume = UnityEngine.Rendering.ProbeReferenceVolume.instance;
 
@@ -56,20 +44,12 @@ public class GameManager : MonoBehaviour {
         grab_weight_2 = grab_weight_2_go.GetComponent<ClockWeight>();
         Debug.Assert(grab_weight_2 != null);
         grab_weight_2.ID = 2;
-
-        clock.event_on_clock_broken.AddListener(OnClockIsBrokenCallback);
-        clock.event_on_clock_fixed.AddListener(OnClockFixedCallback);
     }
 
     private void Start() {
         HardReset();
     }
 
-    public void RestartGame() {
-        player.ResetTransformsToSpawn();
-        HardReset();
-    }
-    
     public void HardReset() {
         
         normal_scene_go.SetActive(true);
@@ -79,8 +59,6 @@ public class GameManager : MonoBehaviour {
 
         grab_weight_1.Despawn();
         grab_weight_2.Despawn();
-        
-        clock.HardReset();
     }
 
     // Clock Callbacks
@@ -107,8 +85,11 @@ public class GameManager : MonoBehaviour {
         HardReset();
     }
 
-
-    public void QuitGame() {
+    public void QuitGameNow() {
         Application.Quit();
+    }
+
+    private void OnDisable() {
+        probe_ref_volume.lightingScenario = clock_working_light_scenario;
     }
 }

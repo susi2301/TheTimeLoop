@@ -23,6 +23,9 @@ public enum DoorState {
 }
 
 public class Clock : MonoBehaviour {
+    
+    private GameEventManager game_event_manager;
+    
     public ClockState state;
 
     [HideInInspector] public bool left_socket_is_attached;
@@ -33,20 +36,17 @@ public class Clock : MonoBehaviour {
     
     public ClockAnimator clock_animator;
     
-    //public MeshRenderer left_weight_meshren;
-    //public MeshRenderer right_weight_meshren;
-
     public GameObject door_gameobject;
     public XRGrabInteractable door_grab_interactable;
     private Rigidbody door_rigidbody;
     private DoorState door_state;
     
-    public UnityEvent event_on_clock_broken;
-    public UnityEvent event_on_clock_fixed;
-
     public WeightDissolve right_weight_dissolver;
     public WeightDissolve left_weight_dissolver;
     private void Awake() {
+        
+        game_event_manager = GameObject.FindWithTag("GameEventManager").GetComponent<GameEventManager>();
+        
         Debug.Assert(left_socket_ptr != null);       
         Debug.Assert(right_socket_ptr != null);
         Debug.Assert(right_weight_dissolver != null);
@@ -178,7 +178,7 @@ public class Clock : MonoBehaviour {
                 else {
                     //door_gameobject.transform.localRotation = Quaternion.identity;
                     SetDoorState(DoorState.None);
-                    event_on_clock_fixed.Invoke();
+                    game_event_manager.event_clock_fixed.Invoke();
                 }
              
                 break;
@@ -208,7 +208,6 @@ public class Clock : MonoBehaviour {
         
         // TODO: Start Env Tranformation here
         
-        Debug.Log("CLOCK: BreakTimeline FNISHED");
         state = ClockState.WasOpenedIsBroken;
 
         left_socket_is_attached = false;
@@ -218,7 +217,7 @@ public class Clock : MonoBehaviour {
         door_grab_interactable.enabled = true;
         
         clock_animator.PlayAnim(ClockAnim.BrokenIdle);
-        event_on_clock_broken.Invoke();
+        game_event_manager.event_clock_broken.Invoke();
         
         left_weight_dissolver.StartDissolve();
         right_weight_dissolver.StartDissolve();

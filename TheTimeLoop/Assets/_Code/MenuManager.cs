@@ -2,6 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public enum MenuState {
     Inactive = 0,
@@ -11,15 +12,16 @@ public enum MenuState {
     Credits,
 }
 
-public class MenuManager : MonoBehaviour
-{
-
-    [HideInInspector] public GameManager game_manager;
+public class MenuManager : MonoBehaviour {
+    [HideInInspector] public GameEventManager game_event_manager;
+    public Player player;
+    
     public Transform camera_transform;
     public Transform ui_orientation_transform;
     public Canvas canvas;
-    //public MeshRenderer tunneling_vignette_meshren;
     public ShaderFloatAnimator vignette_animator;
+
+    public InputEvent menu_reorient_input;
 
     public float canvas_distance = 1.5f;
     public float canvas_height_offset = 0.0f;
@@ -38,17 +40,17 @@ public class MenuManager : MonoBehaviour
     void Awake() {
         Debug.Assert(camera_transform != null);
         Debug.Assert(vignette_animator != null);
-        
-        GameObject game_manager_go = GameObject.FindWithTag("GameManager");
-        Debug.Assert(game_manager_go != null, "Unable To find GameManager in the this scene!");
-        game_manager = game_manager_go.GetComponent<GameManager>();
-        Debug.Assert(game_manager != null);
 
+        game_event_manager = GameObject.FindWithTag("GameEventManager").GetComponent<GameEventManager>();
+        Debug.Assert(game_event_manager != null);
+        
+        
         vignette_animator.on_fade_in_value_updated = OnFadeInValueChanged;
         vignette_animator.on_fade_out_value_updated = OnFadeOutValueChanged;
         vignette_animator.event_on_fully_faded_out.AddListener(OnMenuFullyClosed);
         
         vignette_animator.Reset();
+        menu_reorient_input.Reset();
         
         // Leave All states!
         uistate_settings.LeaveState();
@@ -63,6 +65,10 @@ public class MenuManager : MonoBehaviour
     void Update() {
         if (curr_state == MenuState.Inactive) {
             return;
+        }
+        
+        if (menu_reorient_input.Poll(InputPollMode.OnRelease)) {
+            ReorientUI();
         }
         
         SmoothOrientToPlayer();
@@ -83,22 +89,9 @@ public class MenuManager : MonoBehaviour
             SwitchState(MenuState.MainPause);
         }
         
-        
-        game_manager.player.DisableInGameInputs();
-        /*
-         * 
-        InputActionMap left_loco_map = game_manager.player.input_action_asset.FindActionMap("XRI Left Locomotion");
-        InputActionMap right_loco_map = game_manager.player.input_action_asset.FindActionMap("XRI Right Locomotion");
-        Debug.Assert(left_loco_map != null);
-        Debug.Assert(right_loco_map != null);
-        
-        left_loco_map.Disable();
-        right_loco_map.Disable();
-         */
-         
-        
-
         ReorientUI();
+        
+        game_event_manager.event_menu_opened.Invoke();
     }
 
     public void CloseMenu() {
@@ -111,7 +104,7 @@ public class MenuManager : MonoBehaviour
         // Effectivly we make the entire lerp happen already in the first half of value linear going from 1 to 0.5f
         float x = Mathf.Clamp(value_linear, 0.5f, 1.0f);
         x = (x - 0.5f) * 2.0f; // remap to 0..1 range again;
-        x = EasingFunctions.ease_float(x, EasingFunction.InCubic);
+        x = Mathy.EasingFunctions.ease_float(x, Mathy.EasingFunction.InCubic);
         float lerp_value = x;
 
         
@@ -124,7 +117,7 @@ public class MenuManager : MonoBehaviour
         // Value Linear start at 0 and goes to 0.5f;
         float x = Mathf.Clamp(value_linear, 0.5f, 1.0f);
         x = (x - 0.5f) * 2.0f; // remap to 0..1 range again;
-        x =  EasingFunctions.ease_float(x, EasingFunction.OutCubic);
+        x =  Mathy.EasingFunctions.ease_float(x, Mathy.EasingFunction.OutCubic);
         float lerp_value = x;
 
         Quaternion start_rot = Quaternion.AngleAxis(+95, Vector3.up);
@@ -139,20 +132,9 @@ public class MenuManager : MonoBehaviour
             curr_state = MenuState.Inactive;
         }
         canvas.gameObject.SetActive(false);
-        
-        game_manager.player.EnableInGameInputs();
-        /*
-         * 
-        InputActionMap left_loco_map = game_manager.player.input_action_asset.FindActionMap("XRI Left Locomotion");
-        InputActionMap right_loco_map = game_manager.player.input_action_asset.FindActionMap("XRI Right Locomotion");
-        Debug.Assert(left_loco_map != null);
-        Debug.Assert(right_loco_map != null);
-        
-        left_loco_map.Enable();
-        right_loco_map.Enable();
-         */
-     
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f, "_CubemapRotationOffset");
 
+        game_event_manager.event_menu_closed.Invoke();
     }
 
     public bool IsMenuOpen() {
@@ -219,10 +201,7 @@ public class MenuManager : MonoBehaviour
         // Currently we only have one menu to go back to.
         SwitchState(MenuState.Main);
     }
-    
-    
-    
-    
+
     public void ReorientUI() {
         Vector3 cam_pos = camera_transform.position;
         Vector3 cam_forward = camera_transform.forward;
