@@ -20,6 +20,8 @@ public class Flashlight : MonoBehaviour
 
     private Vector3 spawn_pos;
     private Quaternion spawn_rot;
+
+    public GrabableEffectiveChildOf child_of;
     
     private void Awake() {
         spawn_pos = this.transform.position;
@@ -30,8 +32,7 @@ public class Flashlight : MonoBehaviour
 
     public void HardReset() {
 
-        if (IsGrabbed())
-        {
+        if (IsGrabbed()) {
             // @Note: This forces the interactable to be dropped.
             // otherwise it would stay in the hand after a restart.
             xr_interactable.enabled = false;
@@ -47,6 +48,8 @@ public class Flashlight : MonoBehaviour
         
         left_flashlight_input_event.Reset();
         right_flashlight_input_event.Reset();
+        
+        child_of.HardReset();
     }
 
     private void Update() {
@@ -59,7 +62,7 @@ public class Flashlight : MonoBehaviour
         bool right_was_pressed = right_flashlight_input_event.Poll(InputPollMode.OnPressed);
         
         // Poll inputs
-        bool toggle_flashlight = false;
+       // bool toggle_flashlight = false;
         
         if (is_grabbed_left && left_was_pressed) {
             Debug.Assert(!is_grabbed_right);

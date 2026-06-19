@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444967265877888912}
+  - component: {fileID: 4472774258290134768}
   m_Layer: 0
-  m_Name: AttachTransform
+  m_Name: VisualParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,8 +25,55 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380648256465555343}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2765701774624116738}
+  - {fileID: 1580854896135731075}
+  m_Father: {fileID: 6899095060524872588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4472774258290134768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380648256465555343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d69c61ba659b1499c553a107e1760e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabableEffectiveChildOf
+  original_parent: {fileID: 6899095060524872588}
+  attach_transform: {fileID: 1741499343968381455}
+--- !u!1 &2124515108644613682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741499343968381455}
+  m_Layer: 0
+  m_Name: attach_point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1741499343968381455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124515108644613682}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0, y: 0.1148, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64,7 +112,7 @@ Transform:
   - {fileID: 8168256583608214681}
   - {fileID: 1472766206571068057}
   - {fileID: 7405352507873288159}
-  m_Father: {fileID: 6899095060524872588}
+  m_Father: {fileID: 6444967265877888912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8171532225436526077
 MonoBehaviour:
@@ -118,11 +166,11 @@ Transform:
   m_GameObject: {fileID: 3726031334230817487}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1528, z: -0}
+  m_LocalPosition: {x: -0, y: 0.1345, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6899095060524872588}
+  m_Father: {fileID: 6444967265877888912}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!108 &7106537811733212130
 Light:
@@ -246,7 +294,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1096, z: 0}
-  m_LocalScale: {x: 0.080521, y: 0.014223339, z: 0.080521}
+  m_LocalScale: {x: 0.054187413, y: 0.009571738, z: 0.054187413}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2765701774624116738}
@@ -341,9 +389,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2765701774624116738}
-  - {fileID: 1580854896135731075}
   - {fileID: 6444967265877888912}
+  - {fileID: 1741499343968381455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4764275727662965652
@@ -457,12 +504,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4472774258290134768}
+        m_TargetAssemblyTypeName: GrabableEffectiveChildOf, Assembly-CSharp
+        m_MethodName: OnGrabbed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1008109768821854380}
         m_TargetAssemblyTypeName: Flashlight, Assembly-CSharp
         m_MethodName: OnUngrabbed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4472774258290134768}
+        m_TargetAssemblyTypeName: GrabableEffectiveChildOf, Assembly-CSharp
+        m_MethodName: OnDropped
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -495,7 +566,7 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
-  m_AttachTransform: {fileID: 6444967265877888912}
+  m_AttachTransform: {fileID: 1741499343968381455}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -592,6 +663,7 @@ MonoBehaviour:
   enable_light_at_startup: 0
   is_grabbed_left: 0
   is_grabbed_right: 0
+  child_of: {fileID: 4472774258290134768}
 --- !u!1 &7553760156328342522
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,8 +691,8 @@ Transform:
   m_GameObject: {fileID: 7553760156328342522}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7066188, w: 0.7075945}
-  m_LocalPosition: {x: -0.0348, y: 0.0545, z: 0}
-  m_LocalScale: {x: 0.025007408, y: 0.0044173426, z: 0.025007408}
+  m_LocalPosition: {x: -0.0211, y: 0.0545, z: 0}
+  m_LocalScale: {x: 0.017934313, y: 0.0031679415, z: 0.017934313}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2765701774624116738}
@@ -709,8 +781,8 @@ Transform:
   m_GameObject: {fileID: 7664003489827958926}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.1, z: 0.07}
+  m_LocalPosition: {x: 0, y: 0.008, z: 0}
+  m_LocalScale: {x: 0.043395102, y: 0.09609535, z: 0.043395102}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2765701774624116738}

@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour {
 
     public void OnClockFixedCallback() {
         
+        Debug.LogWarning("GameManager: clock is fixeed");
+        
         Debug.Assert(!grab_weight_1.IsSpawned());
         Debug.Assert(!grab_weight_2.IsSpawned());
         

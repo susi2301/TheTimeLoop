@@ -63,6 +63,7 @@ public class Clock : MonoBehaviour {
     
     public void HardReset() { // Called by game manager!
         
+        Debug.Log("Clock Hard Reset");
         // Make sure actual door physics mesh is also visually closed!
         door_gameobject.SetActive(true);
         door_gameobject.transform.localRotation = Quaternion.identity;

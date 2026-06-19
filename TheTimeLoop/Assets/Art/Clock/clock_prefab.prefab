@@ -603,12 +603,6 @@ MonoBehaviour:
   clock_animator: {fileID: 3507251306533994992}
   door_gameobject: {fileID: 3818392814223986248}
   door_grab_interactable: {fileID: 8571955545717904111}
-  event_on_clock_broken:
-    m_PersistentCalls:
-      m_Calls: []
-  event_on_clock_fixed:
-    m_PersistentCalls:
-      m_Calls: []
   right_weight_dissolver: {fileID: 1566237053761346903}
   left_weight_dissolver: {fileID: 4620274365980836141}
 --- !u!1 &2976871578269387009
@@ -1137,15 +1131,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverMaterialAnimator
   mesh_renderer: {fileID: 1414981411039518283}
-  event_on_faded_in:
-    m_PersistentCalls:
-      m_Calls: []
-  event_on_faded_out:
-    m_PersistentCalls:
-      m_Calls: []
   float_property_name: _HoverBlend
+  fade_in_easing_function: 0
   fade_in_duration: 0.3
+  fade_out_easing_function: 0
   fade_out_duration: 0.3
+  deactive_meshrenderer_when_fully_faded_out: 0
+  event_on_fully_faded_in:
+    m_PersistentCalls:
+      m_Calls: []
+  event_on_fully_faded_out:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4484815104923338629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,10 +1885,34 @@ MonoBehaviour:
   m_ParentInteractableObject: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4620274365980836141}
+        m_TargetAssemblyTypeName: WeightDissolve, Assembly-CSharp
+        m_MethodName: FadeInHover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4620274365980836141}
+        m_TargetAssemblyTypeName: WeightDissolve, Assembly-CSharp
+        m_MethodName: FadeOutHover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
@@ -1936,15 +1957,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverMaterialAnimator
   mesh_renderer: {fileID: 2055143555503628860}
-  event_on_faded_in:
-    m_PersistentCalls:
-      m_Calls: []
-  event_on_faded_out:
-    m_PersistentCalls:
-      m_Calls: []
   float_property_name: _DissolveAmount
+  fade_in_easing_function: 0
   fade_in_duration: 0
+  fade_out_easing_function: 0
   fade_out_duration: 0
+  deactive_meshrenderer_when_fully_faded_out: 0
+  event_on_fully_faded_in:
+    m_PersistentCalls:
+      m_Calls: []
+  event_on_fully_faded_out:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4620274365980836141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,10 +1981,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e703d639d6c4804f8245b91054f044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeightDissolve
-  weight_meshren: {fileID: 2055143555503628860}
   dissolve_particles: {fileID: 3949412621919976422}
   mat_animator: {fileID: 707795985034115458}
-  duration: 3
+  dissolve_duration: 3
+  hover_fade_duration: 0.1
+  socket_hover_mat: {fileID: 2100000, guid: 54b32b8c8303cdc4db72328fbb5b4d71, type: 2}
   editor_btn_reset: 0
   editor_btn_dissolve: 0
 --- !u!1001 &8053363208764466718
@@ -2152,10 +2177,34 @@ MonoBehaviour:
   m_ParentInteractableObject: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1566237053761346903}
+        m_TargetAssemblyTypeName: WeightDissolve, Assembly-CSharp
+        m_MethodName: FadeInHover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1566237053761346903}
+        m_TargetAssemblyTypeName: WeightDissolve, Assembly-CSharp
+        m_MethodName: FadeOutHover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
@@ -2200,15 +2249,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverMaterialAnimator
   mesh_renderer: {fileID: 8544306025165759680}
-  event_on_faded_in:
-    m_PersistentCalls:
-      m_Calls: []
-  event_on_faded_out:
-    m_PersistentCalls:
-      m_Calls: []
   float_property_name: _DissolveAmount
+  fade_in_easing_function: 0
   fade_in_duration: 0
+  fade_out_easing_function: 0
   fade_out_duration: 0
+  deactive_meshrenderer_when_fully_faded_out: 0
+  event_on_fully_faded_in:
+    m_PersistentCalls:
+      m_Calls: []
+  event_on_fully_faded_out:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1566237053761346903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,10 +2273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e703d639d6c4804f8245b91054f044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeightDissolve
-  weight_meshren: {fileID: 8544306025165759680}
   dissolve_particles: {fileID: 2149111845057831690}
   mat_animator: {fileID: 4225208715837274974}
-  duration: 3
+  dissolve_duration: 3
+  hover_fade_duration: 0.1
+  socket_hover_mat: {fileID: 2100000, guid: 54b32b8c8303cdc4db72328fbb5b4d71, type: 2}
   editor_btn_reset: 0
   editor_btn_dissolve: 0
 --- !u!23 &8544306025165759680 stripped
