@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1004058011383142559}
   - component: {fileID: 3653233892065044542}
+  - component: {fileID: 692457254252623765}
   m_Layer: 0
   m_Name: GameManager_Prefab
   m_TagString: GameManager
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   weight_grabable_prefab: {fileID: 4844862370916995997, guid: 203638e9363ba2945b220bedddac8e71, type: 3}
+  normal_scene_go: {fileID: 0}
+  transformed_scene_go: {fileID: 0}
   future_weight_spawn: {fileID: 0}
   past_weight_spawn: {fileID: 0}
-  clock: {fileID: 0}
+--- !u!114 &692457254252623765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017391384978456217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f422d337c9ce3ca4597676f36e5ab42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsRenderer
+  renderFps: 1

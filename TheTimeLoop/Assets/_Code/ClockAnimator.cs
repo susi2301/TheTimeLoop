@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public enum ClockAnim {
     WorkingIdle = 0,
@@ -9,7 +7,7 @@ public enum ClockAnim {
     BrokenIdle = 2,
     LeftRepairing = 3,
     RightRepairing = 4,
-    // ClockRepaired,
+    ClockRepairing = 5,
     Count, // Enum Element Count!
 }
 
@@ -19,11 +17,12 @@ public class ClockAnimator : MonoBehaviour {
     
     [HideInInspector] public UnityEvent event_break_anim_finished;
     [HideInInspector] public UnityEvent event_left_and_right_repaird_finished;
-
+    
     private int[] hash_keys_enum_array; // Fixed Sized arrays are only allowed in structs..
-
-    private bool left_repaired_has_finished;
-    private bool right_repaired_has_finished;
+    
+    
+    public bool left_repaired_has_finished;
+    public bool right_repaired_has_finished;
     
     private void Awake() {
         
@@ -35,6 +34,7 @@ public class ClockAnimator : MonoBehaviour {
         hash_keys_enum_array[(int)ClockAnim.BrokenIdle]     = Animator.StringToHash("clock_broken_idle");
         hash_keys_enum_array[(int)ClockAnim.LeftRepairing]  = Animator.StringToHash("clock_left_repairing");
         hash_keys_enum_array[(int)ClockAnim.RightRepairing] = Animator.StringToHash("clock_right_repairing");
+        hash_keys_enum_array[(int)ClockAnim.ClockRepairing] = Animator.StringToHash("clock_repairing");
     }
     
     public void Reset() {
@@ -63,6 +63,11 @@ public class ClockAnimator : MonoBehaviour {
             animator.SetLayerWeight(2, 1.0f);
             animator.Play(anim_hash, 2);
             return;
+        } else if (anim == ClockAnim.ClockRepairing) {
+            animator.SetLayerWeight(1, 0.0f);
+            animator.SetLayerWeight(2, 0.0f);
+            animator.Play(anim_hash);
+            return;
         }
         
         animator.CrossFade(anim_hash,fade_duration);
@@ -78,8 +83,10 @@ public class ClockAnimator : MonoBehaviour {
         
         if (repaired_side == 0) {
             left_repaired_has_finished = true;
+            //animator.SetLayerWeight(1, 0.0f);
         } else if (repaired_side == 1) {
             right_repaired_has_finished = true;
+            //animator.SetLayerWeight(2, 0.0f);
         }
 
         if (left_repaired_has_finished && right_repaired_has_finished) {

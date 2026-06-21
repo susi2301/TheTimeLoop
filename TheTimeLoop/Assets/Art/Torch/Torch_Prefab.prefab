@@ -227,6 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5691509276881688067}
   - component: {fileID: 1876098852109213686}
+  - component: {fileID: 7181547556413544618}
   m_Layer: 0
   m_Name: VisualParent
   m_TagString: Untagged
@@ -264,7 +265,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrabableEffectiveChildOf
   original_parent: {fileID: 6899095060524872588}
+  holdable_type: 3
   attach_transform: {fileID: 6444967265877888912}
+--- !u!114 &7181547556413544618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424191368384459360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173476190a3fa1d44b364d504167fa7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Torch
+  point_light: {fileID: 7106537811733212130}
+  min_intensity: 0.2
+  max_intensity: 1.5
+  speed: 1
 --- !u!1 &6994379799772729686
 GameObject:
   m_ObjectHideFlags: 0

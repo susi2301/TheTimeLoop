@@ -381,6 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrabableEffectiveChildOf
   original_parent: {fileID: 7449993016129515654}
+  holdable_type: 1
   attach_transform: {fileID: 4105942416731716191}
 --- !u!1001 &707949386764216427
 PrefabInstance:

@@ -28,6 +28,9 @@ public class MenuManager : MonoBehaviour {
     public float smooth_orient_speed = 3.5f;
 
 
+
+    public bool dev_skip_menu_on_load = false;
+    
     public GameObject back_btn_go;
     
     [Header("State Refs")]
@@ -44,7 +47,6 @@ public class MenuManager : MonoBehaviour {
         game_event_manager = GameObject.FindWithTag("GameEventManager").GetComponent<GameEventManager>();
         Debug.Assert(game_event_manager != null);
         
-        
         vignette_animator.on_fade_in_value_updated = OnFadeInValueChanged;
         vignette_animator.on_fade_out_value_updated = OnFadeOutValueChanged;
         vignette_animator.event_on_fully_faded_out.AddListener(OnMenuFullyClosed);
@@ -52,14 +54,22 @@ public class MenuManager : MonoBehaviour {
         vignette_animator.Reset();
         menu_reorient_input.Reset();
         
+        canvas.gameObject.SetActive(false);
+        curr_state = MenuState.Inactive;
+    }
+
+    private void Start() {
+        
         // Leave All states!
         uistate_settings.LeaveState();
         uistate_credits.LeaveState();
         uistate_main_menu.LeaveState();
-        canvas.gameObject.SetActive(false);
-        curr_state = MenuState.Inactive;
         
         ReorientUI();
+
+        if (!dev_skip_menu_on_load) {
+            OpenMenu(true);
+        }
     }
 
     void Update() {

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e26076a2e8b924c80be5c997d5b552, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::SoundsDatabase
+  identifiers:
+  - ClockBreak
+  - ClockDoorOpen
+  - ClockDoorClose
+  - ClockFixA
+  - ClockFixB
+  - ClockReactivated
+  - ClockTicking
+  - ClockTicking2
+  - Step
+  - Teleport
+  DEV_update_identifiers: 0
+  DEV_merge_dublicates: 0
+  sound_clips:
+  - identifier: 1
+    clip: {fileID: 8300000, guid: aeae182711c9cb147b2fe07395600f28, type: 3}
+  - identifier: 2
+    clip: {fileID: 8300000, guid: 27affa004cb1afa4cbdc0c2d3f2df442, type: 3}
+  - identifier: 3
+    clip: {fileID: 8300000, guid: 554930065942eed41b7a2d1df13dcf47, type: 3}
+  - identifier: 4
+    clip: {fileID: 8300000, guid: 1be7feb840d21904ea3870784532a484, type: 3}
+  - identifier: 5
+    clip: {fileID: 8300000, guid: 9f5b3ed066f0a174c8442410887657f0, type: 3}
+  - identifier: 6
+    clip: {fileID: 8300000, guid: fefecf99359850e439731d87722630c4, type: 3}
+  - identifier: 7
+    clip: {fileID: 8300000, guid: cd11f390f51acc4468f621805d104df8, type: 3}
+  - identifier: 8
+    clip: {fileID: 8300000, guid: 8f93e8b9a30c0ba4c8f75d5e1102a0a1, type: 3}
+  sound_clip_collections:
+  - identifier: 9
+    clips:
+    - {fileID: 8300000, guid: 62d9bc041b7150d43be74b70fadc67f9, type: 3}
+    - {fileID: 8300000, guid: c193c408cac03944bbc5504f09fc07e7, type: 3}
+    - {fileID: 8300000, guid: 1d06851170d9ab643bbe7a489db35e58, type: 3}
+    - {fileID: 8300000, guid: e8803645d7fa3234888ba68593b5beb7, type: 3}
+  - identifier: 10
+    clips:
+    - {fileID: 8300000, guid: 185fa5d144413514a8ccd886e06ee62b, type: 3}
+    - {fileID: 8300000, guid: 05460b2cdd756e74f84407243b0aaa77, type: 3}
+    - {fileID: 8300000, guid: e54125693c4dc0640b9748a77c38a8dc, type: 3}

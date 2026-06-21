@@ -9,9 +9,13 @@ public class Flashlight : MonoBehaviour
     public InputEvent left_flashlight_input_event;
     public InputEvent right_flashlight_input_event;
     
+    public GrabableEffectiveChildOf child_of;
     public XRGrabInteractable xr_interactable;
     
     public Light spot_light;
+
+    public ShaderFloatAnimator mat_animator;
+    public float mat_emission_strength = 5.0f;
     
     public bool enable_light_at_startup = false;
     
@@ -20,8 +24,6 @@ public class Flashlight : MonoBehaviour
 
     private Vector3 spawn_pos;
     private Quaternion spawn_rot;
-
-    public GrabableEffectiveChildOf child_of;
     
     private void Awake() {
         spawn_pos = this.transform.position;
@@ -40,6 +42,12 @@ public class Flashlight : MonoBehaviour
         }
 
         spot_light.enabled = enable_light_at_startup;
+        if (enable_light_at_startup) {
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(mat_emission_strength,"_EmissionStrength");
+        } else {
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(-1.0f,"_EmissionStrength");
+        }
+        
         is_grabbed_left = false;
         is_grabbed_right = false;
 
@@ -99,5 +107,10 @@ public class Flashlight : MonoBehaviour
     
     public void ToggleLight() {
         spot_light.enabled = !spot_light.enabled;
+        if (spot_light.enabled) {
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(mat_emission_strength,"_EmissionStrength");
+        } else {
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(-1.0f,"_EmissionStrength");
+        }
     }
 }

@@ -20,6 +20,7 @@ public enum HandAnimLayer {
 public class HandAnimator : MonoBehaviour {
 
     public Animator animator;
+    public GameObject controller_go;
     
     public InputActionReference grab_action_ref;
     public InputActionReference trigger_action_ref;
@@ -64,6 +65,10 @@ public class HandAnimator : MonoBehaviour {
         input_events[(int)HandAnimLayer.Home]      = new PollInputEvent(home_action_ref);
         input_events[(int)HandAnimLayer.Axis]      = new PollInputEvent(axis_action_ref);
         
+    }
+
+    public void HardReset() {
+        controller_go.SetActive(true);
     }
 
     private void Update() {
@@ -160,7 +165,15 @@ public class HandAnimator : MonoBehaviour {
         }
     }
 
+    public void OnGrabbedHoldable(Holdable holdable) {
+        controller_go.SetActive(false);
+    }
 
+    public void OnDroppedHoldable(Holdable holdable) {
+        controller_go.SetActive(true);
+    }
+    
+    
     private void SetLayerWeight(HandAnimLayer layer, float weight) {
         int index = (int)layer;
         curr_layer_weight[index] = weight;

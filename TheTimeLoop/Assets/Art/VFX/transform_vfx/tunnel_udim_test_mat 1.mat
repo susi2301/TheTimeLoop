@@ -153,29 +153,29 @@ Material:
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
-    - _distort_amount: 10
-    - _distort_scale: 60.88
-    - _mask_blend: 0.99999
-    - _mask_falloff: 0.2
+    - _distort_amount: 21.7
+    - _distort_scale: 61.78
+    - _mask_blend: 0.812
+    - _mask_falloff: 0.1
     - _mask_noise_scale: 5.1
     - _mask_range: 0.78
-    - _mask_thicknees: 2.7
-    - _noise_scale: 43.73
-    - _sand_scale: 0.64
-    - _smoothness: 0.733
+    - _mask_thicknees: 10.47
+    - _noise_scale: 71.44
+    - _sand_scale: 1.35
+    - _smoothness: 0.699
     - _test: 2.17
-    - _transform_dist: -1.11
+    - _transform_dist: -8.95
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5719397, g: 0.12922749, b: 0.8301887, a: 1}
+    - _Color: {r: 0.34257406, g: 0.2830189, b: 0.3773585, a: 1}
     - _Color_1: {r: 0.5660378, g: 0.28568888, b: 0.28568888, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Vector2: {r: 0.3, g: 0.71, b: 0, a: 0}
     - _constrast: {r: 0.44, g: 0.57, b: 0, a: 0}
-    - _noise_stretch: {r: 1, g: 3.35, b: 0, a: 0}
+    - _noise_stretch: {r: 1, g: 2.2, b: 0, a: 0}
     - _smoothstep: {r: 2.83, g: 1.22, b: 0, a: 0}
-    - _start_pos: {r: 35.843, g: 6.71, b: 7, a: 0}
+    - _start_pos: {r: 35.75, g: 6.59, b: 6.38, a: 0}
     - _testvec2: {r: 1.4, g: 4.18, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
