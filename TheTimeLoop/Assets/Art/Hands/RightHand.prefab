@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7290390942017067910}
+  - component: {fileID: 4322015612699604935}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -29,10 +30,33 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6089717242577212663}
+  - {fileID: 1588733922825131382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5983521302758011676
+--- !u!114 &4322015612699604935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385355267518546232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 175531b653b069e4db8ac50c0eeb6b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandAnimator
+  animator: {fileID: 4678252382388686604}
+  grab_action_ref: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  trigger_action_ref: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  primary_action_ref: {fileID: -1506434820680351453, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  secondary_action_ref: {fileID: 8809825852527904036, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  home_action_ref: {fileID: -5461076999342996510, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  axis_action_ref: {fileID: -8666952849799569744, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  fade_in_duration: 0.08
+  fade_out_duration: 0.1
+  fade_in_easing_function: 1
+  fade_out_easing_function: 1
+--- !u!1001 &1262952281685865117
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -80,6 +104,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8306183224716940662, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8306183224716940662, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8306183224716940662, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7db1a18f43a9b6a4b8eea8b136a436b5, type: 2}
     - target: {fileID: 919132149155446097, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
       propertyPath: m_Name
       value: right_hand_anim_v1
@@ -91,38 +127,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1142549565402931959}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
---- !u!95 &172026590440394381 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
-  m_PrefabInstance: {fileID: 5983521302758011676}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6089717242577212663 stripped
+--- !u!4 &1588733922825131382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
-  m_PrefabInstance: {fileID: 5983521302758011676}
+  m_PrefabInstance: {fileID: 1262952281685865117}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6902000890552684109 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
-  m_PrefabInstance: {fileID: 5983521302758011676}
+--- !u!95 &4678252382388686604 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3331a88e25ec00742bb01f2ef9908fd7, type: 3}
+  m_PrefabInstance: {fileID: 1262952281685865117}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1142549565402931959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902000890552684109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 175531b653b069e4db8ac50c0eeb6b1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::hand_animator
-  animator: {fileID: 172026590440394381}
-  grab_input: {fileID: 11400000, guid: 5bf4f96bb24c55246b34e3cd0ab263ab, type: 2}
-  is_down: 0

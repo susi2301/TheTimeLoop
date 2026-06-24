@@ -1,9 +1,6 @@
 using System;
-using Unity.Android.Gradle;
-using Unity.Mathematics;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Playables;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -14,6 +11,7 @@ public enum ClockState {
     IsBreaking,
     WasOpenedIsBroken,
     WasOpenedIsWorking,
+    IsRepairing,
 }
 
 public enum DoorState {
@@ -43,6 +41,9 @@ public class Clock : MonoBehaviour {
     
     public WeightDissolve right_weight_dissolver;
     public WeightDissolve left_weight_dissolver;
+
+    public LoopingSoundPlayer ticking_soundplayer;
+    
     private void Awake() {
         
         game_event_manager = GameObject.FindWithTag("GameEventManager").GetComponent<GameEventManager>();
@@ -58,11 +59,16 @@ public class Clock : MonoBehaviour {
         door_rigidbody = door_gameobject.GetComponent<Rigidbody>();
         Debug.Assert(door_rigidbody != null);
         
-        clock_animator.event_break_anim_finished.AddListener(OnBreakAnimFinishedPlay);
     }
-    
+
+    private void Start() {
+        clock_animator.event_break_anim_finished.AddListener(OnBreakAnimFinishedPlay);
+        HardReset();
+    }
+
     public void HardReset() { // Called by game manager!
         
+        Debug.Log("Clock Hard Reset");
         // Make sure actual door physics mesh is also visually closed!
         door_gameobject.SetActive(true);
         door_gameobject.transform.localRotation = Quaternion.identity;
@@ -81,33 +87,10 @@ public class Clock : MonoBehaviour {
         
         left_weight_dissolver.Reset();
         right_weight_dissolver.Reset();
-    }
-    
-    
-    // GAME END CONDITION!
-    public void WeightGotAttached(GameObject grabbable_weight_go) {
-
-        ClockWeight weight = grabbable_weight_go.GetComponent<ClockWeight>();
-        Debug.Assert(weight != null);
-        weight.Despawn();
-
-
-        if (!left_socket_is_attached || !right_socket_is_attached) {
-            return;
-        }
         
-        Debug.Log("CLOCK: Clock is repaired!");
-        state = ClockState.WasOpenedIsWorking;
-
-        // TODO: deactivating socket causes the weight to to be dropped!
-        // But we dont want player to be able to remove it again
-        //left_socket_ptr.socketActive = false;
-        //right_socket_ptr.socketActive = false;
-    
-        SetDoorState(DoorState.ForceClose);
-        //event_on_clock_fixed.Invoke();
+        ticking_soundplayer.PlaySound();
     }
-
+    
     private void SetDoorState(DoorState new_door_state) {
 
         if (new_door_state == this.door_state) {
@@ -160,8 +143,6 @@ public class Clock : MonoBehaviour {
             }
             case DoorState.ForceClose:
             {
-                // TODO: Not Tested Yet
-                
                 Quaternion target_rot = Quaternion.identity;
                 Quaternion curr_rot = door_gameobject.transform.localRotation;
                 
@@ -178,7 +159,6 @@ public class Clock : MonoBehaviour {
                 else {
                     //door_gameobject.transform.localRotation = Quaternion.identity;
                     SetDoorState(DoorState.None);
-                    game_event_manager.event_clock_fixed.Invoke();
                 }
              
                 break;
@@ -195,15 +175,28 @@ public class Clock : MonoBehaviour {
         // TODO: trigger some animation and transform the world. Clock is now brocken
         // TODO: it is possible that the door is not fully opened or was snapped back to closed state. We must handle this. Maybe Force open the door first one first time ?
         if (state == ClockState.NeverOpenedIsWorking) {
-            Debug.Log("CLOCK: FirstTimeOpen! Clock is now BROKEN!");
+            //Debug.Log("CLOCK: FirstTimeOpen! Clock is now BROKEN!");
             state = ClockState.IsBreaking;
-            clock_animator.PlayAnim(ClockAnim.Breaking);
-            
             SetDoorState(DoorState.ForceOpen);
+            SoundManager.instance.PlaySoundAt(SoundID.ClockDoorOpen, this.transform.position);
             door_grab_interactable.enabled = false;
+            StartCoroutine(BreakTransition());
         }
     }
 
+    public IEnumerator BreakTransition() {
+        //while (door_state == DoorState.ForceOpen) {
+        //    yield return null;
+       // }
+
+       yield return new WaitForSeconds(1.5f);
+       
+        clock_animator.PlayAnim(ClockAnim.Breaking);
+        SoundManager.instance.PlaySoundAt(SoundID.ClockBreak, this.transform.position);
+        ticking_soundplayer.StopSound(0.8f, 0.5f);
+    } 
+    
+    
     public void OnBreakAnimFinishedPlay() {
         
         // TODO: Start Env Tranformation here
@@ -223,11 +216,58 @@ public class Clock : MonoBehaviour {
         right_weight_dissolver.StartDissolve();
     }
 
+    // GAME END CONDITION!
+    public void WeightGotAttached(GameObject grabbable_weight_go) {
+
+        ClockWeight weight = grabbable_weight_go.GetComponent<ClockWeight>();
+        Debug.Assert(weight != null);
+        weight.Despawn();
+
+
+        if (!left_socket_is_attached || !right_socket_is_attached) {
+            return;
+        }
+        
+        
+        state = ClockState.IsRepairing;
+        
+        StartCoroutine(FixTransition());
+    }
+    
+    public IEnumerator FixTransition() {
+        
+        while (!clock_animator.left_repaired_has_finished || !clock_animator.right_repaired_has_finished)
+        {
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+
+        SoundManager.instance.PlaySoundAt(SoundID.ClockReactivated, ticking_soundplayer.transform.position);
+        clock_animator.PlayAnim(ClockAnim.ClockRepairing);
+        
+        yield return new WaitForSeconds(7.0f);
+        
+        SetDoorState(DoorState.ForceClose);
+        ticking_soundplayer.PlaySound(1.5f, 1.2f);
+
+        while (door_state == DoorState.ForceClose) {
+            yield return null;
+        }
+        state = ClockState.WasOpenedIsWorking;
+        SoundManager.instance.PlaySoundAt(SoundID.ClockDoorClose, this.transform.position);
+        
+        game_event_manager.event_clock_fixed.Invoke();
+    }
+
+
+
     public void OnWeightAttachedToLeftSocket(SelectEnterEventArgs args) {
         //Debug.Log("CLOCK: Attached weight to left socket");
         left_socket_is_attached = true;
         left_weight_dissolver.Reset();
         
+        SoundManager.instance.PlaySoundAt(SoundID.ClockFixA, this.transform.position, 0.05f, 0.05f);
         clock_animator.PlayAnim(ClockAnim.LeftRepairing);
         
         GameObject weight_grabbable = args.interactableObject.transform.gameObject;
@@ -240,6 +280,7 @@ public class Clock : MonoBehaviour {
         right_socket_is_attached = true;
         right_weight_dissolver.Reset();
         
+        SoundManager.instance.PlaySoundAt(SoundID.ClockFixB, this.transform.position,0.05f, 0.05f);
         clock_animator.PlayAnim(ClockAnim.RightRepairing);
         
         GameObject weight_grabbable = args.interactableObject.transform.gameObject;

@@ -1,10 +1,6 @@
-using System;
-using System.Security.Cryptography.X509Certificates;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Playables;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -41,12 +37,15 @@ public class Player : MonoBehaviour {
 
         Debug.Assert(menu_input_event != null);
         menu_input_event.Reset();
+
+        teleport_provider.locomotionEnded += OnTeleported;
+
+        menu_manager.dev_skip_menu_on_load = DEV_skip_menu_on_load;
     }
 
     private void Start() {
-        if (!DEV_skip_menu_on_load) {
-            menu_manager.OpenMenu(true);
-        }
+        
+        
     }
 
     private void Update() {
@@ -99,14 +98,7 @@ public class Player : MonoBehaviour {
         return angle * Mathf.Deg2Rad;
     }
 
-
-    public void DebugLogMessage(string msg)
-    {
-        Debug.Log(msg);
-    }
-
-    private void OnValidate()
-    {
-       
+    public void OnTeleported(LocomotionProvider provider) {
+        SoundManager.instance.PlaySoundAt(SoundID.Teleport, this.transform.position, 0.05f, 0.05f);
     }
 }

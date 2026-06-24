@@ -21,7 +21,7 @@ public enum FadeState {
 public class ShaderFloatAnimator : MonoBehaviour {
 
     public MeshRenderer mesh_renderer;
-
+    
     public string float_property_name;
 
     public Mathy.EasingFunction fade_in_easing_function = Mathy.EasingFunction.Linear;
@@ -62,6 +62,11 @@ public class ShaderFloatAnimator : MonoBehaviour {
         if (deactive_meshrenderer_when_fully_faded_out) {
             mesh_renderer.enabled = false;
         }
+    }
+
+    public void SetNewPropertyName(string property_name) {
+        float_property_name = property_name;
+        float_property_id = Shader.PropertyToID(property_name);
     }
 
     public void FadeIn() {

@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5b380b6e1099e4d9b2da74d8a6796c, type: 3}
+  m_Name: RightSecondary
+  m_EditorClassIdentifier: Assembly-CSharp::InputEvent
+  input_action: {fileID: 8809825852527904036, guid: c348712bda248c246b8c49b3db54643f, type: 3}

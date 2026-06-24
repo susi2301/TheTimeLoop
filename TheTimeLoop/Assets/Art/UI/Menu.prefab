@@ -1531,6 +1531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
   game_event_manager: {fileID: 0}
+  player: {fileID: 0}
   camera_transform: {fileID: 0}
   ui_orientation_transform: {fileID: 8376083433769626276}
   canvas: {fileID: 7467855137306159270}
@@ -2809,7 +2810,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 4.2}
-  m_SizeDelta: {x: 188.4, y: 49.999996}
+  m_SizeDelta: {x: 66.1, y: 21.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7193760642564994907
 CanvasRenderer:
