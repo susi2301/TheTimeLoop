@@ -9,4 +9,6 @@ public class GameEventManager : MonoBehaviour {
 
    public EventBroadcaster event_clock_broken;
    public EventBroadcaster event_clock_fixed;
+   
+   public EventBroadcaster event_break_transition_start;
 }

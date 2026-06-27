@@ -357,12 +357,21 @@ VisualEffect:
       - m_Value: 0
         m_Name: spawn_y_offset
         m_Overridden: 1
+      - m_Value: 0
+        m_Name: dissolve_duration_lerp
+        m_Overridden: 1
+      - m_Value: 0.27
+        m_Name: max_y_offset
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.32339257, y: 0.11743506, z: 0.8584906, w: 1}
+        m_Name: main_color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -486,7 +495,10 @@ VisualEffect:
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.23702264, y: 0.10453009, z: 0.8207547, w: 1}
+        m_Name: main_color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -1318,6 +1330,8 @@ MonoBehaviour:
   event_left_and_right_repaird_finished:
     m_PersistentCalls:
       m_Calls: []
+  left_repaired_has_finished: 0
+  right_repaired_has_finished: 0
 --- !u!1 &6416643323186649914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,6 +1751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoopingSoundPlayer
   sound_id: 7
   max_distance: 7
+  play_on_start: 0
 --- !u!1 &9189489687106845187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,7 +2078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeightDissolve
   dissolve_particles: {fileID: 3949412621919976422}
   mat_animator: {fileID: 707795985034115458}
-  dissolve_duration: 3
+  dissolve_duration: 4
   hover_fade_duration: 0.1
   socket_hover_mat: {fileID: 2100000, guid: 54b32b8c8303cdc4db72328fbb5b4d71, type: 2}
   editor_btn_reset: 0
@@ -2331,9 +2346,9 @@ MonoBehaviour:
   mesh_renderer: {fileID: 8544306025165759680}
   float_property_name: _DissolveAmount
   fade_in_easing_function: 0
-  fade_in_duration: 0
+  fade_in_duration: 4
   fade_out_easing_function: 0
-  fade_out_duration: 0
+  fade_out_duration: 4
   deactive_meshrenderer_when_fully_faded_out: 0
   event_on_fully_faded_in:
     m_PersistentCalls:
@@ -2355,7 +2370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeightDissolve
   dissolve_particles: {fileID: 2149111845057831690}
   mat_animator: {fileID: 4225208715837274974}
-  dissolve_duration: 3
+  dissolve_duration: 4
   hover_fade_duration: 0.1
   socket_hover_mat: {fileID: 2100000, guid: 54b32b8c8303cdc4db72328fbb5b4d71, type: 2}
   editor_btn_reset: 0

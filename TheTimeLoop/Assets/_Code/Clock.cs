@@ -78,6 +78,7 @@ public class Clock : MonoBehaviour {
         
         clock_animator.Reset();
         
+        door_grab_interactable.enabled = true;
         state = ClockState.NeverOpenedIsWorking;
         left_socket_is_attached = true;
         right_socket_is_attached = true;
@@ -104,10 +105,12 @@ public class Clock : MonoBehaviour {
             door_rigidbody.angularVelocity = Vector3.zero;
             door_rigidbody.linearVelocity = Vector3.zero;
             door_rigidbody.rotation = door_gameobject.transform.rotation;
+            door_grab_interactable.enabled = true;
             door_rigidbody.WakeUp();
             return;
         }
         
+        door_grab_interactable.enabled = false;
         door_rigidbody.angularVelocity = Vector3.zero;
         door_rigidbody.linearVelocity = Vector3.zero;
         door_rigidbody.Sleep();
@@ -192,10 +195,11 @@ public class Clock : MonoBehaviour {
        yield return new WaitForSeconds(1.5f);
        
         clock_animator.PlayAnim(ClockAnim.Breaking);
+
         SoundManager.instance.PlaySoundAt(SoundID.ClockBreak, this.transform.position);
         ticking_soundplayer.StopSound(0.8f, 0.5f);
-    } 
-    
+        game_event_manager.event_break_transition_start.Invoke();
+    }
     
     public void OnBreakAnimFinishedPlay() {
         
@@ -214,6 +218,7 @@ public class Clock : MonoBehaviour {
         
         left_weight_dissolver.StartDissolve();
         right_weight_dissolver.StartDissolve();
+
     }
 
     // GAME END CONDITION!

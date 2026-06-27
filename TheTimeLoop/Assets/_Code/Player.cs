@@ -4,7 +4,6 @@ using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
-
 public class Player : MonoBehaviour {
     
     public bool DEV_skip_menu_on_load;
@@ -36,6 +35,7 @@ public class Player : MonoBehaviour {
         spawn_cam_forward = camera_transform.transform.forward;
 
         Debug.Assert(menu_input_event != null);
+        
         menu_input_event.Reset();
 
         teleport_provider.locomotionEnded += OnTeleported;

@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour {
         transformed_scene_go.SetActive(false);
         
         probe_ref_volume.lightingScenario = clock_working_light_scenario;
-
+        probe_ref_volume.PerformPendingOperations();
+        
         grab_weight_1.Despawn();
         grab_weight_2.Despawn();
     }

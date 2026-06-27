@@ -19,22 +19,22 @@ public class Flashlight : MonoBehaviour
     
     public bool enable_light_at_startup = false;
     
-    public bool is_grabbed_left = false;
-    public bool is_grabbed_right = false;
-
     private Vector3 spawn_pos;
     private Quaternion spawn_rot;
     
     private void Awake() {
         spawn_pos = this.transform.position;
         spawn_rot = this.transform.rotation;
-        
+    }
+
+    private void Start(){
+        child_of.event_on_grabbed += OnGrabbed;
         HardReset();
     }
 
     public void HardReset() {
 
-        if (IsGrabbed()) {
+        if (child_of.IsGrabbed()) {
             // @Note: This forces the interactable to be dropped.
             // otherwise it would stay in the hand after a restart.
             xr_interactable.enabled = false;
@@ -48,9 +48,6 @@ public class Flashlight : MonoBehaviour
             mat_animator.JustSetThisValueAndDontAskAnyQuestions(-1.0f,"_EmissionStrength");
         }
         
-        is_grabbed_left = false;
-        is_grabbed_right = false;
-
         this.transform.position = spawn_pos;
         this.transform.rotation = spawn_rot;
         
@@ -62,7 +59,7 @@ public class Flashlight : MonoBehaviour
 
     private void Update() {
         
-        if (!IsGrabbed()) {
+        if (!child_of.IsGrabbed()) {
             return;
         }
 
@@ -72,37 +69,22 @@ public class Flashlight : MonoBehaviour
         // Poll inputs
        // bool toggle_flashlight = false;
         
-        if (is_grabbed_left && left_was_pressed) {
-            Debug.Assert(!is_grabbed_right);
+        if (child_of.is_grabbed_left && left_was_pressed) {
+            Debug.Assert(!child_of.is_grabbed_right);
 
             ToggleLight();
         }
         
-        if (is_grabbed_right && right_was_pressed) {
-            Debug.Assert(!is_grabbed_left);
+        if (child_of.is_grabbed_right && right_was_pressed) {
+            Debug.Assert(!child_of.is_grabbed_left);
             
             ToggleLight();
         }
     }
 
-    public bool IsGrabbed() {
-        return is_grabbed_left || is_grabbed_right;
-    }
-
-    public void OnGrabbed(SelectEnterEventArgs args) {
-        string obj_tag =  args.interactorObject.transform.gameObject.tag;
-        
-        is_grabbed_left  = obj_tag == "LeftController";
-        is_grabbed_right = obj_tag == "RightController";
-        
+    public void OnGrabbed(bool was_grabbed_left) {
         left_flashlight_input_event.Reset();
         right_flashlight_input_event.Reset();
-    }
-
-    public void OnUngrabbed(SelectExitEventArgs args) {
-
-        is_grabbed_left = false;
-        is_grabbed_right = false;
     }
     
     public void ToggleLight() {
