@@ -19,7 +19,7 @@ public class GrabableEffectiveChildOf : MonoBehaviour
 
     private void Awake() {
         Debug.Assert( holdable_type != Holdable.None);
-        
+
         original_local_pos = this.transform.localPosition;
         original_local_rot = this.transform.localRotation;
     }
@@ -63,7 +63,9 @@ public class GrabableEffectiveChildOf : MonoBehaviour
             is_grabbed_right = true;
         }
 
-        event_on_grabbed.Invoke(is_left);
+        if (event_on_grabbed != null){
+            event_on_grabbed.Invoke(is_left);
+        }
     }
 
     public void OnDropped(SelectExitEventArgs args)
@@ -90,6 +92,8 @@ public class GrabableEffectiveChildOf : MonoBehaviour
         is_grabbed_left  = false;
         is_grabbed_right = false;
 
-        event_on_dropped.Invoke();
+        if (event_on_dropped != null) {
+            event_on_dropped.Invoke();
+        }
     }
 }

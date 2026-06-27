@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using Flcrm;
 
 public enum MenuState {
     Inactive = 0,
@@ -57,14 +58,15 @@ public class MenuManager : MonoBehaviour {
         canvas.gameObject.SetActive(false);
         curr_state = MenuState.Inactive;
     }
+    
+    public void Init(){
 
-    private void Start() {
-        
         // Leave All states!
         uistate_settings.LeaveState();
         uistate_credits.LeaveState();
         uistate_main_menu.LeaveState();
-        
+    
+
         ReorientUI();
 
         if (!dev_skip_menu_on_load) {
@@ -114,7 +116,7 @@ public class MenuManager : MonoBehaviour {
         // Effectivly we make the entire lerp happen already in the first half of value linear going from 1 to 0.5f
         float x = Mathf.Clamp(value_linear, 0.5f, 1.0f);
         x = (x - 0.5f) * 2.0f; // remap to 0..1 range again;
-        x = Mathy.EasingFunctions.ease_float(x, Mathy.EasingFunction.InCubic);
+        x = Mathy.ease_float(x, EasingFunction.InCubic);
         float lerp_value = x;
 
         
@@ -127,7 +129,7 @@ public class MenuManager : MonoBehaviour {
         // Value Linear start at 0 and goes to 0.5f;
         float x = Mathf.Clamp(value_linear, 0.5f, 1.0f);
         x = (x - 0.5f) * 2.0f; // remap to 0..1 range again;
-        x =  Mathy.EasingFunctions.ease_float(x, Mathy.EasingFunction.OutCubic);
+        x =  Mathy.ease_float(x, EasingFunction.OutCubic);
         float lerp_value = x;
 
         Quaternion start_rot = Quaternion.AngleAxis(+95, Vector3.up);

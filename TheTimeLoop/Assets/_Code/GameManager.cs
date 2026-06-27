@@ -5,10 +5,12 @@ using UnityEngine.Rendering;
 public class GameManager : MonoBehaviour {
     
     public GameObject weight_grabable_prefab;
+    public GameEventManager event_manager;
 
     public GameObject normal_scene_go;
     public GameObject transformed_scene_go;
 
+    public GameSettingsSO game_settings;
 
     public Transform future_weight_spawn;
     public Transform past_weight_spawn;
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(normal_scene_go != null);
         Debug.Assert(transformed_scene_go != null);
         
+        game_settings.ResetAllToDefaults();
+
         probe_ref_volume = UnityEngine.Rendering.ProbeReferenceVolume.instance;
 
         // INIT weights.
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         HardReset();
+        event_manager.event_init_game.Invoke();
     }
 
     public void HardReset() {

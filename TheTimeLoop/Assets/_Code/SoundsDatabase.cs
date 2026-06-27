@@ -7,13 +7,15 @@ using UnityEditor;
 
 
 
-
-
 [CreateAssetMenu(fileName = "SoundDatabase", menuName = "Scriptable Objects/SoundsDatabase")]
 public class SoundsDatabase : ScriptableObject
 {
+    [Tooltip("Note:\n- No dublicates pls\n- Removing entries will break scripts if they are already used.\n- Reordering does not break scrips but will mess up already assigned identifiers within this database")]
     public List<String> identifiers;
+
+    [Tooltip("Update identifiers list so they become accessible as a selection. This will recompile scripts. Avoid Changing the order just for the sake of it")]
     public bool DEV_update_identifiers = false;
+    [Tooltip("Merge dublicates and put things of same identifier into a collection if not already.")]
     public bool DEV_merge_dublicates = false;
     
     [Space]
@@ -93,9 +95,7 @@ public class SoundsDatabase : ScriptableObject
                 sound_clips.Add(s_clip);
                 continue;
             }
-            
-            /*
-             * 
+             
             SoundClipCollection new_collection = new SoundClipCollection();
             new_collection.identifier = identifier;
 
@@ -104,7 +104,7 @@ public class SoundsDatabase : ScriptableObject
             foreach (AudioClip aclip in combined_collections[i].clips) {
                 new_collection.clips.Add(aclip);
             }
-             */
+            
             combined_collections[i].identifier = identifier;
             sound_clip_collections.Add(combined_collections[i]);
         }
@@ -115,9 +115,9 @@ public class SoundsDatabase : ScriptableObject
     private void OnValidate() {
         if (DEV_update_identifiers) {
             DEV_update_identifiers = false;
-            //#if DEVELOPMENT
-            //EnumGenerator.GenerateEnum("SoundID", identifiers, "Assets/_Code/Generated/SoundID.cs");
-            //#endif
+            #if DEVELOPMENT
+            EnumGenerator.GenerateEnum("SoundID", identifiers, "Assets/_Code/Generated/SoundID.cs");
+            #endif
         }
 
         if (DEV_merge_dublicates) {
@@ -133,30 +133,27 @@ public static class EnumGenerator
     public static void GenerateEnum(string enumName, List<String> field_names, string outputPath)
     {
         
-        /*
-         * 
         #if DEVELOPMENT
-        var sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-        sb.AppendLine("// CODE Generated. Do not edit!");
-        sb.AppendLine();
-        sb.AppendLine($"public enum {enumName}");
-        sb.AppendLine("{");
-        sb.AppendLine("    None = 0,");
+            sb.AppendLine("// CODE Generated. Do not edit!");
+            sb.AppendLine();
+            sb.AppendLine($"public enum {enumName}");
+            sb.AppendLine("{");
+            sb.AppendLine("    None = 0,");
 
 
-        for (int i = 0; i < field_names.Count; i++) {
+            for (int i = 0; i < field_names.Count; i++) {
+                
+                sb.AppendLine($"    {field_names[i]},");
+            }
             
-            sb.AppendLine($"    {field_names[i]},");
-        }
-        
-        sb.AppendLine("    COUNT,");
-        sb.AppendLine("}");
+            sb.AppendLine("    COUNT,");
+            sb.AppendLine("}");
 
-        File.WriteAllText(outputPath, sb.ToString());
-        
-        AssetDatabase.Refresh();
+            File.WriteAllText(outputPath, sb.ToString());
+            
+            AssetDatabase.Refresh();
         #endif
-         */
     }
 }

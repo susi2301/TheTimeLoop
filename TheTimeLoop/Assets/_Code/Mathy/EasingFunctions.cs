@@ -1,6 +1,7 @@
 using System;
 
-namespace Mathy {
+namespace Flcrm {
+
     public enum EasingFunction {
         Linear = 0,
         InQuadratic,
@@ -11,7 +12,7 @@ namespace Mathy {
         InOutCubic,
     }
     
-    public static class EasingFunctions {
+    public static partial class Mathy {
     
         public static float ease_float(float x, EasingFunction function) {
             switch (function) {

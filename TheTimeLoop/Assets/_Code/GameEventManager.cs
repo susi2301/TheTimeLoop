@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameEventManager : MonoBehaviour {
    
+   public EventBroadcaster event_init_game;
    public EventBroadcaster event_restart_game;
    public EventBroadcaster event_menu_opened;
    public EventBroadcaster event_menu_closed;

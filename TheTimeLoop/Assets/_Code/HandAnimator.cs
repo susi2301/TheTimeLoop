@@ -1,5 +1,5 @@
 using System;
-using Mathy;
+using Flcrm;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -126,7 +126,7 @@ public class HandAnimator : MonoBehaviour {
                 float fade_percentage = curr_layer_fade_time[layer_index] / fade_in_duration;
                 
                 float curr_linear_value = Math.Clamp(fade_percentage, 0.0f, 1.0f);
-                float value_easing_applied = Mathy.EasingFunctions.ease_float(curr_linear_value, fade_in_easing_function);
+                float value_easing_applied = Mathy.ease_float(curr_linear_value, fade_in_easing_function);
                 
                 SetLayerWeight(layer, value_easing_applied);
                 curr_layer_fade_time[layer_index] += Time.deltaTime;
@@ -143,7 +143,7 @@ public class HandAnimator : MonoBehaviour {
                 bool finished_fading = curr_layer_fade_time[layer_index] >= fade_out_duration;
                 float fade_percentage = curr_layer_fade_time[layer_index] / fade_out_duration;
                 float curr_linear_value = 1.0f - Math.Clamp(fade_percentage, 0.0f, 1.0f);
-                float value_easing_applied = Mathy.EasingFunctions.ease_float(curr_linear_value, fade_out_easing_function);
+                float value_easing_applied = Mathy.ease_float(curr_linear_value, fade_out_easing_function);
                 SetLayerWeight(layer, value_easing_applied);
                 
                 curr_layer_fade_time[layer_index] += Time.deltaTime;

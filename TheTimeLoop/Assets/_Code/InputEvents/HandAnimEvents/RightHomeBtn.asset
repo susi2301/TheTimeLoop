@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: RightHomeBtn
   m_EditorClassIdentifier: Assembly-CSharp::InputEvent
   input_action: {fileID: -5461076999342996510, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  press_threshold: 0.2

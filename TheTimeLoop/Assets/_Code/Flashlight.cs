@@ -85,6 +85,7 @@ public class Flashlight : MonoBehaviour
     public void OnGrabbed(bool was_grabbed_left) {
         left_flashlight_input_event.Reset();
         right_flashlight_input_event.Reset();
+        Debug.Log("Flashlight grabbed!");
     }
     
     public void ToggleLight() {

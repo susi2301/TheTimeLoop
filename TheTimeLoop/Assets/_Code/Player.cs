@@ -11,8 +11,11 @@ public class Player : MonoBehaviour {
     
     public MenuManager menu_manager;
     public Transform camera_transform;
+    public Transform camera_offset_transform;
 
     public InputEvent menu_input_event;
+    public GameSettingsSO game_settings;
+
 
     public XROrigin xr_origin;
     private Vector3 spawn_cam_pos;
@@ -23,6 +26,12 @@ public class Player : MonoBehaviour {
     public ControllerInputActionManager left_ctrl_input_manager;
     public TeleportationProvider teleport_provider;
     public DynamicMoveProvider  move_provider;
+    
+
+    public float step_sound_dist_threshold = 0.2f;
+    private Vector3 prev_pos;
+    public float walked_distance = 0.0f;
+
     private void Awake() {
 
         Debug.Assert(menu_manager != null);
@@ -41,11 +50,15 @@ public class Player : MonoBehaviour {
         teleport_provider.locomotionEnded += OnTeleported;
 
         menu_manager.dev_skip_menu_on_load = DEV_skip_menu_on_load;
+        walked_distance = 0.0f;
+
+        prev_pos = camera_transform.position;
+        prev_pos.y = 0.0f;
     }
 
-    private void Start() {
-        
-        
+    public void Init(){
+        SetHeadHeight(game_settings.head_height);
+        menu_manager.Init();   
     }
 
     private void Update() {
@@ -59,6 +72,24 @@ public class Player : MonoBehaviour {
                 menu_manager.OpenMenu();
             }
         }
+
+
+        Vector3 pos_now = camera_transform.position;
+        pos_now.y = 0.0f; // only consider 2d distance.
+
+        walked_distance += Vector3.Distance(pos_now, prev_pos);
+
+        prev_pos = pos_now;
+
+        if (walked_distance >= step_sound_dist_threshold){
+
+            Vector3 sound_pos = camera_transform.position;
+            sound_pos.y -= game_settings.head_height;
+
+            SoundManager.instance.PlaySoundAt(SoundID.Step, sound_pos, 0,0, 6.0f);
+            walked_distance = 0.0f;
+        }
+
     }
     
     public void EnableInGameInputs() {
@@ -99,6 +130,23 @@ public class Player : MonoBehaviour {
     }
 
     public void OnTeleported(LocomotionProvider provider) {
-        SoundManager.instance.PlaySoundAt(SoundID.Teleport, this.transform.position, 0.05f, 0.05f);
+        walked_distance = 0.0f;
+        Vector3 pos_now =  camera_transform.position;
+        pos_now.y = 0.0f;
+        prev_pos = pos_now;
+
+        Vector3 sound_pos = camera_transform.position;
+        sound_pos.y -= game_settings.head_height;
+
+        SoundManager.instance.PlaySoundAt(SoundID.Teleport, sound_pos, 0.01f, 0.05f);
+    }
+
+    public void SetHeadHeight(float height){
+
+        float h = Mathf.Clamp(height, 0.0f, game_settings.head_height_max);
+        Vector3 local_pos = camera_offset_transform.localPosition;
+        local_pos.y = h;
+        camera_offset_transform.localPosition = local_pos;
+        game_settings.head_height = h;
     }
 }

@@ -29,7 +29,7 @@ public class PollInputEvent {
     }
 
     
-    public PollEvent PollBtnWhatHappened() {
+    public PollEvent PollBtnWhatHappened(float press_threshold = 0.2f) {
 
         Debug.Assert(input_action != null, "InputEvent: Trying to pool an input event where the InputRefence is NULL");
 
@@ -37,11 +37,11 @@ public class PollInputEvent {
 
         PollEvent poll_event = PollEvent.Nothing;
         
-        if (val > 0.8f && last_value < 0.2f) {
+        if (val > press_threshold && last_value < press_threshold) {
             poll_event = PollEvent.WasPressed;
         }
         
-        if (last_value > 0.8 && val < 0.2f) {
+        if (last_value > press_threshold && val < press_threshold) {
             poll_event = PollEvent.WasReleased;
         }
         
@@ -79,6 +79,7 @@ public class PollInputEvent {
 public class InputEvent : ScriptableObject {
     public InputActionReference input_action;
     private float last_value;
+    public float press_threshold = 0.2f;
 
     public InputEvent(InputActionReference action_ref) {
         input_action = action_ref;
@@ -98,14 +99,15 @@ public class InputEvent : ScriptableObject {
 
         bool poll_event_happend = false;
         
+
         switch (mode) {
             case InputPollMode.OnPressed:
-                if (val > 0.8f && last_value < 0.2f) {
+                if (val > press_threshold && last_value < press_threshold) {
                     poll_event_happend = true;
                 }
                 break;
             case InputPollMode.OnRelease:
-                if (last_value > 0.8 && val < 0.2f) {
+                if (last_value > press_threshold && val < press_threshold) {
                     poll_event_happend = true;
                 }
                 break;
@@ -129,11 +131,11 @@ public class InputEvent : ScriptableObject {
 
         PollEvent poll_event = PollEvent.Nothing;
         
-        if (val > 0.8f && last_value < 0.2f) {
+        if (val > press_threshold && last_value < press_threshold) {
             poll_event = PollEvent.WasPressed;
         }
         
-        if (last_value > 0.8 && val < 0.2f) {
+        if (last_value > press_threshold && val < press_threshold) {
             poll_event = PollEvent.WasReleased;
         }
         

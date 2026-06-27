@@ -48,6 +48,7 @@ MonoBehaviour:
   weight_grabable_prefab: {fileID: 4844862370916995997, guid: 203638e9363ba2945b220bedddac8e71, type: 3}
   normal_scene_go: {fileID: 0}
   transformed_scene_go: {fileID: 0}
+  game_settings: {fileID: 11400000, guid: 5d49333ab433345428e20b0aef272254, type: 2}
   future_weight_spawn: {fileID: 0}
   past_weight_spawn: {fileID: 0}
 --- !u!114 &692457254252623765

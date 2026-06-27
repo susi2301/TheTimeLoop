@@ -976,12 +976,16 @@ MonoBehaviour:
   DEV_skip_menu_on_load: 0
   menu_manager: {fileID: 8295119071338345563}
   camera_transform: {fileID: 1767192434}
+  camera_offset_transform: {fileID: 1680501587}
   menu_input_event: {fileID: 11400000, guid: 01a23f78f386cc0468f46fe9eb58306a, type: 2}
+  game_settings: {fileID: 11400000, guid: 5d49333ab433345428e20b0aef272254, type: 2}
   xr_origin: {fileID: 1178791450436251564}
   right_ctrl_input_manager: {fileID: 5663893676086941514}
   left_ctrl_input_manager: {fileID: 4778211696441940833}
   teleport_provider: {fileID: 1748222016861356527}
   move_provider: {fileID: 153982007679157697}
+  step_sound_dist_threshold: 0.5
+  walked_distance: 0
 --- !u!114 &1178791450436251564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,7 +1175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mediator: {fileID: 6640002710935096923}
   m_TransformationPriority: 20
-  m_DelayTime: 0.25
+  m_DelayTime: 0.05
 --- !u!1 &2626757739553014894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3639,6 +3643,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: b110946dbd9f6274b8303fde89f9c622, type: 2}
+    - target: {fileID: 4330224887268816505, guid: e193058585e7ad3468f56f1c5c469fd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4357512448824012373, guid: e193058585e7ad3468f56f1c5c469fd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3751,6 +3759,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: b110946dbd9f6274b8303fde89f9c622, type: 2}
+    - target: {fileID: 8205072389995143945, guid: e193058585e7ad3468f56f1c5c469fd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8768583698902824015, guid: e193058585e7ad3468f56f1c5c469fd4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

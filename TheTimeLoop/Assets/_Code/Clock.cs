@@ -61,7 +61,7 @@ public class Clock : MonoBehaviour {
         
     }
 
-    private void Start() {
+    public void Init() {
         clock_animator.event_break_anim_finished.AddListener(OnBreakAnimFinishedPlay);
         HardReset();
     }

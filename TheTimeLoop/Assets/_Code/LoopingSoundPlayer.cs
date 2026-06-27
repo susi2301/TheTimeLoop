@@ -5,7 +5,7 @@ public class LoopingSoundPlayer : MonoBehaviour {
     public SoundID sound_id;
     public float max_distance = 5.0f;
     public bool play_on_start = false;
-
+    public bool dynamic_position = false;
     
     // only valid if currently playing or paused;
     private SoundSource sound_source_ref = null;

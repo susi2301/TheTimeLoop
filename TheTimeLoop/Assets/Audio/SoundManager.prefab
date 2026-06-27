@@ -46,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   database: {fileID: 11400000, guid: 4b9291ecf2feb8a4bada4ac4fe5c3de1, type: 2}
   SoundSrcPrefab: {fileID: 5614519760459291003, guid: 77cff809a691ef745b4c66a79390ce74, type: 3}
+  game_settings: {fileID: 11400000, guid: 5d49333ab433345428e20b0aef272254, type: 2}
   master_mixer: {fileID: 24100000, guid: 5ad5f3954dce46a42bbdd4af23e27b6e, type: 2}
+  dev_vol: 50

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using Flcrm;
 
 // @Note (fulcrum):
 // Use this to animate a float property of a shader between 0..1 range
@@ -24,9 +24,9 @@ public class ShaderFloatAnimator : MonoBehaviour {
     
     public string float_property_name;
 
-    public Mathy.EasingFunction fade_in_easing_function = Mathy.EasingFunction.Linear;
+    public EasingFunction fade_in_easing_function = EasingFunction.Linear;
     public float fade_in_duration;
-    public Mathy.EasingFunction fade_out_easing_function = Mathy.EasingFunction.Linear;
+    public EasingFunction fade_out_easing_function = EasingFunction.Linear;
     public float fade_out_duration;
     
     public bool deactive_meshrenderer_when_fully_faded_out = false;
@@ -114,7 +114,7 @@ public class ShaderFloatAnimator : MonoBehaviour {
             
             float fade_percentage = curr_fade_time / fade_in_duration;
             curr_linear_value = Math.Clamp(fade_percentage, 0.0f, 1.0f);
-            float value_easing_applied = Mathy.EasingFunctions.ease_float(curr_linear_value, fade_in_easing_function);
+            float value_easing_applied = Mathy.ease_float(curr_linear_value, fade_in_easing_function);
             mesh_renderer.material.SetFloat(float_property_id, value_easing_applied);
             curr_fade_time += Time.deltaTime;
 
@@ -136,7 +136,7 @@ public class ShaderFloatAnimator : MonoBehaviour {
             
             float fade_percentage = curr_fade_time / fade_out_duration;
             curr_linear_value = 1.0f - Math.Clamp(fade_percentage, 0.0f, 1.0f);
-            float value_easing_applied = Mathy.EasingFunctions.ease_float(curr_linear_value, fade_out_easing_function);
+            float value_easing_applied = Mathy.ease_float(curr_linear_value, fade_out_easing_function);
             mesh_renderer.material.SetFloat(float_property_id, value_easing_applied);
             curr_fade_time += Time.deltaTime;
 

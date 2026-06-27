@@ -132,7 +132,7 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 7.71
+    m_Value: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0
@@ -377,7 +377,6 @@ MonoBehaviour:
   - {fileID: 1563326871748030085}
   - {fileID: -5386571787587349074}
   - {fileID: 2609520313565454508}
-  - {fileID: -630493376021359831}
 --- !u!114 &14229295411216620
 MonoBehaviour:
   m_ObjectHideFlags: 3

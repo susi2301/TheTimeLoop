@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+#if DEVELOPMENT
+
 public class TextureArrayBuilder : EditorWindow
 {
     [MenuItem("Tools/Texture Array Builder")]
@@ -95,3 +97,5 @@ public class TextureArrayBuilder : EditorWindow
         Debug.Log($"Created Texture2DArray with {tex_list_so.texture_list.Count} slices.");
     }
 }
+
+#endif

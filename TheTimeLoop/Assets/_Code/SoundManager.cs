@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Flcrm;
 
 [Serializable]
 public class SoundClip {
@@ -14,18 +15,38 @@ public class SoundClipCollection {
     public SoundID identifier;
     public List<AudioClip> clips;
 
+    private int next_clip = 0;
+
     public AudioClip GetRandomClip() {
+        if (clips.Count == 0){
+            return null;
+        }
+
         int r = UnityEngine.Random.Range(0, clips.Count);
         return clips[r];
     }
+
+    public AudioClip GetNextClip() {
+        if (clips.Count == 0){
+            return null;
+        }
+
+        next_clip++;
+        if (next_clip >= clips.Count){
+            next_clip = 0;
+        }
+        return clips[next_clip];
+    }
 }
 
-// TODO: we could encode everthing into one integer if we use 0 as non existing state. The index will be the actual ArrayIndex+1 and we use negative values for collection/not_collection state.
+// TODO: we could encode everthing into one integer if we use 0 as non existing state. 
+// The index will be the actual ArrayIndex+1 and we use negative values for collection/not_collection state.
 public struct SoundIDIndex {
     public bool exists;
     public bool is_collection;
     public int index;
 }
+
 
 public struct PlayInitInfo {
     public SoundID id;
@@ -60,6 +81,7 @@ public class SoundManager : MonoBehaviour {
     
     [SerializeField] private GameObject SoundSrcPrefab;
 
+    public GameSettingsSO game_settings;
     public AudioMixer master_mixer;
 
     private List<SoundSource> sound_pool;
@@ -70,7 +92,6 @@ public class SoundManager : MonoBehaviour {
     // These must be kept in sync!
     private List<SoundSource> sounds;
     private List<SoundStateInfo> sounds_info;
-
     
 
     private void Awake() {
@@ -105,6 +126,10 @@ public class SoundManager : MonoBehaviour {
         sounds_info = new List<SoundStateInfo>();
         
         SoundPoolGrow(10);
+    }
+
+    public void Init(){
+        AdjustGlobalVolume(game_settings.global_volume);
     }
 
     private void Update() {
@@ -338,6 +363,30 @@ public class SoundManager : MonoBehaviour {
             sound_pool.Add(sound_src);
             go.SetActive(false);
         }
+    }
+
+    public void AdjustGlobalVolume(float new_volume_0_to_100){
+
+        // clamp and normalize input volume from range 0..100 to 0..1 range;
+        float vol = Mathf.Clamp(new_volume_0_to_100, 0.0f, 100.0f);
+        float vol_01 = vol / 100.0f;
+
+
+
+        float max_atten = 20.0f;
+        float min_atten = -80.0f;
+
+        float vol_atten = 0.0f;
+        if (vol_01 > 0.5f) {
+            vol_atten = Mathy.remap(0.5f, 1.0f, 0.0f, max_atten, vol_01);
+        } else {
+            vol_atten = Mathy.remap(0.0f, 0.5f, min_atten, 0.0f, vol_01);
+        }
+
+
+        //AudioMixerGroup grp = master_mixer.FindMatchingGroups();
+        master_mixer.SetFloat("MasterVolume", vol_atten);
+        game_settings.global_volume = vol;
     }
 }
 
