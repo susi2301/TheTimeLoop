@@ -192,7 +192,7 @@ public class Clock : MonoBehaviour {
         //    yield return null;
        // }
 
-       yield return new WaitForSeconds(1.5f);
+       yield return new WaitForSeconds(1.6f);
        
         clock_animator.PlayAnim(ClockAnim.Breaking);
 

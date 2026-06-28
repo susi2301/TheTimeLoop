@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using Flcrm;
@@ -72,7 +73,21 @@ public class MenuManager : MonoBehaviour {
         if (!dev_skip_menu_on_load) {
             OpenMenu(true);
         }
+
+        StartCoroutine(ReorientUIDelayed());
     }
+
+
+    public IEnumerator ReorientUIDelayed(){
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        ReorientUI();
+    }
+
 
     void Update() {
         if (curr_state == MenuState.Inactive) {

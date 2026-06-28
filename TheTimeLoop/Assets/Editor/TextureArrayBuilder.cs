@@ -1,3 +1,4 @@
+//#define DEVELOPMENT
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -15,16 +16,21 @@ public class TextureArrayBuilder : EditorWindow
     }
 
     string outputPath = "Assets/Art/VFX/FireVolume.asset";
-
+    string so_output  = "Assets/Art/VFX/TexArray.asset";
     void OnGUI()
     {
         GUILayout.Label("Build Texture2DArray from selected textures");
 
-        outputPath = EditorGUILayout.TextField("Output Asset",outputPath);
+        outputPath = EditorGUILayout.TextField("Output path",outputPath);
+        so_output  = EditorGUILayout.TextField("SO Path", so_output);
 
         if (GUILayout.Button("Build Texture Array"))
         {
             Build();
+        }
+
+        if (GUILayout.Button("Make SO From Selection")) {
+            MakeSO();
         }
     }
 
@@ -95,6 +101,35 @@ public class TextureArrayBuilder : EditorWindow
         AssetDatabase.SaveAssets();
 
         Debug.Log($"Created Texture2DArray with {tex_list_so.texture_list.Count} slices.");
+    }
+
+    void MakeSO() {
+
+
+        Object[] selection = Selection.objects;
+
+        Texture2D[] textures = selection.OfType<Texture2D>().OrderBy(t => t.name).ToArray();
+        
+        if (textures.Length == 0){
+            return;
+        }
+        
+        ScriptableObject nonGenericInstance = ScriptableObject.CreateInstance(typeof(TextureListArray));
+        TextureListArray tex_arr = (TextureListArray)nonGenericInstance;
+
+        for (int i = 0; i < textures.Length; i++){
+
+            tex_arr.texture_list.Add(textures[i]);
+        }
+
+        //TextureListArray[] tex_list_so_arr = selection.OfType<TextureListArray>().ToArray();
+
+
+
+        string name = UnityEditor.AssetDatabase.GenerateUniqueAssetPath(so_output);
+
+        AssetDatabase.CreateAsset(tex_arr, name);
+        AssetDatabase.SaveAssets();
     }
 }
 

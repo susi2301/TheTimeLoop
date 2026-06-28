@@ -134,7 +134,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Float: 11.17
+    - _Float: 11.72
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -156,7 +156,7 @@ Material:
     - _distort_amount: 1.1
     - _distort_scale: 9.17
     - _main_contrast_max: 0.452
-    - _main_contrast_min: 0.322
+    - _main_contrast_min: 0.246
     - _mask_blend: 0.99999
     - _mask_falloff: 0.11
     - _mask_noise_scale: 1.52
@@ -164,10 +164,10 @@ Material:
     - _mask_thicknees: 7.22
     - _noise_scale: 0.6
     - _sand_scale: 134.83
-    - _smoothness: 0.275
+    - _smoothness: 0.207
     - _start_strenght: 0.21
     - _test: 2.17
-    - _transform_dist: -5
+    - _transform_dist: 65
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.3323471, g: 0.27055892, b: 0.6037736, a: 1}
@@ -176,11 +176,11 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Vector2: {r: 0.3, g: 0.71, b: 0, a: 0}
     - _constrast: {r: -0.34, g: -0.15, b: 0, a: 0}
-    - _main_contrast: {r: 0.64, g: 0.83, b: 0, a: 0}
+    - _main_contrast: {r: 0.64, g: 0.79, b: 0, a: 0}
     - _noise_stretch: {r: 0.72, g: 2.77, b: 0, a: 0}
     - _smoothstep: {r: 2.83, g: 1.22, b: 0, a: 0}
     - _stars_color: {r: 0.52078146, g: 0.5739728, b: 0.7830189, a: 1}
-    - _start_pos: {r: 35.75, g: 6.59, b: 6.38, a: 0}
+    - _start_pos: {r: 40.1, g: 6.59, b: 6.38, a: 0}
     - _testvec2: {r: 1.4, g: 4.18, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

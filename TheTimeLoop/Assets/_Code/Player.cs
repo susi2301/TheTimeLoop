@@ -73,7 +73,9 @@ public class Player : MonoBehaviour {
             }
         }
 
+    }
 
+    private void FixedUpdate(){
         Vector3 pos_now = camera_transform.position;
         pos_now.y = 0.0f; // only consider 2d distance.
 
@@ -89,7 +91,6 @@ public class Player : MonoBehaviour {
             SoundManager.instance.PlaySoundAt(SoundID.Step, sound_pos, 0,0, 6.0f);
             walked_distance = 0.0f;
         }
-
     }
     
     public void EnableInGameInputs() {
@@ -142,11 +143,16 @@ public class Player : MonoBehaviour {
     }
 
     public void SetHeadHeight(float height){
+        
+        // @Note Kind of a hack and ideally we would instead scale everything else to match real world.
+        // but for now using a virtual height because real height seems off for us. not ideal but it 
+        // would be inconvenient to let users input a virtual height that doesn't match real height.
 
-        float h = Mathf.Clamp(height, 0.0f, game_settings.head_height_max);
+        float real_height = Mathf.Clamp(height, 0.0f, game_settings.head_height_max);
+        float virtual_height = Flcrm.Mathy.remap(0.0f, game_settings.head_height_max, 0.0f, 2.3f, real_height);
         Vector3 local_pos = camera_offset_transform.localPosition;
-        local_pos.y = h;
+        local_pos.y = virtual_height;
         camera_offset_transform.localPosition = local_pos;
-        game_settings.head_height = h;
+        game_settings.head_height = real_height;
     }
 }

@@ -63,9 +63,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveAmount: 0.582
+    - _DissolveAmount: 0.348
     - _GlowSmoothness: 1.2
-    - _GlowStrength: 30.84
+    - _GlowStrength: 40.17
     - _HoverBlend: 0
     - _HoverPower: 3
     - _HoverStrength: 1

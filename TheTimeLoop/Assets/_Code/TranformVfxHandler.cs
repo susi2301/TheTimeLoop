@@ -28,6 +28,8 @@ public class TranformVfxHandler : MonoBehaviour
     public IEnumerator BreakTransitionFade(){
         yield return null;
         
+        yield return new WaitForSeconds(1.50f);
+
         float time_accum = 0.0f;
 
 

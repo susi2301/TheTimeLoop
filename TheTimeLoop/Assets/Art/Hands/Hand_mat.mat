@@ -43,12 +43,13 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3800
+  m_CustomRenderQueue: 3802
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses:
   - SHADOWCASTER
   - MOTIONVECTORS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -108,7 +109,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeHighlightPower: 3.72
+    - _EdgeHighlightPower: -0.1
     - _FadeSize: -0.04
     - _FadeStart: 0.12
     - _Float: 0.33
@@ -127,8 +128,8 @@ Material:
     - _Surface: 0
     - _TransitionSize: 0.1
     - _ZTest: 4
-    - _ZWrite: 1
-    - _ZWriteControl: 0
+    - _ZWrite: 0
+    - _ZWriteControl: 2
     m_Colors:
     - Color_d710c7c4aa1a4153a2a64167ef0bec76: {r: 0.2623709, g: 0.6187253, b: 0.8301887, a: 1}
     - Color_d710c7c4aa1a4153a2a64167ef0bec76_1: {r: 0.09807763, g: 0.48720872, b: 0.7169812, a: 0.7529412}
@@ -147,9 +148,9 @@ Material:
     - _FingerColor_2: {r: 1, g: 1, b: 1, a: 0}
     - _FingerColor_3: {r: 1, g: 1, b: 1, a: 0}
     - _FingerColor_4: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.65882355}
+    - _MainColor: {r: 0.13207546, g: 0.13207546, b: 0.13207546, a: 1}
     - _Range: {r: 0.1, g: 1, b: 0, a: 0}
-    - _ThumbColor: {r: 1, g: 1, b: 1, a: 0}
+    - _ThumbColor: {r: 0, g: 0, b: 0, a: 0}
     - _Vector2: {r: 0.2, g: 0.88, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

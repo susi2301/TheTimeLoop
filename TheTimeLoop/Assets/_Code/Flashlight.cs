@@ -45,7 +45,7 @@ public class Flashlight : MonoBehaviour
         if (enable_light_at_startup) {
             mat_animator.JustSetThisValueAndDontAskAnyQuestions(mat_emission_strength,"_EmissionStrength");
         } else {
-            mat_animator.JustSetThisValueAndDontAskAnyQuestions(-1.0f,"_EmissionStrength");
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f,"_EmissionStrength");
         }
         
         this.transform.position = spawn_pos;
@@ -93,7 +93,7 @@ public class Flashlight : MonoBehaviour
         if (spot_light.enabled) {
             mat_animator.JustSetThisValueAndDontAskAnyQuestions(mat_emission_strength,"_EmissionStrength");
         } else {
-            mat_animator.JustSetThisValueAndDontAskAnyQuestions(-1.0f,"_EmissionStrength");
+            mat_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f,"_EmissionStrength");
         }
     }
 }
