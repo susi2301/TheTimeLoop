@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 4145c294158d6ea4dbee7f1c001f2e07, type: 3}
+        m_Texture: {fileID: 2800000, guid: f49710def46604a4882d58e052cc42d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 0e555e6e265adcf42a8106febbe600eb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 03d2b321e3bbe6f47b9cf7bf3bc81ec0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -86,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: 09e67ac14d1d50c4589cca336c18e3ac, type: 3}
+        m_Texture: {fileID: 2800000, guid: b9772950827d4a146921c24e0e8f7be0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
