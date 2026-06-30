@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5b380b6e1099e4d9b2da74d8a6796c, type: 3}
   m_Name: MenuHomeBtn
   m_EditorClassIdentifier: Assembly-CSharp::InputEvent
-  input_action: {fileID: -5461076999342996510, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  input_action: {fileID: 4324008282880048213, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   press_threshold: 0.2

@@ -9,7 +9,7 @@ public class UIState_Credits : MonoBehaviour {
         panel_go.SetActive(true);
     }
 
-    public void LeaveState() {
+    public void ExitState() {
         panel_go.SetActive(false);
     }
 }

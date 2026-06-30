@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cubemap:
-        m_Texture: {fileID: 8900000, guid: 487769f7af8b4414a9b2abdc57ba923a, type: 3}
+        m_Texture: {fileID: 8900000, guid: a7739426e3b3aa34680aefd6e9ad2493, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ExtraTex:
@@ -127,6 +127,7 @@ Material:
     - Vector1_EA51145: 0.7
     - Vector1_b81b3127f28249bf9aa125c543e5fa41: 0.591
     - _AlphaClip: 0
+    - _AlphaMultiply: 0.9
     - _AlphaToMask: 0
     - _ApertureSize: 0
     - _BillboardKwToggle: 0
@@ -134,16 +135,16 @@ Material:
     - _Blend: 0
     - _CastShadows: 0
     - _ColorMask: 15
-    - _CubemapBlend: 1
-    - _CubemapExposure: -3.91
-    - _CubemapRotation: 1.38
+    - _CubemapBlend: 0
+    - _CubemapExposure: 0
+    - _CubemapRotation: 3.3
     - _CubemapRotationOffset: 0
     - _Cull: 2
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _EnableHeightBlend: 0
     - _EnableInstancedPerPixelNormal: 1
-    - _FeatheringEffect: 0
+    - _FeatheringEffect: 1
     - _Glossiness: 0.5
     - _HeightTransition: 0
     - _HueVariationKwToggle: 0

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 380648256465555343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.099, z: -0.0085}
+  m_LocalPosition: {x: -0.0044, y: -0.2823, z: -0.0184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,6 +209,7 @@ MonoBehaviour:
   event_on_fully_faded_out:
     m_PersistentCalls:
       m_Calls: []
+  curr_linear_value: 0
 --- !u!1 &3726031334230817487
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +492,7 @@ GameObject:
   - component: {fileID: 1357712331245408262}
   - component: {fileID: 904786923968628593}
   - component: {fileID: 2407327977484658729}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,9 +524,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7311881236915174760}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 0.2
+  m_LinearDamping: 2
+  m_AngularDamping: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -557,7 +558,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 129
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1

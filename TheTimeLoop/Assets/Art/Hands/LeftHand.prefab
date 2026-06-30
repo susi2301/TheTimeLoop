@@ -49,7 +49,7 @@ MonoBehaviour:
   controller_go: {fileID: 0}
   grab_action_ref: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   trigger_action_ref: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  primary_action_ref: {fileID: -2288010044918259321, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  primary_action_ref: {fileID: 7329176302296695219, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   secondary_action_ref: {fileID: -2783601840296548544, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   home_action_ref: {fileID: 4324008282880048213, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   axis_action_ref: {fileID: -60998027439631388, guid: c348712bda248c246b8c49b3db54643f, type: 3}

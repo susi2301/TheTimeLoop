@@ -39,7 +39,7 @@ public class ShaderFloatAnimator : MonoBehaviour {
     private int float_property_id;
 
     private FadeState fade_state;
-    private float curr_linear_value;
+    public float curr_linear_value;
     private float curr_fade_time;
 
     // callbacks for when value get updated.
@@ -100,6 +100,10 @@ public class ShaderFloatAnimator : MonoBehaviour {
 
     public void JustSetThisValueAndDontAskAnyQuestions(float value, string property_name) {
         mesh_renderer.material.SetFloat(property_name, value);
+    }
+
+    public void JustSetThisValueAndDontAskAnyQuestions(float value, int property_hash) {
+        mesh_renderer.material.SetFloat(property_hash, value);
     }
     
     private void Update() {

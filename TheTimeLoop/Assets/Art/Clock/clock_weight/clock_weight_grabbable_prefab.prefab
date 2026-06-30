@@ -78,8 +78,8 @@ Rigidbody:
   m_GameObject: {fileID: 4844862370916995997}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 3
+  m_AngularDamping: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -312,6 +312,7 @@ MonoBehaviour:
   event_on_fully_faded_out:
     m_PersistentCalls:
       m_Calls: []
+  curr_linear_value: 0
 --- !u!136 &2919598472149894410
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -383,6 +384,8 @@ MonoBehaviour:
   original_parent: {fileID: 7449993016129515654}
   holdable_type: 1
   attach_transform: {fileID: 4105942416731716191}
+  is_grabbed_left: 0
+  is_grabbed_right: 0
 --- !u!1001 &707949386764216427
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -49,9 +49,9 @@ MonoBehaviour:
   controller_go: {fileID: 0}
   grab_action_ref: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   trigger_action_ref: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  primary_action_ref: {fileID: -1506434820680351453, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  secondary_action_ref: {fileID: 8809825852527904036, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  home_action_ref: {fileID: -5461076999342996510, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  primary_action_ref: {fileID: -2651845611006670062, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  secondary_action_ref: {fileID: 8913396655294806777, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  home_action_ref: {fileID: -422179085879036238, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   axis_action_ref: {fileID: -8666952849799569744, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   fade_in_duration: 0.08
   fade_out_duration: 0.1

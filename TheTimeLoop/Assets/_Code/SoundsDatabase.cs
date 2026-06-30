@@ -1,11 +1,9 @@
-//#define DEVELOPMENT
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEditor;
-
 
 
 [CreateAssetMenu(fileName = "SoundDatabase", menuName = "Scriptable Objects/SoundsDatabase")]
@@ -116,7 +114,7 @@ public class SoundsDatabase : ScriptableObject
     private void OnValidate() {
         if (DEV_update_identifiers) {
             DEV_update_identifiers = false;
-            #if DEVELOPMENT
+            #if UNITY_EDITOR
             EnumGenerator.GenerateEnum("SoundID", identifiers, "Assets/_Code/Generated/SoundID.cs");
             #endif
         }
@@ -131,10 +129,9 @@ public class SoundsDatabase : ScriptableObject
 
 public static class EnumGenerator
 {
-    public static void GenerateEnum(string enumName, List<String> field_names, string outputPath)
-    {
-        
-        #if DEVELOPMENT
+    public static void GenerateEnum(string enumName, List<String> field_names, string outputPath) {
+
+        #if UNITY_EDITOR
             var sb = new StringBuilder();
 
             sb.AppendLine("// CODE Generated. Do not edit!");

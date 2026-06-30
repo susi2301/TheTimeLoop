@@ -7,8 +7,11 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 public class Player : MonoBehaviour {
     
     public bool DEV_skip_menu_on_load;
+    public bool DEV_using_device_simulator;
+    public GameObject DEV_device_simulator_prefab;
     [Space]
     
+
     public MenuManager menu_manager;
     public Transform camera_transform;
     public Transform camera_offset_transform;
@@ -18,6 +21,8 @@ public class Player : MonoBehaviour {
 
 
     public XROrigin xr_origin;
+
+    private Vector3 xr_origin_spawn_pos;
     private Vector3 spawn_cam_pos;
     private Vector3 spawn_cam_forward;
 
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour {
         Debug.Assert(right_ctrl_input_manager != null);
         Debug.Assert(left_ctrl_input_manager != null);
 
+        xr_origin_spawn_pos = xr_origin.transform.position;
         spawn_cam_pos = camera_transform.transform.position;
         spawn_cam_forward = camera_transform.transform.forward;
 
@@ -56,9 +62,12 @@ public class Player : MonoBehaviour {
         prev_pos.y = 0.0f;
     }
 
-    public void Init(){
-        SetHeadHeight(game_settings.head_height);
-        menu_manager.Init();   
+    public void Start() {
+        if (DEV_using_device_simulator){
+            GameObject.Instantiate(DEV_device_simulator_prefab);
+            ApplyHeadHeightOffset(1.73f);
+        }
+        menu_manager.Init();
     }
 
     private void Update() {
@@ -86,7 +95,7 @@ public class Player : MonoBehaviour {
         if (walked_distance >= step_sound_dist_threshold){
 
             Vector3 sound_pos = camera_transform.position;
-            sound_pos.y -= game_settings.head_height;
+            sound_pos.y -= GetCurrentVirtualHeadHeight();
 
             SoundManager.instance.PlaySoundAt(SoundID.Step, sound_pos, 0,0, 6.0f);
             walked_distance = 0.0f;
@@ -109,7 +118,11 @@ public class Player : MonoBehaviour {
     }
     
     public void ResetTransformsToSpawn() {
-        xr_origin.MoveCameraToWorldLocation(spawn_cam_pos);
+        
+
+
+        //xr_origin.MoveCameraToWorldLocation(spawn_cam_pos);
+        xr_origin.transform.position = xr_origin_spawn_pos;
         xr_origin.MatchOriginUpCameraForward(Vector3.up,spawn_cam_forward);
     }
     
@@ -136,23 +149,39 @@ public class Player : MonoBehaviour {
         pos_now.y = 0.0f;
         prev_pos = pos_now;
 
+
         Vector3 sound_pos = camera_transform.position;
-        sound_pos.y -= game_settings.head_height;
+        sound_pos.y -= GetCurrentVirtualHeadHeight();
 
         SoundManager.instance.PlaySoundAt(SoundID.Teleport, sound_pos, 0.01f, 0.05f);
     }
 
-    public void SetHeadHeight(float height){
-        
-        // @Note Kind of a hack and ideally we would instead scale everything else to match real world.
-        // but for now using a virtual height because real height seems off for us. not ideal but it 
-        // would be inconvenient to let users input a virtual height that doesn't match real height.
 
-        float real_height = Mathf.Clamp(height, 0.0f, game_settings.head_height_max);
-        float virtual_height = Flcrm.Mathy.remap(0.0f, game_settings.head_height_max, 0.0f, 2.3f, real_height);
+    public float GetCurrentVirtualHeadHeight() {
+
+        float floor_y = xr_origin.transform.position.y;
+        float camera_y = camera_transform.position.y;
+        return camera_y - floor_y;
+    }
+
+    public void ApplyHeadHeightOffset(float offset) {        
+
+        float offset_to_actually_use = offset;
+
+        float current = GetCurrentVirtualHeadHeight();
+        float new_target = current + offset;
+
+        // if lower than floor clamp it to floor
+        if (new_target < 0.02f){
+            offset_to_actually_use += Mathf.Abs(new_target) + 0.03f;
+        }
+
+        if (new_target > 4.0f){
+            offset_to_actually_use -= (new_target - 4.0f);
+        }
+
         Vector3 local_pos = camera_offset_transform.localPosition;
-        local_pos.y = virtual_height;
+        local_pos.y += offset_to_actually_use;
         camera_offset_transform.localPosition = local_pos;
-        game_settings.head_height = real_height;
     }
 }

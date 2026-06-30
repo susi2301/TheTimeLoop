@@ -12,6 +12,14 @@ public enum MenuState {
     MainPause,
     Settings,
     Credits,
+    Controls,
+}
+
+public enum HeightAdjustingState {
+    IsApplied = 0,
+    FadeIn,
+    FadeOut,
+    Adjusting,
 }
 
 public class MenuManager : MonoBehaviour {
@@ -23,13 +31,17 @@ public class MenuManager : MonoBehaviour {
     public Canvas canvas;
     public ShaderFloatAnimator vignette_animator;
 
-    public InputEvent menu_reorient_input;
+    public InputActionReference reset_orientation_action_ref;
+    public InputActionReference menu_back_action_ref;
+    
+    private PollInputEvent reset_orientation_input;
+    private PollInputEvent menu_back_input;
+
+    //public InputEvent menu_reorient_input;
 
     public float canvas_distance = 1.5f;
     public float canvas_height_offset = 0.0f;
     public float smooth_orient_speed = 3.5f;
-
-
 
     public bool dev_skip_menu_on_load = false;
     
@@ -39,23 +51,53 @@ public class MenuManager : MonoBehaviour {
     public MenuState curr_state = MenuState.Inactive;
     public UIState_MainMenu uistate_main_menu;
     public UIState_Settings uistate_settings;
-    public UIState_Credits uistate_credits;
+    public UIState_Credits  uistate_credits;
+    public UIState_Controls uistate_controls;
+
+
+
+    // Height Adjustment State Tracking
+    public HeightAdjustingState height_adjust_state = HeightAdjustingState.IsApplied;
+    
+    public float adjust_fade_in_duration  = 0.5f;
+    public float adjust_fade_out_duration = 0.5f;
+    public float adjust_fade_out_delay    = 5.0f;
+
+    private int hash_alpha = Shader.PropertyToID("_AlphaMultiply");
+    private int hash_cubeBlend = Shader.PropertyToID("_CubemapBlend");
+
+
+    private float curr_alpha_value;
+    private float curr_cube_blend_value;
+
+    private Coroutine fade_in_adjust_state_coroutine;
+    private Coroutine fade_out_adjust_state_coroutine;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake() {
         Debug.Assert(camera_transform != null);
         Debug.Assert(vignette_animator != null);
 
-        game_event_manager = GameObject.FindWithTag("GameEventManager").GetComponent<GameEventManager>();
-        Debug.Assert(game_event_manager != null);
+        GameObject game_event_manager_go = GameObject.FindWithTag("GameEventManager");
+        if (game_event_manager_go == null){
+            Debug.LogWarning("Could Not Find GameEventManager in this scene.");
+        } else {
+            game_event_manager = game_event_manager_go.GetComponent<GameEventManager>();
+        }
+
         
         vignette_animator.on_fade_in_value_updated = OnFadeInValueChanged;
         vignette_animator.on_fade_out_value_updated = OnFadeOutValueChanged;
         vignette_animator.event_on_fully_faded_out.AddListener(OnMenuFullyClosed);
         
         vignette_animator.Reset();
-        menu_reorient_input.Reset();
         
+        menu_back_input = new PollInputEvent(menu_back_action_ref);
+        reset_orientation_input = new PollInputEvent(reset_orientation_action_ref);
+        menu_back_input.Reset();
+        reset_orientation_input.Reset();
+
         canvas.gameObject.SetActive(false);
         curr_state = MenuState.Inactive;
     }
@@ -63,28 +105,36 @@ public class MenuManager : MonoBehaviour {
     public void Init(){
 
         // Leave All states!
-        uistate_settings.LeaveState();
-        uistate_credits.LeaveState();
-        uistate_main_menu.LeaveState();
-    
+        uistate_settings.ExitState();
+        uistate_credits.ExitState();
+        uistate_main_menu.ExitState();
+        uistate_controls.ExitState();
+
 
         ReorientUI();
 
         if (!dev_skip_menu_on_load) {
             OpenMenu(true);
+        } else{
+            OnMenuFullyClosed();
         }
 
-        StartCoroutine(ReorientUIDelayed());
+        StartCoroutine(ReorientUIDelayed(2.5f));
     }
 
 
-    public IEnumerator ReorientUIDelayed(){
+    public IEnumerator ReorientUIDelayed(float delay){
         yield return null;
         yield return null;
         yield return null;
         yield return null;
         yield return null;
         yield return null;
+        yield return null;
+        yield return null;
+        ReorientUI();
+
+        yield return new WaitForSeconds(delay);
         ReorientUI();
     }
 
@@ -93,16 +143,25 @@ public class MenuManager : MonoBehaviour {
         if (curr_state == MenuState.Inactive) {
             return;
         }
+
+        if (menu_back_input.Poll(InputPollMode.OnRelease)){
+            OnBackBtnPressed();
+        }
         
-        if (menu_reorient_input.Poll(InputPollMode.OnRelease)) {
+        if (reset_orientation_input.Poll(InputPollMode.OnRelease)) {
             ReorientUI();
         }
         
         SmoothOrientToPlayer();
+
+        if (curr_state == MenuState.Settings){
+            uistate_settings.UpdateState();
+        }
     }
 
     public void OpenMenu(bool first_time_load = false) {
         canvas.gameObject.SetActive(true);
+        
         if (first_time_load) {
             
             vignette_animator.SetFloatManualNow(1.0f);
@@ -115,14 +174,24 @@ public class MenuManager : MonoBehaviour {
             vignette_animator.FadeIn();
             SwitchState(MenuState.MainPause);
         }
-        
+
+        HeightAdjustStateResetNow();
+
         ReorientUI();
         
-        game_event_manager.event_menu_opened.Invoke();
+        if(game_event_manager != null) {
+            game_event_manager.event_menu_opened.Invoke();
+        }
     }
 
     public void CloseMenu() {
-        
+        if (height_adjust_state == HeightAdjustingState.FadeIn){
+            StopCoroutine(fade_in_adjust_state_coroutine);
+        }
+        if (height_adjust_state == HeightAdjustingState.FadeOut){
+            StopCoroutine(fade_out_adjust_state_coroutine);
+        }
+
         vignette_animator.FadeOut();
     }
 
@@ -161,7 +230,9 @@ public class MenuManager : MonoBehaviour {
         canvas.gameObject.SetActive(false);
         vignette_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f, "_CubemapRotationOffset");
 
-        game_event_manager.event_menu_closed.Invoke();
+        if (game_event_manager != null){
+            game_event_manager.event_menu_closed.Invoke();
+        }
     }
 
     public bool IsMenuOpen() {
@@ -179,44 +250,52 @@ public class MenuManager : MonoBehaviour {
         
         curr_state = state;
         
+        bool show_back_button = true;
+        
         // Enter New State
         switch (state) {
             case MenuState.Main: 
                 uistate_main_menu.EnterState();
-                back_btn_go.SetActive(false);
+                show_back_button = false;
                 break;
             case MenuState.MainPause: 
                 uistate_main_menu.EnterState();
-                back_btn_go.SetActive(false);
+                show_back_button = false;
                 break;
             case MenuState.Settings: 
                 uistate_settings.EnterState();
-                back_btn_go.SetActive(true);
                 break;
             case MenuState.Credits: 
                 uistate_credits.EnterState();
-                back_btn_go.SetActive(true);
+                break;
+            case MenuState.Controls: 
+                uistate_controls.EnterState();
                 break;
             case MenuState.Inactive:
-                back_btn_go.SetActive(false);
+                show_back_button = false;
                 CloseMenu();
                 break;
         }
         
+        back_btn_go.SetActive(show_back_button);
     }
 
 
     private void LeaveCurrentState() {
+        
         switch (curr_state) {
-            case MenuState.Main: uistate_main_menu.LeaveState();
+            case MenuState.Main: uistate_main_menu.ExitState();
                 break;
-            case MenuState.MainPause: uistate_main_menu.LeaveState();
+            case MenuState.MainPause: uistate_main_menu.ExitState();
                 break;
             case MenuState.Settings: 
-                uistate_settings.LeaveState();
+                uistate_settings.ExitState();
                 break;
             case MenuState.Credits: 
-                uistate_credits.LeaveState();
+                uistate_credits.ExitState();
+                break;
+            case MenuState.Controls: 
+                uistate_controls.ExitState();
                 break;
             case MenuState.Inactive:
                 break;
@@ -224,7 +303,14 @@ public class MenuManager : MonoBehaviour {
     }
     
     public void OnBackBtnPressed() {
-        Debug.Assert(curr_state != MenuState.Inactive && curr_state != MenuState.Main); // back btn shouldnt be pressable!
+
+        Debug.Assert(curr_state != MenuState.Inactive); // back btn shouldnt be pressable!
+        
+        if (curr_state == MenuState.Main || curr_state == MenuState.MainPause) {
+            CloseMenu();
+            return;
+        }
+
         // Currently we only have one menu to go back to.
         SwitchState(MenuState.Main);
     }
@@ -259,7 +345,136 @@ public class MenuManager : MonoBehaviour {
         float slerp_val = Mathf.Min(smooth_orient_speed * Time.unscaledDeltaTime, 0.95f);
         ui_orientation_transform.rotation = Quaternion.Slerp(curr_orientation, target_orientation, slerp_val);
     }
-    
+
+
+    private void HeightAdjustStateResetNow(){
+
+        if (height_adjust_state == HeightAdjustingState.FadeIn){
+            StopCoroutine(fade_in_adjust_state_coroutine);
+        }
+
+        if (height_adjust_state == HeightAdjustingState.FadeOut){
+            StopCoroutine(fade_out_adjust_state_coroutine);
+        }
+
+        height_adjust_state = HeightAdjustingState.IsApplied;
+
+
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(1.0f, hash_alpha);
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(1.0f, hash_cubeBlend);
+
+        curr_alpha_value = 1.0f;
+        curr_cube_blend_value = 1.0f;
+    }
+
+    public void EnterHeightAdjustingState(){
+            
+        if (height_adjust_state == HeightAdjustingState.FadeIn){
+            return;
+        }
+
+        if (height_adjust_state == HeightAdjustingState.FadeOut) {
+            StopCoroutine(fade_out_adjust_state_coroutine);
+        }
+
+        height_adjust_state = HeightAdjustingState.FadeIn;
+
+        fade_in_adjust_state_coroutine = StartCoroutine(FadeIntoAdjustingState());
+    }
+
+    public void ExitHeightAdjustingState(){
+        
+        if (height_adjust_state == HeightAdjustingState.FadeOut){
+            return;
+        }
+
+        if (height_adjust_state == HeightAdjustingState.FadeIn) {
+            StopCoroutine(fade_in_adjust_state_coroutine);
+        }
+
+        height_adjust_state = HeightAdjustingState.FadeOut;
+        fade_out_adjust_state_coroutine = StartCoroutine(FadeOutAdjustingState());
+    }
+
+
+    private IEnumerator FadeIntoAdjustingState() {
+
+        // TODO: what happens if we are currently fading out!
+
+        
+        float start_feather = vignette_animator.curr_linear_value;
+        float start_alpha = curr_alpha_value; 
+        float start_blend = curr_cube_blend_value; 
+
+        float target_alpha = 0.5f;
+        float target_blend = 0.0f;
+
+        float time_accum = 0.0f;
+
+        while (time_accum < adjust_fade_in_duration){
+
+            float lerp_val = Mathf.Clamp(time_accum, 0.0f, adjust_fade_in_duration) / adjust_fade_in_duration;
+            lerp_val = Mathy.ease_float(lerp_val, EasingFunction.InQuadratic);
+
+            float alpha = Mathf.Lerp(start_alpha, target_alpha, lerp_val);
+            float blend = Mathf.Lerp(start_blend, target_blend, lerp_val);
+            vignette_animator.JustSetThisValueAndDontAskAnyQuestions(alpha, hash_alpha);
+            vignette_animator.JustSetThisValueAndDontAskAnyQuestions(blend, hash_cubeBlend);
+
+            curr_alpha_value = alpha;
+            curr_cube_blend_value = blend;
+
+            time_accum  += Time.deltaTime;
+            yield return null;
+        }
+
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(target_alpha, hash_alpha);
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(target_blend, hash_cubeBlend);
+        curr_alpha_value = target_alpha;
+        curr_cube_blend_value = target_blend;
+
+        height_adjust_state = HeightAdjustingState.Adjusting;
+    }
+
+    private IEnumerator FadeOutAdjustingState() {
+        
+        yield return new WaitForSeconds(adjust_fade_out_delay);
+
+        float start_alpha = curr_alpha_value; 
+        float start_blend = curr_cube_blend_value; 
+
+        float target_alpha = 1.0f;
+        float target_blend = 1.0f;
+
+        float time_accum = 0.0f;
+
+        while (time_accum < adjust_fade_out_duration){
+
+            float lerp_val = Mathf.Clamp(time_accum, 0.0f, adjust_fade_out_duration) / adjust_fade_out_duration;
+            lerp_val = Mathy.ease_float(lerp_val, EasingFunction.InQuadratic);
+
+            float alpha = Mathf.Lerp(start_alpha, target_alpha, lerp_val);
+            float blend = Mathf.Lerp(start_blend, target_blend, lerp_val);
+
+            vignette_animator.JustSetThisValueAndDontAskAnyQuestions(alpha, hash_alpha);
+            vignette_animator.JustSetThisValueAndDontAskAnyQuestions(blend, hash_cubeBlend);
+
+            curr_alpha_value = alpha;
+            curr_cube_blend_value = blend;
+
+            time_accum  += Time.deltaTime;
+            yield return null;
+        }
+
+
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(target_alpha, hash_alpha);
+        vignette_animator.JustSetThisValueAndDontAskAnyQuestions(target_blend, hash_cubeBlend);
+        
+        curr_alpha_value = target_alpha;
+        curr_cube_blend_value = target_blend;
+
+        height_adjust_state = HeightAdjustingState.IsApplied;
+    }
     
     // EDITOR TOOOLS
     [Space] [Header("DEV TOOLS")] 

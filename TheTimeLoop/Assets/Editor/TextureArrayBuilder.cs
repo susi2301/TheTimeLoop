@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-#if DEVELOPMENT
+#if UNITY_EDITOR
 
 public class TextureArrayBuilder : EditorWindow
 {

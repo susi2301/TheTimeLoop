@@ -994,6 +994,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftPrimary",
+                    "type": "Button",
+                    "id": "5e545cbe-58ec-48af-820d-b4d73622f400",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1122,6 +1131,17 @@
                     "name": "",
                     "id": "36eadd9a-281d-47fe-9d16-5870d6e00480",
                     "path": "<KHRSimpleController>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1669f092-0b2f-4366-aab9-8d4d95ded98d",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1326,6 +1346,17 @@
                     "action": "LeftSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e85febe9-9ba5-40ee-9435-022a7b4c0f47",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftPrimary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1391,15 +1422,6 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "dd3bc426-27fb-46ff-8331-077241673153",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "LeftFlashlightToggle",
-                    "type": "Button",
-                    "id": "e5a27033-6de6-4aa6-8486-9a3715530d62",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1536,17 +1558,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Snap Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b7ab1f18-7204-49be-b3a0-ed2e42bdbf37",
-                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftFlashlightToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2206,18 +2217,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Menu",
+                    "name": "RightMenuBtn",
                     "type": "Button",
-                    "id": "c7ae5173-067b-4efa-8946-5848e0c13a77",
+                    "id": "71e40c4c-27b1-4861-9bcc-56860d779ee8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MenuReorient",
+                    "name": "RightSecondary",
                     "type": "Button",
-                    "id": "601572cc-3551-458f-a552-460fae584acf",
+                    "id": "c786e659-e532-461c-9209-7988c9786536",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightPrimary",
+                    "type": "Button",
+                    "id": "0dc6780f-399d-410e-9f8a-3b8398f49b26",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -2425,6 +2445,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bc325c70-9c32-4146-95d1-a2b2bd012466",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5b4ef08d-9ddd-4f0a-8539-d1114d14d143",
                     "path": "<XRController>{RightHand}/{Trigger}",
                     "interactions": "",
@@ -2535,23 +2566,34 @@
                 },
                 {
                     "name": "",
-                    "id": "1018d4e8-6604-432d-a785-4a6651b13f7b",
+                    "id": "e46560a3-46c7-4d6f-bb44-706f4836d340",
                     "path": "<XRController>{RightHand}/{MenuButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Menu",
+                    "action": "RightMenuBtn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "405eb707-9395-429a-9ada-5a468baaf52d",
+                    "id": "3fc023ec-3c2b-489c-93d5-694c8048686c",
                     "path": "<XRController>{RightHand}/{SecondaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MenuReorient",
+                    "action": "RightSecondary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b2d4791-996b-43c3-afc6-5c609ccf72bc",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightPrimary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2619,15 +2661,6 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "01c7fda4-9c15-4167-8b87-58024f21d903",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightFlashlightToggle",
-                    "type": "Button",
-                    "id": "22458252-a47c-4e8d-8941-58c40094da85",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -2709,17 +2742,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "96dcaef9-5150-4199-9475-8601336ae890",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightFlashlightToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

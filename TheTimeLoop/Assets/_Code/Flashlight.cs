@@ -6,22 +6,22 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Flashlight : MonoBehaviour
 {
+    public Light spot_light;
+    public bool enable_light_at_startup = false;
+    
     public InputEvent left_flashlight_input_event;
     public InputEvent right_flashlight_input_event;
     
     public GrabableEffectiveChildOf child_of;
     public XRGrabInteractable xr_interactable;
     
-    public Light spot_light;
-
     public ShaderFloatAnimator mat_animator;
     public float mat_emission_strength = 5.0f;
     
-    public bool enable_light_at_startup = false;
-    
+    private bool listen_to_input = false;
     private Vector3 spawn_pos;
     private Quaternion spawn_rot;
-    
+
     private void Awake() {
         spawn_pos = this.transform.position;
         spawn_rot = this.transform.rotation;
@@ -59,15 +59,13 @@ public class Flashlight : MonoBehaviour
 
     private void Update() {
         
-        if (!child_of.IsGrabbed()) {
+        if (!listen_to_input || !child_of.IsGrabbed()) {
             return;
         }
 
-        bool left_was_pressed = left_flashlight_input_event.Poll(InputPollMode.OnPressed);
+        // Poll Input
+        bool left_was_pressed  = left_flashlight_input_event.Poll(InputPollMode.OnPressed);
         bool right_was_pressed = right_flashlight_input_event.Poll(InputPollMode.OnPressed);
-        
-        // Poll inputs
-       // bool toggle_flashlight = false;
         
         if (child_of.is_grabbed_left && left_was_pressed) {
             Debug.Assert(!child_of.is_grabbed_right);
@@ -95,5 +93,13 @@ public class Flashlight : MonoBehaviour
         } else {
             mat_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f,"_EmissionStrength");
         }
+    }
+
+    public void EnableInputs(){
+        listen_to_input = true;
+    }
+
+    public void DisableInputs(){
+        listen_to_input = false;
     }
 }

@@ -77,6 +77,7 @@ public class SoundStateInfo {
 public class SoundManager : MonoBehaviour {
     
     public static SoundManager instance;
+    
     [SerializeField] private SoundsDatabase database;
     
     [SerializeField] private GameObject SoundSrcPrefab;
@@ -95,6 +96,10 @@ public class SoundManager : MonoBehaviour {
     
 
     private void Awake() {
+        InitInstance();
+    }
+
+    private void InitInstance(){
         if (instance == null) {
             instance = this;
         } else if (instance != this) {
@@ -127,6 +132,7 @@ public class SoundManager : MonoBehaviour {
         
         SoundPoolGrow(10);
     }
+
 
     public void Init(){
         AdjustGlobalVolume(game_settings.global_volume);

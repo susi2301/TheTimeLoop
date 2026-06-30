@@ -28,6 +28,37 @@ public class PollInputEvent {
         last_value = 0.0f;
     }
 
+
+    public bool Poll(InputPollMode mode, float press_threshold = 0.2f) {
+        
+        Debug.Assert(input_action != null, "InputEvent: Trying to pool an input event where the InputRefence is NULL");
+
+        float val = input_action.action.ReadValue<float>();
+        bool poll_event_happend = false;
+
+        
+        switch (mode) {
+            case InputPollMode.OnPressed:
+                if (val > press_threshold && last_value < press_threshold) {
+                    poll_event_happend = true;
+                }
+                break;
+            case InputPollMode.OnRelease:
+                if (last_value > press_threshold && val < press_threshold) {
+                    poll_event_happend = true;
+                }
+                break;
+            case InputPollMode.OnChanged:
+                if (val != last_value) {
+                    poll_event_happend = true;
+                }
+                break;
+        }
+ 
+        
+        last_value = val;
+        return poll_event_happend;
+    }
     
     public PollEvent PollBtnWhatHappened(float press_threshold = 0.2f) {
 
