@@ -43,7 +43,9 @@
 
 
 [x] torch attach point
-[ ] grip animations (impl anims when ready and stop animation controller anims when gripping something except for flashlight btn) 
+[x] grip animations (impl anims when ready and stop animation controller anims when gripping something except for flashlight btn) 
+[ ] grip attach point correction for torch
+
 [] add toch/flashlight into sockets at start/restart.
 
 [x] Controllers/Hands super bright with torch in hand (Only with bloom enabled which doesn't work in vr anyways)

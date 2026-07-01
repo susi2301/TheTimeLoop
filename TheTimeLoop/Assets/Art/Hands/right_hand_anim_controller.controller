@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: right_torchgrab
-  m_Speed: 8
+  m_Speed: 10
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -182,7 +182,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: right_weightgrab
-  m_Speed: 8
+  m_Speed: 12
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -367,7 +367,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: right_flashlightgrab
-  m_Speed: 8
+  m_Speed: 10
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -512,13 +512,13 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1073855412511179898}
-    m_Position: {x: -110, y: 360, z: 0}
+    m_Position: {x: -170, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8531311377710687515}
-    m_Position: {x: 110, y: 360, z: 0}
+    m_Position: {x: 50, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1562634344938917701}
-    m_Position: {x: 340, y: 360, z: 0}
+    m_Position: {x: 280, y: 360, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

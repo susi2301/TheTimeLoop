@@ -167,7 +167,7 @@ Material:
     - _smoothness: 0.207
     - _start_strenght: 0.21
     - _test: 2.17
-    - _transform_dist: 65
+    - _transform_dist: -7
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.3323471, g: 0.27055892, b: 0.6037736, a: 1}

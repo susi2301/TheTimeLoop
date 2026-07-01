@@ -8,6 +8,7 @@ public class GrabableEffectiveChildOf : MonoBehaviour
     public Transform original_parent;
     public Holdable holdable_type;
     public Transform attach_transform;
+    public Transform attach_transform_left;
     private Vector3 original_local_pos;
     private Quaternion original_local_rot;
 
@@ -52,8 +53,15 @@ public class GrabableEffectiveChildOf : MonoBehaviour
             Debug.LogWarning("GrabableEffectiveChildOF: Failed To get receiver component");
             return; 
         }
-    
-        receiver.PushInteractable(this.transform, attach_transform, holdable_type);
+        
+        Transform _attach_transform = is_left ? attach_transform_left : attach_transform;
+
+        // QUICK HACK should remove later!
+        if (_attach_transform == null){
+            _attach_transform = attach_transform;
+        }
+
+        receiver.PushInteractable(this.transform, _attach_transform, holdable_type);
         
         if (is_left){
             is_grabbed_left = true;

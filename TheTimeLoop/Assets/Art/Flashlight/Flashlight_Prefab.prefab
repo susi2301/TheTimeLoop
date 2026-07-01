@@ -49,6 +49,7 @@ MonoBehaviour:
   original_parent: {fileID: 6899095060524872588}
   holdable_type: 2
   attach_transform: {fileID: 1741499343968381455}
+  attach_transform_left: {fileID: 1741499343968381455}
   is_grabbed_left: 0
   is_grabbed_right: 0
 --- !u!1 &2124515108644613682

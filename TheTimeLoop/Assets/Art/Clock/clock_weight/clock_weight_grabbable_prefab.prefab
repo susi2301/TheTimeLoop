@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4105942416731716191}
   m_Layer: 7
-  m_Name: attach_point
+  m_Name: attach_point_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4191097554979894385}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1219, z: 0.046}
+  m_LocalPosition: {x: 0.0279, y: 0.1219, z: 0.0326}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 5371242329253683989}
   - {fileID: 4105942416731716191}
+  - {fileID: 8798487192006474204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5032711283487662341
@@ -336,6 +337,37 @@ CapsuleCollider:
   m_Height: 0.37
   m_Direction: 1
   m_Center: {x: 0, y: 0.13, z: 0}
+--- !u!1 &5033536274258421820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8798487192006474204}
+  m_Layer: 7
+  m_Name: attach_point_left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8798487192006474204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5033536274258421820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0279, y: 0.1219, z: 0.0326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7449993016129515654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5599711440891347427
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +416,7 @@ MonoBehaviour:
   original_parent: {fileID: 7449993016129515654}
   holdable_type: 1
   attach_transform: {fileID: 4105942416731716191}
+  attach_transform_left: {fileID: 8798487192006474204}
   is_grabbed_left: 0
   is_grabbed_right: 0
 --- !u!1001 &707949386764216427
