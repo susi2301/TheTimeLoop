@@ -149,11 +149,10 @@ public class Player : MonoBehaviour {
         pos_now.y = 0.0f;
         prev_pos = pos_now;
 
-
         Vector3 sound_pos = camera_transform.position;
         sound_pos.y -= GetCurrentVirtualHeadHeight();
 
-        SoundManager.instance.PlaySoundAt(SoundID.Teleport, sound_pos, 0.01f, 0.05f);
+        SoundManager.instance.PlaySoundAt(SoundID.Step, sound_pos, 0.01f, 0.05f);
     }
 
 
@@ -168,17 +167,19 @@ public class Player : MonoBehaviour {
 
         float offset_to_actually_use = offset;
 
-        float current = GetCurrentVirtualHeadHeight();
-        float new_target = current + offset;
+        float current_height = GetCurrentVirtualHeadHeight();
+        float target_height = current_height + offset;
 
         // if lower than floor clamp it to floor
-        if (new_target < 0.02f){
-            offset_to_actually_use += Mathf.Abs(new_target) + 0.03f;
+        if (target_height < 0.02f){
+            offset_to_actually_use += Mathf.Abs(target_height) + 0.03f;
         }
 
-        if (new_target > 4.0f){
-            offset_to_actually_use -= (new_target - 4.0f);
+        // you are not allowed be be taller than 4 meters.
+        if (target_height > 4.0f){
+            offset_to_actually_use -= (target_height - 4.0f);
         }
+
 
         Vector3 local_pos = camera_offset_transform.localPosition;
         local_pos.y += offset_to_actually_use;

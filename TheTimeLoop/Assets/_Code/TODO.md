@@ -1,6 +1,6 @@
+     
 
 
- 
   - Light probe blending ? do we need ?
   - Light probe scenario not set at start properly
 
@@ -10,17 +10,16 @@
   - Torch vfx
   - Torch fire_sound
   
-
   - Sound manager: Ambients sounds follow positions.
   - Sound manager: Ui and menu sounds.
-  
+  - Sound manager: per sound volume control ?
+  - 
 ## Break Transition
 - Longer
 - Fog Fade in 
 - Particle Burst
 - Weights 'spirit' effect
 - Wall shader slower in the begginning
-- 
 
 
 ## Fix Transition
@@ -36,12 +35,11 @@
 [x] Trigger And A to select
 [x] Skybox brighter
 [ ] Menu / btn Sounds
-[ ] Button mapping and Controlls submenu
+[x] Button mapping and Controlls submenu
 [?] Do we need ? | Reset Player Orientation/Position System
 [x] Menu Back button (Right B / Secondary)
 [x] Menu at correct height at startup
 [x] -> Test In Build. Player height weirdness. 
-
 
 
 [x] torch attach point

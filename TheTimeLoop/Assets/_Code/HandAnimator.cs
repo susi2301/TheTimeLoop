@@ -41,6 +41,13 @@ public class HandAnimator : MonoBehaviour {
 
     private Vector2 polled_axis_value;
     
+    private Holdable curr_holding = Holdable.None;
+
+    private int anim_idle       = Animator.StringToHash("right_idle");
+    private int anim_tochgrab   = Animator.StringToHash("right_torchgrab");
+    private int anim_lightgrab  = Animator.StringToHash("right_flashlightgrab");
+    private int anim_weightgrab = Animator.StringToHash("right_weightgrab");
+
     private void Awake() {
 
         Debug.Assert(animator != null, "HandAnimator: animator not assigned");
@@ -69,14 +76,15 @@ public class HandAnimator : MonoBehaviour {
 
     public void HardReset() {
         controller_go.SetActive(true);
+        animator.CrossFade(anim_idle, 0.25f, (int)HandAnimLayer.Idle);
+        curr_holding = Holdable.None;
     }
 
     private void Update() {
         
         for (int layer_index = 1; layer_index < (int)HandAnimLayer.Count; layer_index++) {
 
-            HandAnimLayer layer = (HandAnimLayer)layer_index;
-            
+            HandAnimLayer layer = (HandAnimLayer)layer_index;            
             
             if (layer == HandAnimLayer.Axis) {
                 
@@ -106,16 +114,38 @@ public class HandAnimator : MonoBehaviour {
             } else if (poll_event == PollEvent.WasReleased) {
                 layer_fade_sate[layer_index] = FadeState.FadeOut;
                 curr_layer_fade_time[layer_index] = fade_out_duration * (1.0f - curr_layer_weight[layer_index]);
-            }
-            
-            
+            }               
         }
-        
+
+
+        if (curr_holding != Holdable.None){
+
+             for (int layer_index = 1; layer_index < (int)HandAnimLayer.Count; layer_index++){
+                
+
+
+                HandAnimLayer layer = (HandAnimLayer)layer_index;
+                FadeState fade_state = layer_fade_sate[layer_index];
+
+                if (curr_holding == Holdable.Flashlight && layer == HandAnimLayer.Primary){
+                    continue;
+                }
+
+                bool force_fade_out_layer = fade_state == FadeState.FadeIn || (fade_state == FadeState.DoNothing && curr_layer_weight[layer_index] > 0.0f);
+
+                if (force_fade_out_layer) {
+                    layer_fade_sate[layer_index] = FadeState.FadeOut;
+                    curr_layer_fade_time[layer_index] = fade_out_duration * (1.0f - curr_layer_weight[layer_index]);
+                }
+             }
+        }
+
+
+
         // update fading
         for (int layer_index = 1; layer_index < (int)HandAnimLayer.Count; layer_index++) {
             
             HandAnimLayer layer = (HandAnimLayer)layer_index;
-            
 
             FadeState fade_state = layer_fade_sate[layer_index];
 
@@ -166,11 +196,30 @@ public class HandAnimator : MonoBehaviour {
     }
 
     public void OnGrabbedHoldable(Holdable holdable) {
+
+        Debug.Assert(holdable != Holdable.None);
+
         controller_go.SetActive(false);
+
+        float fade_dur = 0.05f;
+
+        if (holdable == Holdable.Torch) {
+            animator.CrossFade(anim_tochgrab, fade_dur, (int)HandAnimLayer.Idle);
+        } else if (holdable == Holdable.Flashlight) {
+            animator.CrossFade(anim_lightgrab, fade_dur, (int)HandAnimLayer.Idle);
+        } else if (holdable == Holdable.ClockWeight) {
+            animator.CrossFade(anim_weightgrab, fade_dur, (int)HandAnimLayer.Idle);
+        }
+
+        curr_holding = holdable;
     }
 
     public void OnDroppedHoldable(Holdable holdable) {
         controller_go.SetActive(true);
+
+        curr_holding = Holdable.None;
+
+        animator.CrossFade(anim_idle, 0.05f, (int)HandAnimLayer.Idle);
     }
     
     
