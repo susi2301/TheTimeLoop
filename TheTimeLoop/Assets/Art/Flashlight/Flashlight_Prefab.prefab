@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2765701774624116738}
   - component: {fileID: 8171532225436526077}
+  - component: {fileID: 1869154791298623025}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -142,6 +143,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   curr_linear_value: 0
+--- !u!114 &1869154791298623025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3023952515962968697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f118023e2afd34d4b828d8ffbdd5e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuMatSwitcher
+  meshrens:
+  - {fileID: 4320151832288282117}
+  skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
+  in_game_mat: {fileID: 2100000, guid: 54966d0557a242943a99cfbe8b50ae2c, type: 2}
+  in_menu_mat: {fileID: 2100000, guid: 60622c3890af29e4aa0bd8ca8c2a05fc, type: 2}
 --- !u!1 &3726031334230817487
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,10 +297,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6899095060524872588}
+  - component: {fileID: 1008109768821854380}
   - component: {fileID: 4764275727662965652}
   - component: {fileID: 1357712331245408262}
   - component: {fileID: 904786923968628593}
-  - component: {fileID: 1008109768821854380}
   m_Layer: 7
   m_Name: Flashlight_Prefab
   m_TagString: Untagged
@@ -306,6 +325,27 @@ Transform:
   - {fileID: 1741499343968381455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1008109768821854380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7311881236915174760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db30b69ad494064e98132bde9ef9efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flashlight
+  spot_light: {fileID: 7106537811733212130}
+  enable_light_at_startup: 0
+  left_flashlight_input_event: {fileID: 11400000, guid: 700d235d4e03a3446b8af82378da1722, type: 2}
+  right_flashlight_input_event: {fileID: 11400000, guid: a1f0341c5c9f62f4c822937f00da9cc8, type: 2}
+  child_of: {fileID: 4472774258290134768}
+  xr_interactable: {fileID: 1357712331245408262}
+  mat_animator: {fileID: 8171532225436526077}
+  mat_emission_strength: 5
+  menu_mat_switcher: {fileID: 1869154791298623025}
 --- !u!54 &4764275727662965652
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -533,26 +573,6 @@ CapsuleCollider:
   m_Height: 0.28
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1008109768821854380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7311881236915174760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db30b69ad494064e98132bde9ef9efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Flashlight
-  spot_light: {fileID: 7106537811733212130}
-  enable_light_at_startup: 0
-  left_flashlight_input_event: {fileID: 11400000, guid: 700d235d4e03a3446b8af82378da1722, type: 2}
-  right_flashlight_input_event: {fileID: 11400000, guid: a1f0341c5c9f62f4c822937f00da9cc8, type: 2}
-  child_of: {fileID: 4472774258290134768}
-  xr_interactable: {fileID: 1357712331245408262}
-  mat_animator: {fileID: 8171532225436526077}
-  mat_emission_strength: 5
 --- !u!1001 &3185688234422786689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,7 +624,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a9f6d2dad5675414cafe2e1254456f7f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 60622c3890af29e4aa0bd8ca8c2a05fc, type: 2}
+      objectReference: {fileID: 2100000, guid: 54966d0557a242943a99cfbe8b50ae2c, type: 2}
     - target: {fileID: -3887185075125053422, guid: a9f6d2dad5675414cafe2e1254456f7f, type: 3}
       propertyPath: m_DirtyAABB
       value: 0

@@ -21,7 +21,9 @@ public class Player : MonoBehaviour {
     public XROrigin xr_origin;
 
     public MenuMatSwitcher left_hand_mat_switcher;
+    public MenuMatSwitcher left_ctrl_mat_switcher;
     public MenuMatSwitcher right_hand_mat_switcher;
+    public MenuMatSwitcher right_ctrl_mat_switcher;
 
     private Vector3 xr_origin_spawn_pos;
     private Vector3 spawn_cam_pos;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour {
     // @Note: we need all this to turn them of during menu screen since disabling inputs directly seems very buggy with the xr stuff..
     public ControllerInputActionManager right_ctrl_input_manager;
     public ControllerInputActionManager left_ctrl_input_manager;
+
     public TeleportationProvider teleport_provider;
     public DynamicMoveProvider  move_provider;
     
@@ -104,8 +107,11 @@ public class Player : MonoBehaviour {
     }
     
     public void EnableInGameInputs() {
+        
         left_hand_mat_switcher.SwitchToInGameMat();
+        left_ctrl_mat_switcher.SwitchToInGameMat();
         right_hand_mat_switcher.SwitchToInGameMat();
+        right_ctrl_mat_switcher.SwitchToInGameMat();
 
         teleport_provider.enabled = true;
         move_provider.enabled = true;
@@ -115,8 +121,9 @@ public class Player : MonoBehaviour {
 
     public void DisableInGameInputs() {
         left_hand_mat_switcher.SwitchToMenuMat();
+        left_ctrl_mat_switcher.SwitchToMenuMat();
         right_hand_mat_switcher.SwitchToMenuMat();
-        
+        right_ctrl_mat_switcher.SwitchToMenuMat();
 
         teleport_provider.enabled = false;
         move_provider.enabled = false;

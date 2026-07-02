@@ -452,7 +452,7 @@ MonoBehaviour:
   supportLayerMaskChunkSize: 0
   supportOffsetsChunkSize: 0
   supportDataChunkSize: 163840
-  lightingScenario: NormalEnv
+  lightingScenario: TransformedEnv
   version: 2
   freezePlacement: 1
   probeOffset: {x: 0, y: 0, z: 0}

@@ -30,6 +30,15 @@
 
 
 
+
+
+
+## Torch
+[ ] menu mat switcher
+[ ] grip attach point correction for torch
+
+
+
 ## UX / Menu
 [x] Menu Button Left Controller
 [x] Trigger And A to select
@@ -42,15 +51,13 @@
 [x] -> Test In Build. Player height weirdness. 
 
 
-[x] torch attach point
+[x] Fix hand / Controller decal problem by switching Materials.
 [x] grip animations (impl anims when ready and stop animation controller anims when gripping something except for flashlight btn) 
-[ ] grip attach point correction for torch
 
-[] add toch/flashlight into sockets at start/restart.
+[ ] add toch/flashlight into sockets at start/restart.
 
 [x] Controllers/Hands super bright with torch in hand (Only with bloom enabled which doesn't work in vr anyways)
   
-[] Fix hand / Controller decal problem by switching Materials.
 
 
  - TODOOOO: Figure out Development preprocessor directive!

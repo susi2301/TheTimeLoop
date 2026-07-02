@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6395600157676034588}
   - component: {fileID: 8844522955294640352}
   - component: {fileID: 2919598472149894410}
+  - component: {fileID: 323130577632262252}
   m_Layer: 7
   m_Name: clock_weight_grabbable_prefab
   m_TagString: Untagged
@@ -287,6 +288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241a375cb8e9d744cab626e84ac4d4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockWeight
+  mat_switcher: {fileID: 323130577632262252}
+  child_of: {fileID: 7801254218467211703}
   ID: 0
 --- !u!114 &8844522955294640352
 MonoBehaviour:
@@ -337,6 +340,24 @@ CapsuleCollider:
   m_Height: 0.37
   m_Direction: 1
   m_Center: {x: 0, y: 0.13, z: 0}
+--- !u!114 &323130577632262252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844862370916995997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f118023e2afd34d4b828d8ffbdd5e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuMatSwitcher
+  meshrens:
+  - {fileID: 778882104973742172}
+  skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
+  in_game_mat: {fileID: 2100000, guid: b24d290b38624584db7bd2d7c7619a26, type: 2}
+  in_menu_mat: {fileID: 2100000, guid: c996561d333ba2b48b875ccb69de3462, type: 2}
 --- !u!1 &5033536274258421820
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +448,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5371242329253683989}
     m_Modifications:
+    - target: {fileID: 224055261266393143, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b24d290b38624584db7bd2d7c7619a26, type: 2}
     - target: {fileID: 1737542155879619042, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -483,7 +508,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6479891661424281068, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

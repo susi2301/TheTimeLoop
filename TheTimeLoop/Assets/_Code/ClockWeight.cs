@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ClockWeight : MonoBehaviour {
     
+    public MenuMatSwitcher mat_switcher;
+    public GrabableEffectiveChildOf child_of;
+
     [HideInInspector] public int ID;
 
     public void SpawnAt(Transform trans) {
@@ -18,5 +21,17 @@ public class ClockWeight : MonoBehaviour {
 
     public bool IsSpawned() {
         return this.gameObject.activeSelf;
+    }
+
+
+    public void OnMenuOpen() {
+        if (child_of.IsGrabbed()) {
+            mat_switcher.SwitchToMenuMat();
+        }
+    }
+
+    public void OnMenuClose() {
+        
+        mat_switcher.SwitchToInGameMat();
     }
 }

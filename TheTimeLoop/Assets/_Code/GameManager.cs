@@ -41,10 +41,16 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(grab_weight_1 != null);
         grab_weight_1.ID = 1;
 
+
         GameObject grab_weight_2_go = GameObject.Instantiate(weight_grabable_prefab, Vector3.zero, Quaternion.identity);
         grab_weight_2 = grab_weight_2_go.GetComponent<ClockWeight>();
         Debug.Assert(grab_weight_2 != null);
         grab_weight_2.ID = 2;
+
+        event_manager.event_menu_opened.game_event.AddListener(grab_weight_1.OnMenuOpen);
+        event_manager.event_menu_opened.game_event.AddListener(grab_weight_2.OnMenuOpen);
+        event_manager.event_menu_closed.game_event.AddListener(grab_weight_1.OnMenuClose);
+        event_manager.event_menu_closed.game_event.AddListener(grab_weight_2.OnMenuClose);
     }
 
     private void Start() {

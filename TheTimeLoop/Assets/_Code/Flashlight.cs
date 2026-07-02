@@ -18,6 +18,8 @@ public class Flashlight : MonoBehaviour
     public ShaderFloatAnimator mat_animator;
     public float mat_emission_strength = 5.0f;
     
+    public MenuMatSwitcher menu_mat_switcher;
+
     private bool listen_to_input = false;
     private Vector3 spawn_pos;
     private Quaternion spawn_rot;
@@ -95,11 +97,20 @@ public class Flashlight : MonoBehaviour
         }
     }
 
+    // called when going out of menu
     public void EnableInputs(){
+        
+        menu_mat_switcher.SwitchToInGameMat();
         listen_to_input = true;
     }
 
-    public void DisableInputs(){
+    // called when going into menu
+    public void DisableInputs() {
+
+        if (child_of.IsGrabbed()){
+            menu_mat_switcher.SwitchToMenuMat();
+        }
+
         listen_to_input = false;
     }
 }

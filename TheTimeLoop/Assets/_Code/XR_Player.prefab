@@ -981,7 +981,9 @@ MonoBehaviour:
   game_settings: {fileID: 11400000, guid: 5d49333ab433345428e20b0aef272254, type: 2}
   xr_origin: {fileID: 1178791450436251564}
   left_hand_mat_switcher: {fileID: 6839427249618449041}
+  left_ctrl_mat_switcher: {fileID: 6790778476451022507}
   right_hand_mat_switcher: {fileID: 4453669931677027582}
+  right_ctrl_mat_switcher: {fileID: 4909417398451786081}
   right_ctrl_input_manager: {fileID: 5663893676086941514}
   left_ctrl_input_manager: {fileID: 4778211696441940833}
   teleport_provider: {fileID: 1748222016861356527}
@@ -2328,6 +2330,10 @@ PrefabInstance:
     - target: {fileID: 4227314903502465235, guid: b89111d55758d684ab617043af3874a7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7084224209142948475, guid: b89111d55758d684ab617043af3874a7, type: 3}
+      propertyPath: meshrens.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7754928240429487283, guid: b89111d55758d684ab617043af3874a7, type: 3}
       propertyPath: controller_go
