@@ -25,30 +25,40 @@ MonoBehaviour:
   - Teleport
   DEV_update_identifiers: 0
   DEV_merge_dublicates: 0
+  DEV_update_mixer_group_identifiers: 0
+  master_mixer: {fileID: 24100000, guid: 5ad5f3954dce46a42bbdd4af23e27b6e, type: 2}
   sound_clips:
   - identifier: 1
     clip: {fileID: 8300000, guid: aeae182711c9cb147b2fe07395600f28, type: 3}
+    mixer_group: 3
     volume: 1
   - identifier: 2
     clip: {fileID: 8300000, guid: 27affa004cb1afa4cbdc0c2d3f2df442, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 3
     clip: {fileID: 8300000, guid: 554930065942eed41b7a2d1df13dcf47, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 4
     clip: {fileID: 8300000, guid: 1be7feb840d21904ea3870784532a484, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 5
     clip: {fileID: 8300000, guid: 9f5b3ed066f0a174c8442410887657f0, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 6
     clip: {fileID: 8300000, guid: fefecf99359850e439731d87722630c4, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 7
     clip: {fileID: 8300000, guid: cd11f390f51acc4468f621805d104df8, type: 3}
+    mixer_group: 1
     volume: 1
   - identifier: 8
     clip: {fileID: 8300000, guid: 8f93e8b9a30c0ba4c8f75d5e1102a0a1, type: 3}
+    mixer_group: 1
     volume: 1
   sound_clip_collections:
   - identifier: 9
@@ -63,10 +73,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 646112580817aee4593a405fc0511ad7, type: 3}
     - {fileID: 8300000, guid: 5c0c7daf48bf0ed4c8b04f2d9b42aadb, type: 3}
     - {fileID: 8300000, guid: f2cbc07c2fd69fc44aeae461686d41e2, type: 3}
+    mixer_group: 1
     volume: 0.5
   - identifier: 10
     clips:
     - {fileID: 8300000, guid: 185fa5d144413514a8ccd886e06ee62b, type: 3}
     - {fileID: 8300000, guid: 05460b2cdd756e74f84407243b0aaa77, type: 3}
     - {fileID: 8300000, guid: e54125693c4dc0640b9748a77c38a8dc, type: 3}
+    mixer_group: 1
     volume: 1

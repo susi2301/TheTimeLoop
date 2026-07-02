@@ -8,6 +8,7 @@ using Flcrm;
 public class SoundClip {
     public SoundID identifier;
     public AudioClip clip;
+    public SoundMixerGroup mixer_group = SoundMixerGroup.Master;
     [Range(0.0f, 1.0f)] public float volume = 1.0f;
 }
 
@@ -15,6 +16,7 @@ public class SoundClip {
 public class SoundClipCollection {
     public SoundID identifier;
     public List<AudioClip> clips;
+    public SoundMixerGroup mixer_group = SoundMixerGroup.Master;
     [Range(0.0f, 1.0f)] public float volume = 1.0f;
 
     private int next_clip = 0;
@@ -97,6 +99,7 @@ public class SoundManager : MonoBehaviour {
     private List<SoundSource> sounds;
     private List<SoundStateInfo> sounds_info;
     
+    private AudioMixerGroup[] mixer_groups; // Has length of SoundMixerGroup.COUNT  // = new AudioMixerGroup[(int)SoundMixerGroup.COUNT];
 
     private void Awake() {
         InitInstance();
@@ -135,7 +138,27 @@ public class SoundManager : MonoBehaviour {
         sounds = new List<SoundSource>();
         sounds_info = new List<SoundStateInfo>();
         
-        SoundPoolGrow(10);
+        
+        mixer_groups = new AudioMixerGroup[(int)SoundMixerGroup.COUNT];
+
+        AudioMixerGroup[] all_groups = master_mixer.FindMatchingGroups(string.Empty);
+        if (all_groups != null && all_groups.Length > 0){
+
+            for (int i = 0; i < (int)SoundMixerGroup.COUNT; i++){
+
+                SoundMixerGroup group_enum = (SoundMixerGroup)i;
+
+                string group_enum_str = group_enum.ToString();
+                for (int g = 0; g < all_groups.Length; g++){
+                    if (group_enum_str == all_groups[g].name){
+                        mixer_groups[i] = all_groups[g];
+                        break;
+                    }
+                }
+            }    
+        }
+        
+        SoundPoolGrow(16);
     }
 
 
@@ -240,23 +263,6 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    // public float GetSoundClipBaseVolume(SoundID sound_id){
-
-    //     SoundIDIndex id_index = sound_indexes[(int)sound_id];
-
-    //     if (!id_index.exists) {
-    //         return 0.0f;
-    //     }
-
-    //     if (id_index.is_collection) {
-    //         return database.sound_clip_collections[id_index.index].volume;
-    //     } else {
-    //         return database.sound_clips[id_index.index].volume;
-    //     }
-
-    //     return 0.0f;
-    // }
-
 
     private SoundSource PlaySoundAtInternal(PlayInitInfo init_info) {
 
@@ -274,13 +280,16 @@ public class SoundManager : MonoBehaviour {
         state_info.delay_duration = init_info.delay;
         state_info.sound_base_volume = 1.0f;
 
+        SoundMixerGroup mix_group_id = SoundMixerGroup.Master;
         if (id_index.is_collection) {
-            sound_source.sound.clip   = database.sound_clip_collections[id_index.index].GetRandomClip();
+            sound_source.sound.clip      = database.sound_clip_collections[id_index.index].GetRandomClip();
             state_info.sound_base_volume = database.sound_clip_collections[id_index.index].volume;
+            mix_group_id = database.sound_clip_collections[id_index.index].mixer_group;
 
         } else {
             sound_source.sound.clip = database.sound_clips[id_index.index].clip;
             state_info.sound_base_volume = database.sound_clips[id_index.index].volume;
+            mix_group_id = database.sound_clips[id_index.index].mixer_group;
         }
         
         sound_source.follow_target = null;
@@ -288,8 +297,8 @@ public class SoundManager : MonoBehaviour {
         sound_source.sound.loop = init_info.is_looping;
         sound_source.sound.maxDistance = init_info.max_distance;
         sound_source.gameObject.SetActive(true);
-
         sound_source.sound.volume = state_info.sound_base_volume;
+        sound_source.sound.outputAudioMixerGroup = mixer_groups[(int)mix_group_id];
 
         SoundState state = SoundState.Playing;
         if (init_info.delay > 0.0f) {
@@ -394,6 +403,7 @@ public class SoundManager : MonoBehaviour {
         sound_source.sound.clip = null;
         sound_source.follow_target = null;
         sound_source.gameObject.SetActive(false);
+        sound_source.sound.outputAudioMixerGroup = null;
         sound_pool.Add(sound_source);
     }
     

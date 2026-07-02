@@ -13,7 +13,7 @@
   [x] Sound manager: Ambients sounds follow positions.
   [x] Sound manager: per sound volume control ?
   [ ] Sound manager: Ui and menu sounds.
-
+  [ ] Sound manager: mixer groups 
 
 
 ## Break Transition
