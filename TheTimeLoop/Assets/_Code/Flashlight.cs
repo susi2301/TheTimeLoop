@@ -98,8 +98,7 @@ public class Flashlight : MonoBehaviour
     }
 
     // called when going out of menu
-    public void EnableInputs(){
-        
+    public void EnableInputs() {        
         menu_mat_switcher.SwitchToInGameMat();
         listen_to_input = true;
     }

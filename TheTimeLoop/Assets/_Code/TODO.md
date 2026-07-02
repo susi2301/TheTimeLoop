@@ -10,10 +10,12 @@
   - Torch vfx
   - Torch fire_sound
   
-  - Sound manager: Ambients sounds follow positions.
-  - Sound manager: Ui and menu sounds.
-  - Sound manager: per sound volume control ?
-  - 
+  [x] Sound manager: Ambients sounds follow positions.
+  [x] Sound manager: per sound volume control ?
+  [ ] Sound manager: Ui and menu sounds.
+
+
+
 ## Break Transition
 - Longer
 - Fog Fade in 
@@ -36,8 +38,8 @@
 ## Torch
 [ ] menu mat switcher
 [ ] grip attach point correction for torch
-
-
+[ ] XR interactable layer mask mark as grabable
+[ ] Explicit (bigger) grab collider
 
 ## UX / Menu
 [x] Menu Button Left Controller

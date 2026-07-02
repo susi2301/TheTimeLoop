@@ -30,12 +30,10 @@ public class SoundsDatabase : ScriptableObject
 
             if (combined_collections[index] == null) {
                 combined_collections[index] = new SoundClipCollection();
+                combined_collections[index].volume = collection.volume;
             }
             
             foreach (AudioClip clip in collection.clips) {
-                
-                
-                
                 
                 if (combined_collections[index].clips == null) {
                     combined_collections[index].clips = new List<AudioClip>();
@@ -47,6 +45,9 @@ public class SoundsDatabase : ScriptableObject
             }
         }
         
+        // check if we need to merge sound clips into a collection
+        // we will use the 'SoundClips' volume as a voluem for the collection
+        // so we can use it later when splitting again.
         foreach (SoundClip sclip in sound_clips) {
             
             int index = (int)sclip.identifier;
@@ -57,11 +58,13 @@ public class SoundsDatabase : ScriptableObject
 
             if (combined_collections[index] == null) {
                 combined_collections[index] = new SoundClipCollection();
+                combined_collections[index].volume = sclip.volume;
             }
             
             
             if (combined_collections[index].clips == null) {
                 combined_collections[index].clips = new List<AudioClip>();
+                combined_collections[index].volume = sclip.volume;
             }
 
             if (sclip.clip != null) {
@@ -72,11 +75,9 @@ public class SoundsDatabase : ScriptableObject
         sound_clips.Clear();
         sound_clip_collections.Clear();
 
-        for (int i = 0; i < (int)SoundID.COUNT; i++)
-        {
+        for (int i = 0; i < (int)SoundID.COUNT; i++) {
+
             SoundID identifier = (SoundID)i;
-            
-            
             
             if (combined_collections[i] == null || combined_collections[i].clips == null) {
                 continue;
@@ -91,6 +92,7 @@ public class SoundsDatabase : ScriptableObject
                 SoundClip s_clip = new SoundClip();
                 s_clip.clip = combined_collections[i].clips[0];
                 s_clip.identifier = identifier;
+                s_clip.volume = combined_collections[i].volume;
                 sound_clips.Add(s_clip);
                 continue;
             }
@@ -110,7 +112,7 @@ public class SoundsDatabase : ScriptableObject
 
         GC.Collect();
     }
-    
+
     private void OnValidate() {
         if (DEV_update_identifiers) {
             DEV_update_identifiers = false;

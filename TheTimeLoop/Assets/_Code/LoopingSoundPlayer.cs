@@ -4,9 +4,12 @@ public class LoopingSoundPlayer : MonoBehaviour {
     
     public SoundID sound_id;
     public float max_distance = 5.0f;
+    [Tooltip("Start playing this sound when the game start")]
     public bool play_on_start = false;
+
+    [Tooltip("Make the sound follow the position of this GameObject")]
     public bool dynamic_position = false;
-    
+
     // only valid if currently playing or paused;
     private SoundSource sound_source_ref = null;
 
@@ -23,6 +26,7 @@ public class LoopingSoundPlayer : MonoBehaviour {
         }
         
         sound_source_ref = SoundManager.instance.PlaySoundLoopingAt(sound_id, this.transform.position, delay, fade_in_duration, max_distance);
+        sound_source_ref.follow_target = this.transform;
     }
 
     public void StopSound(float delay = 0.0f, float fade_out_duration = 0.0f) {

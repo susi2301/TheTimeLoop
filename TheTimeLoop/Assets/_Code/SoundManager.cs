@@ -8,12 +8,14 @@ using Flcrm;
 public class SoundClip {
     public SoundID identifier;
     public AudioClip clip;
+    [Range(0.0f, 1.0f)] public float volume = 1.0f;
 }
 
 [Serializable]
 public class SoundClipCollection {
     public SoundID identifier;
     public List<AudioClip> clips;
+    [Range(0.0f, 1.0f)] public float volume = 1.0f;
 
     private int next_clip = 0;
 
@@ -72,6 +74,7 @@ public class SoundStateInfo {
     public float time_accum;
     public float delay_duration;
     public float fade_duration; // can be FadeIn or FadeOut
+    public float sound_base_volume;
 }
 
 public class SoundManager : MonoBehaviour {
@@ -100,13 +103,14 @@ public class SoundManager : MonoBehaviour {
     }
 
     private void InitInstance(){
+        
         if (instance == null) {
             instance = this;
         } else if (instance != this) {
             Destroy(this);
             return;
         }
-        
+
         // Initialize sound_indexes lookup table into database
         database.MergeDuplicates();
         if (database.sound_clips != null) {
@@ -117,6 +121,7 @@ public class SoundManager : MonoBehaviour {
                 sound_indexes[id].index = index;
             }
         }
+
         if (database.sound_clip_collections != null) {
             for (int index = 0; index < database.sound_clip_collections.Count; index++) {
                 int id = (int)database.sound_clip_collections[index].identifier;
@@ -159,6 +164,10 @@ public class SoundManager : MonoBehaviour {
             
             for (int i = 0; i < sounds.Count; i++) {
 
+                if (sounds[i].follow_target != null){
+                    sounds[i].transform.position = sounds[i].follow_target.position;
+                }
+
                 switch (sounds_info[i].state) {
                     case SoundState.Playing:
                         if (!sounds[i].sound.isPlaying) {
@@ -172,11 +181,13 @@ public class SoundManager : MonoBehaviour {
                         sounds_info[i].time_accum += Time.deltaTime;
 
                         float percent_in = Mathf.Clamp(sounds_info[i].time_accum, 0.0f, sounds_info[i].fade_duration) / sounds_info[i].fade_duration;
-                        sounds[i].sound.volume = percent_in;
+                        
+
+                        sounds[i].sound.volume = sounds_info[i].sound_base_volume * percent_in;
                         
                         if (sounds_info[i].time_accum >= sounds_info[i].fade_duration) {
                             sounds_info[i].state = SoundState.Playing;
-                            sounds[i].sound.volume = 1.0f;
+                            sounds[i].sound.volume = sounds_info[i].sound_base_volume;
                         }
                         
                         break;
@@ -184,7 +195,7 @@ public class SoundManager : MonoBehaviour {
                         sounds_info[i].time_accum += Time.deltaTime;
 
                         float percent_out = 1.0f - Mathf.Clamp(sounds_info[i].time_accum, 0.0f, sounds_info[i].fade_duration) / sounds_info[i].fade_duration;
-                        sounds[i].sound.volume = percent_out;
+                        sounds[i].sound.volume = sounds_info[i].sound_base_volume * percent_out;
                         
                         if (sounds_info[i].time_accum >= sounds_info[i].fade_duration) {
                             sounds_info[i].state = SoundState.IsStopped;
@@ -229,6 +240,24 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
+    // public float GetSoundClipBaseVolume(SoundID sound_id){
+
+    //     SoundIDIndex id_index = sound_indexes[(int)sound_id];
+
+    //     if (!id_index.exists) {
+    //         return 0.0f;
+    //     }
+
+    //     if (id_index.is_collection) {
+    //         return database.sound_clip_collections[id_index.index].volume;
+    //     } else {
+    //         return database.sound_clips[id_index.index].volume;
+    //     }
+
+    //     return 0.0f;
+    // }
+
+
     private SoundSource PlaySoundAtInternal(PlayInitInfo init_info) {
 
         SoundIDIndex id_index = sound_indexes[(int)init_info.id];
@@ -239,22 +268,28 @@ public class SoundManager : MonoBehaviour {
         
         SoundSource sound_source = SoundPoolRequestElem();
         
-        if (id_index.is_collection) {
-            sound_source.sound.clip = database.sound_clip_collections[id_index.index].GetRandomClip();
-        } else {
-            sound_source.sound.clip = database.sound_clips[id_index.index].clip;
-        }
-        
-        sound_source.transform.position = init_info.postion;
-        sound_source.sound.loop = init_info.is_looping;
-        sound_source.sound.maxDistance = init_info.max_distance;
-        sound_source.gameObject.SetActive(true);
-        sound_source.sound.volume = 1.0f;
-
         SoundStateInfo state_info = new SoundStateInfo();
         state_info.time_accum     = 0.0f;
         state_info.fade_duration  = init_info.fade_in_duration;
         state_info.delay_duration = init_info.delay;
+        state_info.sound_base_volume = 1.0f;
+
+        if (id_index.is_collection) {
+            sound_source.sound.clip   = database.sound_clip_collections[id_index.index].GetRandomClip();
+            state_info.sound_base_volume = database.sound_clip_collections[id_index.index].volume;
+
+        } else {
+            sound_source.sound.clip = database.sound_clips[id_index.index].clip;
+            state_info.sound_base_volume = database.sound_clips[id_index.index].volume;
+        }
+        
+        sound_source.follow_target = null;
+        sound_source.transform.position = init_info.postion;
+        sound_source.sound.loop = init_info.is_looping;
+        sound_source.sound.maxDistance = init_info.max_distance;
+        sound_source.gameObject.SetActive(true);
+
+        sound_source.sound.volume = state_info.sound_base_volume;
 
         SoundState state = SoundState.Playing;
         if (init_info.delay > 0.0f) {
@@ -336,6 +371,7 @@ public class SoundManager : MonoBehaviour {
 
         if (state == SoundState.IsStopped) {
             sound_source.sound.Stop();
+            sound_source.follow_target = null;
         }
     }
 
@@ -356,6 +392,7 @@ public class SoundManager : MonoBehaviour {
 
     public void SoundPoolReturnElem(SoundSource sound_source) {
         sound_source.sound.clip = null;
+        sound_source.follow_target = null;
         sound_source.gameObject.SetActive(false);
         sound_pool.Add(sound_source);
     }
