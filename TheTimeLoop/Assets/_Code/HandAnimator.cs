@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 
-
 public enum HandAnimLayer {
-    Idle = 0,
-    Grab = 1,
-    Trigger = 2,
-    Primary = 3,
-    Secondary = 4,
-    Home = 5,
-    Axis = 6,
+    Idle        = 0,
+    Grab        = 1,
+    Trigger     = 2,
+    Primary     = 3,
+    Secondary   = 4,
+    Home        = 5,
+    Axis        = 6,
     Count,
 }
-
 
 public class HandAnimator : MonoBehaviour {
 
@@ -71,7 +69,6 @@ public class HandAnimator : MonoBehaviour {
         input_events[(int)HandAnimLayer.Secondary] = new PollInputEvent(secondary_action_ref);
         input_events[(int)HandAnimLayer.Home]      = new PollInputEvent(home_action_ref);
         input_events[(int)HandAnimLayer.Axis]      = new PollInputEvent(axis_action_ref);
-        
     }
 
     public void HardReset() {
@@ -102,8 +99,7 @@ public class HandAnimator : MonoBehaviour {
                 }
                 
                 continue;
-            }
-            
+            }            
             
             PollEvent poll_event = input_events[layer_index].PollBtnWhatHappened();
             

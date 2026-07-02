@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3027921647808677402}
   - component: {fileID: 7754928240429487283}
+  - component: {fileID: 7084224209142948475}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -57,6 +58,23 @@ MonoBehaviour:
   fade_out_duration: 0.1
   fade_in_easing_function: 1
   fade_out_easing_function: 1
+--- !u!114 &7084224209142948475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4227314903502465235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f118023e2afd34d4b828d8ffbdd5e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuMatSwitcher
+  meshrens:
+  - {fileID: 0}
+  skinned_meshren: {fileID: 5871695989539851229}
+  in_game_mat: {fileID: 2100000, guid: f1810c93cb4b7e34281deb2a10650d2f, type: 2}
+  in_menu_mat: {fileID: 2100000, guid: dfcb51bc94f27504d857f3a42926e17f, type: 2}
 --- !u!1001 &6757359019598012759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,7 +130,7 @@ PrefabInstance:
     - target: {fileID: -8306183224716940662, guid: 032add0043604ce4e9c4c7fd6ff6e2b6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: dfcb51bc94f27504d857f3a42926e17f, type: 2}
+      objectReference: {fileID: 2100000, guid: f1810c93cb4b7e34281deb2a10650d2f, type: 2}
     - target: {fileID: 919132149155446097, guid: 032add0043604ce4e9c4c7fd6ff6e2b6, type: 3}
       propertyPath: m_Name
       value: right_hand_anim_v3
@@ -129,6 +147,11 @@ PrefabInstance:
 --- !u!95 &913214294930971846 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 032add0043604ce4e9c4c7fd6ff6e2b6, type: 3}
+  m_PrefabInstance: {fileID: 6757359019598012759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5871695989539851229 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8306183224716940662, guid: 032add0043604ce4e9c4c7fd6ff6e2b6, type: 3}
   m_PrefabInstance: {fileID: 6757359019598012759}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6506662717541484220 stripped

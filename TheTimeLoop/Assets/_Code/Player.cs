@@ -9,8 +9,7 @@ public class Player : MonoBehaviour {
     public bool DEV_skip_menu_on_load;
     public bool DEV_using_device_simulator;
     public GameObject DEV_device_simulator_prefab;
-    [Space]
-    
+    [Space]    
 
     public MenuManager menu_manager;
     public Transform camera_transform;
@@ -19,8 +18,10 @@ public class Player : MonoBehaviour {
     public InputEvent menu_input_event;
     public GameSettingsSO game_settings;
 
-
     public XROrigin xr_origin;
+
+    public MenuMatSwitcher left_hand_mat_switcher;
+    public MenuMatSwitcher right_hand_mat_switcher;
 
     private Vector3 xr_origin_spawn_pos;
     private Vector3 spawn_cam_pos;
@@ -103,6 +104,9 @@ public class Player : MonoBehaviour {
     }
     
     public void EnableInGameInputs() {
+        left_hand_mat_switcher.SwitchToInGameMat();
+        right_hand_mat_switcher.SwitchToInGameMat();
+
         teleport_provider.enabled = true;
         move_provider.enabled = true;
         right_ctrl_input_manager.enabled = true;
@@ -110,6 +114,10 @@ public class Player : MonoBehaviour {
     }
 
     public void DisableInGameInputs() {
+        left_hand_mat_switcher.SwitchToMenuMat();
+        right_hand_mat_switcher.SwitchToMenuMat();
+        
+
         teleport_provider.enabled = false;
         move_provider.enabled = false;
         // This feels so much like a hack but i guess it works

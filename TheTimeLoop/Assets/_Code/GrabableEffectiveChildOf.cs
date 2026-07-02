@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-public class GrabableEffectiveChildOf : MonoBehaviour
-{
+public class GrabableEffectiveChildOf : MonoBehaviour {
+    
     public Transform original_parent;
     public Holdable holdable_type;
     public Transform attach_transform;

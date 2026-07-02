@@ -34,7 +34,6 @@ public class ShaderFloatAnimator : MonoBehaviour {
     [Header("Callbacks")]
     public UnityEvent event_on_fully_faded_in;
     public UnityEvent event_on_fully_faded_out;
-
     
     private int float_property_id;
 
@@ -112,8 +111,8 @@ public class ShaderFloatAnimator : MonoBehaviour {
             return;
         }
 
-        if (fade_state == FadeState.FadeIn)
-        {
+        if (fade_state == FadeState.FadeIn) {
+            
             bool finished_fading = curr_fade_time >= fade_in_duration;
             
             float fade_percentage = curr_fade_time / fade_in_duration;

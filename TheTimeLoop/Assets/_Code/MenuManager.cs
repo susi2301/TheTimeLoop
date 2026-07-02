@@ -231,6 +231,7 @@ public class MenuManager : MonoBehaviour {
         vignette_animator.JustSetThisValueAndDontAskAnyQuestions(0.0f, "_CubemapRotationOffset");
 
         if (game_event_manager != null){
+            
             game_event_manager.event_menu_closed.Invoke();
         }
     }
