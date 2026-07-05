@@ -1070,7 +1070,19 @@ MonoBehaviour:
       m_Calls: []
   m_MotionControllerModeStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5622403047826065892}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: ReinitHapticDevices
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MotionControllerModeEnded:
     m_PersistentCalls:
       m_Calls: []
@@ -1678,6 +1690,7 @@ MonoBehaviour:
   - {fileID: 226602743279498102}
   - {fileID: 5213916216636395613}
   skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
   in_game_mat: {fileID: 2100000, guid: bf8a4b3ad5fabf64790047266ad6d3e9, type: 2}
   in_menu_mat: {fileID: 2100000, guid: aa6071f20c1a1af4193d8218e6ed1506, type: 2}
 --- !u!114 &557915871392322861
@@ -1695,6 +1708,7 @@ MonoBehaviour:
   meshrens:
   - {fileID: 7634941337736553285}
   skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
   in_game_mat: {fileID: 2100000, guid: c12fe87069c9fc0439c11448a3f2c09f, type: 2}
   in_menu_mat: {fileID: 2100000, guid: 42b49f24c31cfca409ffe5755e33040b, type: 2}
 --- !u!1001 &553018692727262454
@@ -3185,6 +3199,7 @@ MonoBehaviour:
   - {fileID: 7038004492515411112}
   - {fileID: 3085672860529944451}
   skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
   in_game_mat: {fileID: 2100000, guid: bf8a4b3ad5fabf64790047266ad6d3e9, type: 2}
   in_menu_mat: {fileID: 2100000, guid: aa6071f20c1a1af4193d8218e6ed1506, type: 2}
 --- !u!114 &6952715400067846335
@@ -3202,6 +3217,7 @@ MonoBehaviour:
   meshrens:
   - {fileID: 828042771549525147}
   skinned_meshren: {fileID: 0}
+  is_using_menu_mat: 0
   in_game_mat: {fileID: 2100000, guid: c12fe87069c9fc0439c11448a3f2c09f, type: 2}
   in_menu_mat: {fileID: 2100000, guid: 42b49f24c31cfca409ffe5755e33040b, type: 2}
 --- !u!23 &6175755461057057005 stripped

@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7449993016129515654}
   - component: {fileID: 5032711283487662341}
+  - component: {fileID: 8318843091288566619}
   - component: {fileID: 3934551369891846963}
   - component: {fileID: 6395600157676034588}
   - component: {fileID: 8844522955294640352}
@@ -99,6 +100,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8318843091288566619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844862370916995997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d108eec82a72934a9d369df302bbb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoldableInfo
+  holdable_type: 1
+  mesh_filter: {fileID: 3254926518057346198}
 --- !u!114 &3934551369891846963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +588,11 @@ PrefabInstance:
 --- !u!23 &778882104973742172 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 224055261266393143, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
+  m_PrefabInstance: {fileID: 707949386764216427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &3254926518057346198 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 2664150051831926013, guid: 0abe0e0cf8bb41c49bde39216de72e7a, type: 3}
   m_PrefabInstance: {fileID: 707949386764216427}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6255426319247722837 stripped

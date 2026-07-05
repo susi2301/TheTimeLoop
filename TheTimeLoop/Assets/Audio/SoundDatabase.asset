@@ -30,7 +30,7 @@ MonoBehaviour:
   sound_clips:
   - identifier: 1
     clip: {fileID: 8300000, guid: aeae182711c9cb147b2fe07395600f28, type: 3}
-    mixer_group: 3
+    mixer_group: 1
     volume: 1
   - identifier: 2
     clip: {fileID: 8300000, guid: 27affa004cb1afa4cbdc0c2d3f2df442, type: 3}
@@ -55,11 +55,11 @@ MonoBehaviour:
   - identifier: 7
     clip: {fileID: 8300000, guid: cd11f390f51acc4468f621805d104df8, type: 3}
     mixer_group: 1
-    volume: 1
+    volume: 0.698
   - identifier: 8
     clip: {fileID: 8300000, guid: 8f93e8b9a30c0ba4c8f75d5e1102a0a1, type: 3}
     mixer_group: 1
-    volume: 1
+    volume: 0.726
   sound_clip_collections:
   - identifier: 9
     clips:
@@ -81,4 +81,4 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 05460b2cdd756e74f84407243b0aaa77, type: 3}
     - {fileID: 8300000, guid: e54125693c4dc0640b9748a77c38a8dc, type: 3}
     mixer_group: 1
-    volume: 1
+    volume: 0.1

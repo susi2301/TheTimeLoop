@@ -26,7 +26,9 @@ public class LoopingSoundPlayer : MonoBehaviour {
         }
         
         sound_source_ref = SoundManager.instance.PlaySoundLoopingAt(sound_id, this.transform.position, delay, fade_in_duration, max_distance);
-        sound_source_ref.follow_target = this.transform;
+        if (dynamic_position) {
+            sound_source_ref.follow_target = this.transform;
+        }
     }
 
     public void StopSound(float delay = 0.0f, float fade_out_duration = 0.0f) {

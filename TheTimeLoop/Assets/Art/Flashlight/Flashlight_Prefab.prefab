@@ -352,6 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6899095060524872588}
+  - component: {fileID: 7334152437005253590}
   - component: {fileID: 1008109768821854380}
   - component: {fileID: 4764275727662965652}
   - component: {fileID: 1357712331245408262}
@@ -381,6 +382,20 @@ Transform:
   - {fileID: 8243293482862094343}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7334152437005253590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7311881236915174760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d108eec82a72934a9d369df302bbb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoldableInfo
+  holdable_type: 2
+  mesh_filter: {fileID: 2022314669327987407}
 --- !u!114 &1008109768821854380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +738,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f6d2dad5675414cafe2e1254456f7f, type: 3}
+--- !u!33 &2022314669327987407 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: a9f6d2dad5675414cafe2e1254456f7f, type: 3}
+  m_PrefabInstance: {fileID: 3185688234422786689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3152361338204077418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a9f6d2dad5675414cafe2e1254456f7f, type: 3}

@@ -557,6 +557,17 @@
                 },
                 {
                     "name": "",
+                    "id": "167df7d6-cc4a-43cd-b6fc-3a82df65c6a9",
+                    "path": "<XRController>{LeftHand}/{Haptic}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Haptic Device",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "97a0351f-659b-482a-8fa0-19015ccd055e",
                     "path": "<XRController>{LeftHand}/trackingState",
                     "interactions": "",

@@ -47,9 +47,9 @@ Material:
     - _Roughness: 0.448
     m_Colors:
     - _ColorBase: {r: 0.5176471, g: 0.42234123, b: 0.054901943, a: 0}
-    - _Dots: {r: 0, g: 0, b: 0, a: 0}
-    - _LinesBig: {r: 0, g: 0, b: 0, a: 0}
-    - _LinesThin: {r: 0, g: 0, b: 0, a: 0}
+    - _Dots: {r: 0.5176471, g: 0.42352945, b: 0.054901965, a: 0}
+    - _LinesBig: {r: 0.5176471, g: 0.42352945, b: 0.054901965, a: 0}
+    - _LinesThin: {r: 0.5176471, g: 0.42352945, b: 0.054901965, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2008542445953363770

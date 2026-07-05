@@ -71,6 +71,10 @@ public class GrabableEffectiveChildOf : MonoBehaviour {
             is_grabbed_right = true;
         }
 
+        HapticDevice device = is_left ? HapticDevice.Left : HapticDevice.Right;
+        GameManager.instance.HapticImpulse(0.2f, 0.1f, device);
+
+
         if (event_on_grabbed != null){
             event_on_grabbed.Invoke(is_left);
         }

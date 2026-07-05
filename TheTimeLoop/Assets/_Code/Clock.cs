@@ -22,6 +22,7 @@ public enum DoorState {
 
 public class Clock : MonoBehaviour {
     
+    // FIXME: no need can go through singleton game_manager.event_manager
     private GameEventManager game_event_manager;
     
     public ClockState state;
@@ -39,6 +40,7 @@ public class Clock : MonoBehaviour {
     private Rigidbody door_rigidbody;
     private DoorState door_state;
     
+    public ShaderFloatAnimator inside_effect_animator;
     public WeightDissolve right_weight_dissolver;
     public WeightDissolve left_weight_dissolver;
 
@@ -86,6 +88,9 @@ public class Clock : MonoBehaviour {
         left_socket_ptr.enabled = false;
         right_socket_ptr.enabled = false;
         
+        StopAllCoroutines();
+
+        inside_effect_animator.Reset();
         left_weight_dissolver.Reset();
         right_weight_dissolver.Reset();
         
@@ -175,10 +180,7 @@ public class Clock : MonoBehaviour {
     
     public void OnDoorGrabbedAndReleased() {
 
-        // TODO: trigger some animation and transform the world. Clock is now brocken
-        // TODO: it is possible that the door is not fully opened or was snapped back to closed state. We must handle this. Maybe Force open the door first one first time ?
         if (state == ClockState.NeverOpenedIsWorking) {
-            //Debug.Log("CLOCK: FirstTimeOpen! Clock is now BROKEN!");
             state = ClockState.IsBreaking;
             SetDoorState(DoorState.ForceOpen);
             SoundManager.instance.PlaySoundAt(SoundID.ClockDoorOpen, this.transform.position);
@@ -188,23 +190,20 @@ public class Clock : MonoBehaviour {
     }
 
     public IEnumerator BreakTransition() {
-        //while (door_state == DoorState.ForceOpen) {
-        //    yield return null;
-       // }
+        
+        yield return new WaitForSeconds(1.6f);
 
-       yield return new WaitForSeconds(1.6f);
-       
         clock_animator.PlayAnim(ClockAnim.Breaking);
-
         SoundManager.instance.PlaySoundAt(SoundID.ClockBreak, this.transform.position);
+
         ticking_soundplayer.StopSound(0.8f, 0.5f);
+
+        yield return new WaitForSeconds(0.2f);
         game_event_manager.event_break_transition_start.Invoke();
     }
     
     public void OnBreakAnimFinishedPlay() {
-        
-        // TODO: Start Env Tranformation here
-        
+                
         state = ClockState.WasOpenedIsBroken;
 
         left_socket_is_attached = false;
@@ -214,8 +213,9 @@ public class Clock : MonoBehaviour {
         door_grab_interactable.enabled = true;
         
         clock_animator.PlayAnim(ClockAnim.BrokenIdle);
-        game_event_manager.event_clock_broken.Invoke();
+        game_event_manager.event_break_anim_finished.Invoke();
         
+        inside_effect_animator.FadeIn();
         left_weight_dissolver.StartDissolve();
         right_weight_dissolver.StartDissolve();
 
@@ -236,33 +236,48 @@ public class Clock : MonoBehaviour {
         
         state = ClockState.IsRepairing;
         
-        StartCoroutine(FixTransition());
+        StartCoroutine(RapairTransition());
     }
     
-    public IEnumerator FixTransition() {
+    public IEnumerator RapairTransition() {
         
-        while (!clock_animator.left_repaired_has_finished || !clock_animator.right_repaired_has_finished)
-        {
+        // wait for weight attach animations & and sound to finish.
+        while (!clock_animator.left_repaired_has_finished || !clock_animator.right_repaired_has_finished) {
             yield return null;
         }
         
+        // small delay.
         yield return new WaitForSeconds(0.5f);
+
+        GameManager.instance.event_manager.event_repair_transition_start.Invoke();
+        // Here we start the actual transition back
 
         SoundManager.instance.PlaySoundAt(SoundID.ClockReactivated, ticking_soundplayer.transform.position);
         clock_animator.PlayAnim(ClockAnim.ClockRepairing);
         
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(3.0f);
+        inside_effect_animator.FadeOut();
+        yield return new WaitForSeconds(4.0f);
         
         SetDoorState(DoorState.ForceClose);
-        ticking_soundplayer.PlaySound(1.5f, 1.2f);
+        ticking_soundplayer.PlaySound(1.5f, 2.2f);
 
         while (door_state == DoorState.ForceClose) {
             yield return null;
         }
+        
+        yield return null;
+        
         state = ClockState.WasOpenedIsWorking;
         SoundManager.instance.PlaySoundAt(SoundID.ClockDoorClose, this.transform.position);
+
         
-        game_event_manager.event_clock_fixed.Invoke();
+        yield return new WaitForSeconds(1.0f);
+
+        // TODO: wait until repair transition is finished!
+
+        GameManager.instance.event_manager.event_repair_transition_finished.Invoke();
+        //game_event_manager.event_clock_fixed.Invoke();
     }
 
 

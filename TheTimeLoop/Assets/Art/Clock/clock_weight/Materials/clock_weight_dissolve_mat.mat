@@ -63,9 +63,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveAmount: 0.348
-    - _GlowSmoothness: 1.2
-    - _GlowStrength: 40.17
+    - _DissolveAmount: 0.477
+    - _GlowSmoothness: 1.4
+    - _GlowStrength: 87.38
     - _HoverBlend: 0
     - _HoverPower: 3
     - _HoverStrength: 1
@@ -82,7 +82,7 @@ Material:
     - _y_offset: 0
     m_Colors:
     - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0.5518714, g: 0.4014329, b: 0.8773585, a: 1}
+    - _GlowColor: {r: 0.6415929, g: 0.3234247, b: 0.8679245, a: 1}
     - _HoverColor: {r: 1, g: 1, b: 1, a: 1}
     - _range: {r: -0.7, g: 0.6, b: 0, a: 0}
     - _test_vec2: {r: 0, g: 1, b: 0, a: 0}

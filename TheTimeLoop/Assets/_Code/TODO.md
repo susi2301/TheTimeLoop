@@ -1,11 +1,5 @@
      
-
-
-  - Light probe blending ? do we need ?
-  - Light probe scenario not set at start properly
-
-  - Holding Animations
-  
+ 
   - Torch flicker
   - Torch vfx
   - Torch fire_sound
@@ -13,16 +7,25 @@
   [x] Sound manager: Ambients sounds follow positions.
   [x] Sound manager: per sound volume control ?
   [ ] Sound manager: Ui and menu sounds.
-  [ ] Sound manager: mixer groups 
+  [x] Sound manager: mixer groups 
+
+
+ - highlight door
+ 
+ [x] haptics delayed init
+ [x] haptics for pickup
+
+ [x] weight place indication stronger
+ [] door highlight on start
+
 
 
 ## Break Transition
-- Longer
-- Fog Fade in 
-- Particle Burst
-- Weights 'spirit' effect
-- Wall shader slower in the begginning
-
+[x] Longer
+[x] Fog Fade in 
+[x] Weights 'spirit' effect
+[x] Wall shader slower in the begginning
+[ ] Spirit effect brighter (more noticable) in the beginning.
 
 ## Fix Transition
 [] when switching back after repaired clock the obj should spawn much sooner.
@@ -33,13 +36,12 @@
 
 
 
-
-
 ## Torch
 [ ] menu mat switcher
 [ ] grip attach point correction for torch
 [ ] XR interactable layer mask mark as grabable
 [ ] Explicit (bigger) grab collider
+[ ] add holdable info
 
 ## UX / Menu
 [x] Menu Button Left Controller
@@ -61,7 +63,5 @@
 [x] Controllers/Hands super bright with torch in hand (Only with bloom enabled which doesn't work in vr anyways)
   
 
-
- - TODOOOO: Figure out Development preprocessor directive!
 
 

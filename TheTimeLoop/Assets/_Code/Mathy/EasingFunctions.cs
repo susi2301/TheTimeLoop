@@ -10,6 +10,8 @@ namespace Flcrm {
         InCubic,
         OutCubic,
         InOutCubic,
+        OutCirc,
+        InCirc,
     }
     
     public static partial class Mathy {
@@ -23,6 +25,8 @@ namespace Flcrm {
                 case EasingFunction.InCubic:        return ease_in_cubic_float(x);
                 case EasingFunction.OutCubic:       return ease_out_cubic_float(x);
                 case EasingFunction.InOutCubic:     return ease_in_out_cubic_float(x);
+                case EasingFunction.OutCirc:        return ease_out_circ_float(x);
+                case EasingFunction.InCirc:         return ease_in_circ_float(x);
             }
     
             return x;
@@ -49,6 +53,7 @@ namespace Flcrm {
             float one_minus_x = 1.0f - x;
             return 1.0f - (one_minus_x * one_minus_x * one_minus_x);
         }
+
         public static float ease_in_out_cubic_float(float x) {
             if (x < 0.5) {
                 return 4.0f * x * x * x;
@@ -56,5 +61,15 @@ namespace Flcrm {
             
             return 1.0f - MathF.Pow(-2.0f * x + 2.0f, 3.0f) / 2.0f;
         }
+
+        public static float ease_out_circ_float(float x) {
+            return MathF.Sqrt(1.0f - MathF.Pow(x - 1.0f, 2.0f));
+        }
+
+        public static float ease_in_circ_float(float x) {
+            return 1.0f - MathF.Sqrt(1.0f - MathF.Pow(x, 2.0f));
+        }
+
+
     }
 }

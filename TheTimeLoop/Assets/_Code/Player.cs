@@ -1,8 +1,17 @@
-using Unity.XR.CoreUtils;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Unity.XR.CoreUtils;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
+
+public enum HapticDevice {
+    Right,
+    Left,
+    Both
+}
 
 public class Player : MonoBehaviour {
     
@@ -20,6 +29,11 @@ public class Player : MonoBehaviour {
 
     public XROrigin xr_origin;
 
+    private bool found_left_haptic_device = false;
+    private bool found_right_haptic_device = false;
+    private UnityEngine.XR.InputDevice left_ctrl_input_device;
+    private UnityEngine.XR.InputDevice right_ctrl_input_device;
+
     public MenuMatSwitcher left_hand_mat_switcher;
     public MenuMatSwitcher left_ctrl_mat_switcher;
     public MenuMatSwitcher right_hand_mat_switcher;
@@ -35,7 +49,6 @@ public class Player : MonoBehaviour {
 
     public TeleportationProvider teleport_provider;
     public DynamicMoveProvider  move_provider;
-    
 
     public float step_sound_dist_threshold = 0.2f;
     private Vector3 prev_pos;
@@ -167,7 +180,7 @@ public class Player : MonoBehaviour {
         Vector3 sound_pos = camera_transform.position;
         sound_pos.y -= GetCurrentVirtualHeadHeight();
 
-        SoundManager.instance.PlaySoundAt(SoundID.Step, sound_pos, 0.01f, 0.05f);
+        SoundManager.instance.PlaySoundAt(SoundID.Teleport, sound_pos, 0.01f, 0.05f);
     }
 
 
@@ -200,4 +213,177 @@ public class Player : MonoBehaviour {
         local_pos.y += offset_to_actually_use;
         camera_offset_transform.localPosition = local_pos;
     }
+
+    public void ReinitHapticDevices() {
+
+        Debug.Log("Try Init Haptic devices");
+        // Right Device            
+        { 
+            bool reevaluate_right_device = true;
+
+            // if device is already assinged make sure capability still is supported. if not try to reevaluate it.
+            if (found_right_haptic_device) {
+                
+                bool still_supported = false;
+
+                UnityEngine.XR.HapticCapabilities capabilities;
+                if (right_ctrl_input_device.TryGetHapticCapabilities(out capabilities)) {
+
+                    if (capabilities.supportsImpulse) {
+                       
+                        still_supported = true;
+                    }
+                }
+
+                if (!still_supported){
+                    found_right_haptic_device = false;
+                    reevaluate_right_device = true;
+                }
+            }
+
+            if (reevaluate_right_device) {
+             
+                List<UnityEngine.XR.InputDevice> r_devices = new List<UnityEngine.XR.InputDevice>(); 
+
+                //UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.RightHanded, r_devices);
+                UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, r_devices); //GetDevicesWithRole(UnityEngine.XR. InputDeviceRole.RightHanded, r_devices);
+
+                // check support for right hand impulse support
+                foreach (var device in r_devices) {
+                    UnityEngine.XR.HapticCapabilities capabilities;
+                    if (device.TryGetHapticCapabilities(out capabilities)) {
+
+                        if (capabilities.supportsImpulse) {
+                           
+                            //uint channel = 0;
+                            //float amplitude = 0.5f;
+                            //float duration = 1.0f;
+                            //device.SendHapticImpulse(channel, amplitude, duration);
+
+                            Debug.Log("Found Right Hand Impulse capable device: " + device.name);
+                            right_ctrl_input_device = device;
+                            found_right_haptic_device = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Left Device
+        {
+            bool reevaluate_left_device = true;
+
+            // if device is already assinged make sure capability still is supported. if not try to reevaluate it.
+            if (found_left_haptic_device) {
+                
+                bool still_supported = false;
+
+                UnityEngine.XR.HapticCapabilities capabilities;
+                if (left_ctrl_input_device.TryGetHapticCapabilities(out capabilities)) {
+
+                    if (capabilities.supportsImpulse) {                       
+                        still_supported = true;
+                    }
+                }
+
+                if (!still_supported){
+                    found_left_haptic_device = false;
+                    reevaluate_left_device = true;
+                }
+            }
+
+            if (reevaluate_left_device){
+
+                List<UnityEngine.XR.InputDevice> l_devices = new List<UnityEngine.XR.InputDevice>(); 
+                //UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.LeftHanded, l_devices);
+                UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Left, l_devices); //GetDevicesWithRole(UnityEngine.XR. InputDeviceRole.RightHanded, r_devices);
+
+
+                // check support for left hand impulse capability
+                foreach (var device in l_devices) {
+                    UnityEngine.XR.HapticCapabilities capabilities;
+                    if (device.TryGetHapticCapabilities(out capabilities)) {
+
+                        if (capabilities.supportsImpulse) {
+                           
+                            //uint channel = 0;
+                            //float amplitude = 0.5f;
+                            //float duration = 1.0f;
+                            //device.SendHapticImpulse(channel, amplitude, duration);
+
+                            Debug.Log("Found Right Hand Impulse capable device: " + device.name);
+                            left_ctrl_input_device = device;
+                            found_left_haptic_device = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void HapticImpulse(float amplitude, float duration, HapticDevice device_type = HapticDevice.Both) {
+
+        bool send_left = device_type != HapticDevice.Right;
+        bool send_right = device_type != HapticDevice.Left;
+
+        uint channel = 0;
+        float ampli = amplitude;
+        float dur = duration;
+
+        if (send_right && found_right_haptic_device){
+            right_ctrl_input_device.SendHapticImpulse(channel, ampli, dur);
+        }
+
+        if (send_left && found_left_haptic_device){
+            left_ctrl_input_device.SendHapticImpulse(channel, ampli, dur);
+        }
+    }
+
+
+    public void HapticImpulseLong(float amplitude, float duration, HapticDevice device_type = HapticDevice.Both) {
+
+        bool send_left = device_type != HapticDevice.Right;
+        bool send_right = device_type != HapticDevice.Left;
+
+        uint channel = 0;
+        float ampli = amplitude;
+        float dur = duration;
+
+        if (send_right && found_right_haptic_device){
+            right_ctrl_input_device.SendHapticImpulse(channel, ampli, dur);
+        }
+
+        if (send_left && found_left_haptic_device){
+            left_ctrl_input_device.SendHapticImpulse(channel, ampli, dur);
+        }
+    }
+
+    // @Note carfull with this. if an impulse is already playing it probably get overwritte by this.
+    public IEnumerator ContinuedHapticImpulse(float amplitude, float duration, HapticDevice device_type = HapticDevice.Both){
+
+        bool send_left = device_type != HapticDevice.Right;
+        bool send_right = device_type != HapticDevice.Left;
+
+        uint channel = 0;
+
+        float dur_chunk = 0.1f;
+
+        float time_accum = 0.0f;
+        while (time_accum < duration){
+
+            if (send_right && found_right_haptic_device){
+            right_ctrl_input_device.SendHapticImpulse(channel, amplitude, dur_chunk);
+            }
+
+            if (send_left && found_left_haptic_device){
+                left_ctrl_input_device.SendHapticImpulse(channel, amplitude, dur_chunk);
+            }
+
+            yield return new WaitForSeconds(dur_chunk);
+            time_accum += dur_chunk;
+        }
+    }
+
 }
