@@ -160,7 +160,7 @@ Material:
     - _SEASONSETTINGS: 0
     - _SeasonVertexColorR: 1
     - _Smoothness: 0.5
-    - _SmoothnessIntensity: 1
+    - _SmoothnessIntensity: 0.45
     - _SmoothnessTextureChannel: 0
     - _SpecularBias: 1
     - _SpecularHighlights: 1
