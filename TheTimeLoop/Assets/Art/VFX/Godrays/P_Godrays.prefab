@@ -672,9 +672,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 180, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 4}
+    m_Position: {x: -0.0000010639135, y: 0.000001803847, z: -0.58263415}
+    m_Rotation: {x: -0.0000053608646, y: 180, z: 180}
+    m_Scale: {x: 11.104566, y: 1.0000001, z: 11.257174}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4855,6 +4855,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1211904662169358652}
     m_Modifications:
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 2.916326
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 3.5480213
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 3.3078504
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[1].value
+      value: 0.15890226
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[0].inSlope
+      value: 0.07220182
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0.07220182
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 0.07220182
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0.07220182
+      objectReference: {fileID: 0}
     - target: {fileID: 5622039724141534414, guid: be04f1c1f6582574b9902a39ccc1cb05, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.44
@@ -4917,6 +4953,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1211904662169358652}
     m_Modifications:
+    - target: {fileID: 3640957307691571948, guid: 9f8048b4777a84842be33e50dadcb4f1, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 6.4350686
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: 9f8048b4777a84842be33e50dadcb4f1, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 4.5856123
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: 9f8048b4777a84842be33e50dadcb4f1, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 4.371907
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640957307691571948, guid: 9f8048b4777a84842be33e50dadcb4f1, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5622039724141534414, guid: 9f8048b4777a84842be33e50dadcb4f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.47
